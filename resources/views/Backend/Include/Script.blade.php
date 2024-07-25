@@ -29,7 +29,7 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('Backend/dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ asset('Backend/dist/js/demo.js') }}"></script>
+<!-- <script src="{{ asset('Backend/dist/js/demo.js') }}"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('Backend/dist/js/pages/dashboard.js') }}"></script>
 
