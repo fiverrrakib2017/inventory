@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Customer;
+namespace App\Http\Controllers\Backend\Supplier;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\Customer_Invoice;
-use App\Models\User;
+use App\Models\Supplier;
+use App\Models\Supplier_Invoice;
+use App\Models\Supplier_Transaction_History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CustomerController extends Controller
+class SupplierController extends Controller
 {
     public function index()
     {
-        return view('Backend.Pages.Customer.index');
+        return view('Backend.Pages.Supplier.index');
     }
     public function create()
     {
-        return view('Backend.Pages.Customer.Create');
+        return view('Backend.Pages.Supplier.Create');
     }
-    public function get_alsl_data(Request $request)
+    public function get_all_data(Request $request)
     {
         $search = $request->search['value'];
         $columnsForOrderBy = ['id', 'profile_image','fullname','phone_number', 'created_at'];
         $orderByColumn = $request->order[0]['column'];
         $orderDirectection = $request->order[0]['dir'];
     
-        $object = Customer::when($search, function ($query) use ($search) {
+        $object = Supplier::when($search, function ($query) use ($search) {
             $query->where('profile_image', 'like', "%$search%");
             $query->where('fullname', 'like', "%$search%");
             $query->where('phone_number', 'like', "%$search%");
@@ -43,40 +43,9 @@ class CustomerController extends Controller
             'data' => $item,
         ]);
     }
-    public function get_all_data(Request $request){
-        $search = $request->search['value'];
-        $columnsForOrderBy =  ['id', 'profile_image', 'fullname', 'phone_number', 'created_at'];
-        $orderByColumn = $columnsForOrderBy[$request->order[0]['column']];
-        $orderDirection = $request->order[0]['dir'];
-    
-        $query = Customer::query();
-    
-        if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->where('profile_image', 'like', "%$search%")
-                  ->orWhere('fullname', 'like', "%$search%")
-                  ->orWhere('phone_number', 'like', "%$search%")
-                  ->orWhere('created_at', 'like', "%$search%");
-            });
-        }
-    
-        $total = $query->count();
-        $items = $query->orderBy($orderByColumn, $orderDirection)
-                       ->skip($request->start)
-                       ->take($request->length)
-                       ->get();
-    
-        return response()->json([
-            'draw' => $request->draw,
-            'recordsTotal' => Customer::count(),  
-            'recordsFiltered' => $total,  
-            'data' => $items,
-        ]);
-    }
-      
     public function store(Request $request)
     {
-        // Validate the form data
+        /* Validate the form data*/
         $rules=[
             'fullname' => 'required|string',
             'email_address' => 'required|email',
@@ -107,7 +76,7 @@ class CustomerController extends Controller
             ], 422);
         }
 
-        // Handle file upload
+        /*Handle file upload*/
         if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -116,8 +85,8 @@ class CustomerController extends Controller
             $imageName = '';
         }
 
-        // Create a new Customer
-        $object = new Customer();
+        /* Create a new Supplier*/
+        $object = new Supplier();
         $object->fullname = $request->fullname;
         $object->profile_image = $imageName;
         $object->email_address = $request->email_address;
@@ -137,24 +106,21 @@ class CustomerController extends Controller
         $object->bank_acc_no = $request->bank_acc_no;
         $object->bank_routing_no = $request->bank_routing_no;
         $object->bank_payment_status = $request->bank_payment_status;
-        // Save to the database table
+        /*Save to the database table*/
         $object->save();
-
-        // Redirect to the index page or show success message
-        //return redirect()->route('admin.customer.index')->with('success', 'Customer added successfully');
         return response()->json([
             'success' => true,
-            'message' => 'Customer added successfully!'
+            'message' => 'Supplier added successfully'
         ]);
     }
 
 
     public function delete(Request $request)
     {
-        $object = Customer::find($request->id);
+        $object = Supplier::find($request->id);
 
         if (empty($object)) {
-            return response()->json(['error' => 'Customer not found.'], 404);
+            return response()->json(['error' => 'Supplier not found.'], 404);
         }
 
         /* Image Find And Delete it From Local Machine */
@@ -173,44 +139,45 @@ class CustomerController extends Controller
     }
     public function edit($id)
     {
-        $data = Customer::find($id);
-        return view('Backend.Pages.Customer.Update', compact('data'));
+        $data = Supplier::find($id);
+        return view('Backend.Pages.Supplier.Update', compact('data'));
     }
     public function view($id) {
-        $total_invoice=Customer_Invoice::where('customer_id',$id)->count();
-        $total_paid_amount=Customer_Invoice::where('customer_id',$id)->sum('paid_amount');
-        $total_due_amount=Customer_Invoice::where('customer_id',$id)->sum('due_amount');
-        $invoices = Customer_Invoice::where('customer_id', $id)->get();
-        $data = Customer::find($id);
-        $customer_transaction_history=Customer_Transaction_History::where('customer_id',$id)->get();
-        return view('Backend.Pages.Customer.Profile',compact('data','total_invoice','total_paid_amount','total_due_amount','invoices','customer_transaction_history'));
+        $total_invoice=Supplier_Invoice::where('supplier_id',$id)->count();
+        $total_paid_amount=Supplier_Invoice::where('supplier_id',$id)->sum('paid_amount');
+        $total_due_amount=Supplier_Invoice::where('supplier_id',$id)->sum('due_amount');
+        $invoices = Supplier_Invoice::where('supplier_id', $id)->get();
+        $data = Supplier::find($id);
+        $supplier_transaction_history=Supplier_Transaction_History::where('supplier_id',$id)->get();
+        return view('Backend.Pages.Supplier.Profile',compact('data','total_invoice','total_paid_amount','total_due_amount','invoices','supplier_transaction_history'));
     }
 
     public function update(Request $request, $id)
     {
-        /*Validate the form data*/ 
+        /* Validate the form data*/
         $rules=[
             'fullname' => 'required|string',
             'email_address' => 'required|email',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'phone_number' => 'nullable|string',
-            'e_contract' => 'nullable|string',
-            'city' => 'nullable|string',
-            'state' => 'nullable|string',
-            'address' => 'nullable|string',
-            'date_of_birth' => 'nullable|date',
-            'gender' => 'nullable|in:1,0',
-            'marital_status' => 'nullable|in:1,2,3',
-            'verification_status' => 'nullable|in:1,2',
+            'phone_number' => 'required|string',
+            'e_contract' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'address' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:1,0',
+            'marital_status' => 'required|in:1,2,3',
+            'verification_status' => 'required|in:1,2',
             'verification_info' => 'nullable|string',
             'opening_balance' => 'nullable|numeric',
-            'bank_name' => 'nullable|string',
-            'bank_account_name' => 'nullable|string',
-            'bank_acc_no' => 'nullable|string',
-            'bank_routing_no' => 'nullable|numeric',
-            'bank_payment_status' => 'nullable|in:1,2',
+            'bank_name' => 'required|string',
+            'bank_account_name' => 'required|string',
+            'bank_acc_no' => 'required|string',
+            'bank_routing_no' => 'required|numeric',
+            'bank_payment_status' => 'required|in:1,2',
         ];
         $validator = Validator::make($request->all(), $rules);
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -219,13 +186,10 @@ class CustomerController extends Controller
         }
         
         /* Find the Customer*/
-
-        $object = Customer::findOrFail($id);
+        $object = Supplier::findOrFail($id);
         $object->fullname = $request->fullname;
-        
-        // Handle profile image update
+       // Handle profile image update
         if ($request->hasFile('profile_image')) {
-
             // Delete previous image
             if (!empty($object->profile_image)) {
                 $imagePath = public_path('Backend/uploads/photos/' . $object->profile_image);
@@ -239,7 +203,6 @@ class CustomerController extends Controller
 
             $object->profile_image = $imageName;
         }
-
         $object->email_address = $request->email_address;
         $object->phone_number = $request->phone_number;
         $object->emergency_contract = $request->e_contract;
@@ -257,11 +220,11 @@ class CustomerController extends Controller
         $object->bank_acc_no = $request->bank_acc_no;
         $object->bank_routing_no = $request->bank_routing_no;
         $object->bank_payment_status = $request->bank_payment_status;
+        /*Save to the database table*/
         $object->update();
-
         return response()->json([
             'success' => true,
-            'message' => 'Customer Update successfully!'
+            'message' => 'Supplier Update successfully'
         ]);
     }
 }

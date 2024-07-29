@@ -6,6 +6,8 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+<!-- Select2 -->
+<script src="{{ asset('Backend/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('Backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- ChartJS -->
@@ -45,8 +47,7 @@
 <script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-<!-- Select2 -->
-<script src="{{ asset('Backend/plugins/select2/js/select2.full.min.js') }}"></script>
+
 <!-- Toast Message -->
  <script src="{{asset('Backend/dist/js/toastr.min.js')}}"></script>
 @yield('script')

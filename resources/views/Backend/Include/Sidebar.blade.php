@@ -61,13 +61,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="{{ route('admin.supplier.create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Supplier</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{ route('admin.supplier.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Supplier Management</p>
                 </a>
@@ -84,13 +84,43 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="{{route('admin.brand.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brand</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.category.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.product.stock.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stock</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.product.color.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Color</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.product.size.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Size</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.products.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{route('admin.products.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Products Management</p>
                 </a>
@@ -153,25 +183,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="{{route('admin.master_ledger.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Master Ledger</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{route('admin.ledger.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ledger</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{route('admin.sub_ledger.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sub Ledger</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{route('admin.transaction.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transaction</p>
                 </a>
