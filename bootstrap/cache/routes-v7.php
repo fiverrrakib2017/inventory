@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::JibrNuR14BwJWmeX',
+            '_route' => 'generated::kM9OlGh6nRfk6yaN',
           ),
           1 => NULL,
           2 => 
@@ -300,6 +300,161 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'admin.customer.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.create_invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/get_all_data' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.show_invoice_data',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/search_data' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.search_product_data',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/show' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.show_invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/pay' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.pay_due_amount',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/store' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.store_invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/update' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.update_invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.delete_invoice',
           ),
           1 => NULL,
           2 => 
@@ -1557,7 +1712,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/admin/(?|customer/(?|edit/([^/]++)(*:42)|view/([^/]++)(*:62)|update/([^/]++)(*:84))|supplier/(?|edit/([^/]++)(*:117)|view/([^/]++)(*:138)|update/([^/]++)(*:161)|invoice/(?|view/([^/]++)(*:193)|edit/([^/]++)(*:214)))|product/(?|brand/(?|delete/([^/]++)(*:259)|edit/([^/]++)(*:280))|c(?|ategory/edit/([^/]++)(*:314)|hild\\-category/(?|edit/([^/]++)(*:353)|update/([^/]++)(*:376)|get\\-child_category/([^/]++)(*:412))|olor/edit/([^/]++)(*:439))|s(?|ub\\-category/(?|edit/([^/]++)(*:481)|update/([^/]++)(*:504)|get\\-sub_category/([^/]++)(*:538))|ize/edit/([^/]++)(*:564))|get_product/([^/]++)(*:593)|edit/([^/]++)(*:614)|view/([^/]++)(*:635))|accounts/(?|master_ledger/edit/([^/]++)(*:683)|ledger/edit/([^/]++)(*:711)|sub_ledger/(?|edit/([^/]++)(*:746)|get/([^/]++)(*:766)))))/?$}sDu',
+      0 => '{^(?|/admin/(?|customer/(?|edit/([^/]++)(*:42)|view/([^/]++)(*:62)|update/([^/]++)(*:84)|invoice/(?|view/([^/]++)(*:115)|edit/([^/]++)(*:136)))|supplier/(?|edit/([^/]++)(*:171)|view/([^/]++)(*:192)|update/([^/]++)(*:215)|invoice/(?|view/([^/]++)(*:247)|edit/([^/]++)(*:268)))|product/(?|brand/(?|delete/([^/]++)(*:313)|edit/([^/]++)(*:334))|c(?|ategory/edit/([^/]++)(*:368)|hild\\-category/(?|edit/([^/]++)(*:407)|update/([^/]++)(*:430)|get\\-child_category/([^/]++)(*:466))|olor/edit/([^/]++)(*:493))|s(?|ub\\-category/(?|edit/([^/]++)(*:535)|update/([^/]++)(*:558)|get\\-sub_category/([^/]++)(*:592))|ize/edit/([^/]++)(*:618))|get_product/([^/]++)(*:647)|edit/([^/]++)(*:668)|view/([^/]++)(*:689))|accounts/(?|master_ledger/edit/([^/]++)(*:737)|ledger/edit/([^/]++)(*:765)|sub_ledger/(?|edit/([^/]++)(*:800)|get/([^/]++)(*:820)))))/?$}sDu',
     ),
     3 => 
     array (
@@ -1629,7 +1784,53 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      117 => 
+      115 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.view_invoice',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      136 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.edit_invoice',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      171 => 
       array (
         0 => 
         array (
@@ -1652,7 +1853,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      138 => 
+      192 => 
       array (
         0 => 
         array (
@@ -1675,7 +1876,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      161 => 
+      215 => 
       array (
         0 => 
         array (
@@ -1697,7 +1898,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      193 => 
+      247 => 
       array (
         0 => 
         array (
@@ -1720,7 +1921,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      214 => 
+      268 => 
       array (
         0 => 
         array (
@@ -1743,7 +1944,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      259 => 
+      313 => 
       array (
         0 => 
         array (
@@ -1766,7 +1967,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      280 => 
+      334 => 
       array (
         0 => 
         array (
@@ -1789,7 +1990,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      314 => 
+      368 => 
       array (
         0 => 
         array (
@@ -1812,7 +2013,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      353 => 
+      407 => 
       array (
         0 => 
         array (
@@ -1835,7 +2036,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      376 => 
+      430 => 
       array (
         0 => 
         array (
@@ -1857,13 +2058,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      412 => 
+      466 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'generated::KPpYEECZ1ZZLgntY',
+            '_route' => 'generated::qUycid0trbrliuHx',
           ),
           1 => 
           array (
@@ -1880,7 +2081,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      439 => 
+      493 => 
       array (
         0 => 
         array (
@@ -1903,7 +2104,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      481 => 
+      535 => 
       array (
         0 => 
         array (
@@ -1926,7 +2127,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      504 => 
+      558 => 
       array (
         0 => 
         array (
@@ -1948,13 +2149,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      538 => 
+      592 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'generated::jWv11YBtI1VTdR81',
+            '_route' => 'generated::XbpUeY6Ww8JuQ5Lx',
           ),
           1 => 
           array (
@@ -1971,7 +2172,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      564 => 
+      618 => 
       array (
         0 => 
         array (
@@ -1994,7 +2195,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      593 => 
+      647 => 
       array (
         0 => 
         array (
@@ -2017,7 +2218,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      614 => 
+      668 => 
       array (
         0 => 
         array (
@@ -2040,7 +2241,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      635 => 
+      689 => 
       array (
         0 => 
         array (
@@ -2063,7 +2264,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      683 => 
+      737 => 
       array (
         0 => 
         array (
@@ -2086,7 +2287,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      711 => 
+      765 => 
       array (
         0 => 
         array (
@@ -2109,7 +2310,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      746 => 
+      800 => 
       array (
         0 => 
         array (
@@ -2132,7 +2333,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      766 => 
+      820 => 
       array (
         0 => 
         array (
@@ -2316,7 +2517,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::JibrNuR14BwJWmeX' => 
+    'generated::kM9OlGh6nRfk6yaN' => 
     array (
       'methods' => 
       array (
@@ -2333,13 +2534,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"000000000000050c0000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000005100000000000000000";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::JibrNuR14BwJWmeX',
+        'as' => 'generated::kM9OlGh6nRfk6yaN',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2827,6 +3028,381 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'admin.customer.update',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.create_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/customer/invoice/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@create_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@create_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.create_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.show_invoice_data' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/customer/invoice/get_all_data',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@show_invoice_data',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@show_invoice_data',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.show_invoice_data',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.search_product_data' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/search_data',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@search_product_data',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@search_product_data',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.search_product_data',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.show_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/customer/invoice/show',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@show_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@show_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.show_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.pay_due_amount' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/pay',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@pay_due_amount',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@pay_due_amount',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.pay_due_amount',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.store_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/store',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@store_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@store_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.store_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.view_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/customer/invoice/view/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@view_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@view_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.view_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.edit_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/customer/invoice/edit/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@edit_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@edit_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.edit_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.update_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/update',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@update_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@update_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.update_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.delete_invoice' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@delete_invoice',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@delete_invoice',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.delete_invoice',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4156,7 +4732,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::jWv11YBtI1VTdR81' => 
+    'generated::XbpUeY6Ww8JuQ5Lx' => 
     array (
       'methods' => 
       array (
@@ -4178,7 +4754,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::jWv11YBtI1VTdR81',
+        'as' => 'generated::XbpUeY6Ww8JuQ5Lx',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4381,7 +4957,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::KPpYEECZ1ZZLgntY' => 
+    'generated::qUycid0trbrliuHx' => 
     array (
       'methods' => 
       array (
@@ -4403,7 +4979,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::KPpYEECZ1ZZLgntY',
+        'as' => 'generated::qUycid0trbrliuHx',
       ),
       'fallback' => false,
       'defaults' => 

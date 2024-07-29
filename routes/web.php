@@ -24,6 +24,19 @@ Route::group(['middleware'=>'admin'],function(){
             Route::post('/store', 'store')->name('admin.customer.store');
             Route::post('/update/{id}', 'update')->name('admin.customer.update');
         });
+        /** Customer Invoice Route **/
+        Route::prefix('invoice')->controller(App\Http\Controllers\Backend\Customer\InvoiceController::class)->group(function() {
+            Route::get('/create', 'create_invoice')->name('admin.customer.invoice.create_invoice');
+            Route::get('/get_all_data', 'show_invoice_data')->name('admin.customer.invoice.show_invoice_data');
+            Route::post('/search_data', 'search_product_data')->name('admin.customer.invoice.search_product_data');
+            Route::get('/show', 'show_invoice')->name('admin.customer.invoice.show_invoice');
+            Route::post('/pay', 'pay_due_amount')->name('admin.customer.invoice.pay_due_amount');
+            Route::post('/store', 'store_invoice')->name('admin.customer.invoice.store_invoice');
+            Route::get('/view/{id}', 'view_invoice')->name('admin.customer.invoice.view_invoice');
+            Route::get('/edit/{id}', 'edit_invoice')->name('admin.customer.invoice.edit_invoice');
+            Route::post('/update', 'update_invoice')->name('admin.customer.invoice.update_invoice');
+            Route::post('/delete', 'delete_invoice')->name('admin.customer.invoice.delete_invoice');
+        });
     });
     /** Supplier Route **/
     Route::prefix('admin/supplier')->group(function(){

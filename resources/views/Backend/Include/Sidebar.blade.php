@@ -137,13 +137,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="{{ route('admin.customer.invoice.create_invoice') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Sale's</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{route('admin.customer.invoice.show_invoice')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sale's Invoice</p>
                 </a>
@@ -160,13 +160,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="{{route('admin.supplier.invoice.create_invoice')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Purchase</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="{{route('admin.supplier.invoice.create_invoice')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Purchase Invoice</p>
                 </a>
