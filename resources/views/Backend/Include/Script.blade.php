@@ -32,5 +32,21 @@
 <!-- <script src="{{ asset('Backend/dist/js/demo.js') }}"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('Backend/dist/js/pages/dashboard.js') }}"></script>
-
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('Backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('Backend/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Toast Message -->
+ <script src="{{asset('Backend/dist/js/toastr.min.js')}}"></script>
 @yield('script')
