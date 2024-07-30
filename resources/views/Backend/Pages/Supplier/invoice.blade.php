@@ -5,7 +5,7 @@
     <div class="col-md-12 ">
         <div class="card">
             <div class="card-header">
-                  <a href="{{route('admin.supplier.invoice.create_invoice')}}" class="btn-sm btn btn-success mb-2"><i class="mdi mdi-account-plus"></i>
+                  <a href="{{route('admin.supplier.invoice.create_invoice')}}" class="btn btn-success"><i class="mdi mdi-account-plus"></i>
                     Add New Invoice</a>
             </div>
             <div class="card-body">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success tx-size-xs">Save changes</button>
-                    <button type="button" class="btn btn-danger tx-size-xs" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger tx-size-xs" data-dismiss="modal">Close</button>
                 </div>
             </form>
             <!----- End Add Form ------->

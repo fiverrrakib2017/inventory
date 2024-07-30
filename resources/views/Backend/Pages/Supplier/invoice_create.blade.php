@@ -3,7 +3,6 @@
 @section('content')
 <!-- br-pageheader -->
 <div class="row">
-<div class="row d-flex">
    <div class="col-md-12">
       <div class="row d-flex">
          <div class="col-md-7  ">
@@ -126,12 +125,12 @@
       </div>
    </div>
 </div>
-</div>
 @endsection
 @section('script')
 <script type="text/javascript">
    $(document).ready(function() {
-   // $("#supplier_name").select2();
+    $("#supplier_name").select2();
+    $("#product_name").select2();
     $(document).on('change','#product_name',function(){
        var product_id = $(this).val();
        __get_product(product_id);
@@ -224,7 +223,7 @@
        e.preventDefault();
 
        var form = $(this);
-       form.find('button[type="submit"]').prop('disabled',true).html(`<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>`);
+       form.find('button[type="submit"]').prop('disabled',true).html(`Loading...`);
        var url = form.attr('action');
        var formData = form.serialize();
           /** Use Ajax to send the  request **/

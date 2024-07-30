@@ -3,10 +3,9 @@
 @section('content')
 <!-- br-pageheader -->
 <div class="row">
-<div class="row d-flex">
    <div class="col-md-12">
       <div class="row d-flex">
-         <div class="col-md-7  ">
+         <div class="col-md-7">
             <div class="card card-body">
                <form id="form-data" action="{{route('admin.customer.invoice.update_invoice')}}" method="post">@csrf
                   @foreach ($data as $item)
@@ -165,12 +164,12 @@
       </div>
    </div>
 </div>
-</div>
 @endsection
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
       $("#customer_name").select2();
+      $("#product_name").select2();
       $(document).on('change','#product_name',function(){
          var product_id = $(this).val();
          __get_product(product_id);
