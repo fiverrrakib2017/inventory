@@ -19,33 +19,10 @@ class CustomerController extends Controller
     {
         return view('Backend.Pages.Customer.Create');
     }
-    public function get_alsl_data(Request $request)
-    {
-        $search = $request->search['value'];
-        $columnsForOrderBy = ['id', 'profile_image','fullname','phone_number', 'created_at'];
-        $orderByColumn = $request->order[0]['column'];
-        $orderDirectection = $request->order[0]['dir'];
-    
-        $object = Customer::when($search, function ($query) use ($search) {
-            $query->where('profile_image', 'like', "%$search%");
-            $query->where('fullname', 'like', "%$search%");
-            $query->where('phone_number', 'like', "%$search%");
-            $query->where('created_at', 'like', "%$search%");
-        })->orderBy($columnsForOrderBy[$orderByColumn], $orderDirectection);
-    
-        $total = $object->count();
-        $item = $object->skip($request->start)->take($request->length)->get();
-    
-        return response()->json([
-            'draw' => $request->draw,
-            'recordsTotal' => $total,
-            'recordsFiltered' => $total,
-            'data' => $item,
-        ]);
-    }
+   
     public function get_all_data(Request $request){
         $search = $request->search['value'];
-        $columnsForOrderBy =  ['id', 'profile_image', 'fullname', 'phone_number', 'created_at'];
+        $columnsForOrderBy =  ['id', 'fullname', 'phone_number', 'address', 'created_at'];
         $orderByColumn = $columnsForOrderBy[$request->order[0]['column']];
         $orderDirection = $request->order[0]['dir'];
     
@@ -53,9 +30,9 @@ class CustomerController extends Controller
     
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('profile_image', 'like', "%$search%")
-                  ->orWhere('fullname', 'like', "%$search%")
+                $q->orWhere('fullname', 'like', "%$search%")
                   ->orWhere('phone_number', 'like', "%$search%")
+                  ->orWhere('address', 'like', "%$search%")
                   ->orWhere('created_at', 'like', "%$search%");
             });
         }

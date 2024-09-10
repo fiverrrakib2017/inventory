@@ -25,6 +25,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <button type="button" onclick ="history.back();" class="btn btn-danger">Back</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </form>

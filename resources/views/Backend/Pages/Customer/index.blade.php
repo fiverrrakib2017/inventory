@@ -16,9 +16,9 @@
                         <thead>
                             <tr>
                                 <th class="">No.</th>
-                                <th class="">Photo</th>
                                 <th class="">Fullname</th>
                                 <th class="">Phone Number</th>
+                                <th class="">Address</th>
                                 <th class=""></th>
                             </tr>
                         </thead>
@@ -78,17 +78,6 @@
             "data":"id"
           },
           {
-            "data":"profile_image",
-            render:function(data,type,row){
-
-              if(row.profile_image!==null){
-                return '<img src="{{ asset("Backend/uploads/photos") }}/' + row.profile_image + '" width="50px" height="50px" class="img-fluid">';
-              }else{
-                return '<img src="{{ asset("Backend/images/default.jpg") }}" width="100px" height="90px" class="img-fluid">';
-              }
-            }
-          },
-          {
             "data":"fullname",
             render:function(data,type,row){
               var link ="{{ route('admin.customer.view', ':id') }}".replace(':id', row.id);
@@ -97,6 +86,9 @@
           },
           {
             "data":"phone_number"
+          },
+          {
+            "data":"address"
           },
           
           {
