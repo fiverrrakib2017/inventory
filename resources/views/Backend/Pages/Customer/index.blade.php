@@ -43,7 +43,7 @@
                 </div>
                 <h4 class="modal-title w-100">Are you sure?</h4>
                 <input type="hidden" name="id" value="">
-                <a class="close" data-bs-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
+                <a class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
             </div>
             <div class="modal-body">
                 <p>Do you really want to delete these records? This process cannot be undone.</p>

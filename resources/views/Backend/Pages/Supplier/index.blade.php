@@ -17,9 +17,9 @@
                         <thead>
                             <tr>
                                 <th class="">No.</th>
-                                <th class="">Photo</th>
                                 <th class="">Fullname</th>
                                 <th class="">Phone Number</th>
+                                <th class="">Address</th>
                                 <th class=""></th>
                             </tr>
                         </thead>
@@ -44,13 +44,13 @@
                 </div>
                 <h4 class="modal-title w-100">Are you sure?</h4>
                 <input type="hidden" name="id" value="">
-                <a class="close" data-bs-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
+                <a class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
             </div>
             <div class="modal-body">
                 <p>Do you really want to delete these records? This process cannot be undone.</p>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-danger">Delete</button>
             </div>
             </div>
@@ -81,17 +81,6 @@
             "data":"id"
           },
           {
-            "data":"profile_image",
-            render:function(data,type,row){
-
-              if(row.profile_image!==null){
-                return '<img src="{{ asset("Backend/uploads/photos") }}/' + row.profile_image + '" width="50px" height="50px" class="img-fluid">';
-              }else{
-                return '<img src="{{ asset("Backend/images/default.jpg") }}" width="50px" height="50px" class="img-fluid">';
-              }
-            }
-          },
-          {
             "data":"fullname",
             render:function(data,type,row){
               var link ="{{ route('admin.supplier.view', ':id') }}".replace(':id', row.id);
@@ -100,6 +89,9 @@
           },
           {
             "data":"phone_number"
+          },
+          {
+            "data":"address"
           },
           {
             data:null,
