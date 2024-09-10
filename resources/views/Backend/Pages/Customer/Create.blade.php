@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h3 class="card-title">Add New Customer</h3>
             </div>
-            <form action="{{ route('admin.customer.store') }}" method="post" id="addCustomerForm">
+            <form action="{{ route('admin.customer.store') }}" method="post" id="customerForm">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -40,7 +40,7 @@
 <script  src="{{ asset('Backend/dist/js/__handle_submit.js') }}"></script>
 <script  type="text/javascript">
     $(document).ready(function(){
-        handleSubmit('#addCustomerForm');
+        handleSubmit('#customerForm');
     });
 </script> 
 @endsection
