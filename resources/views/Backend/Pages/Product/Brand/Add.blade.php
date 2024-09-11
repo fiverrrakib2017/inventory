@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6 m-auto">
     <div class="card">
-    <div class="card-title bg-info text-white text-center">
+    <div class="card-header bg-info text-white text-center">
       <h4>Add New Brand</h4>
     </div>
     <form method="post" action="{{ route('admin.brand.store') }}" enctype="multipart/form-data">
@@ -20,7 +20,7 @@
         <div class="form-group mb-2">
           <label for="">Brand Image</label>
           <input accept="image/*" type="file" name="brand_image" class="form-control" id="imageInput"><br>
-          <img class="img-fluid rounded" width="100px" height="50px" id="showImage" src="{{asset('Backend/images/default.jpg')}}" alt="">
+          <img class="img-fluid rounded" width="100px" height="50px" id="showImage" src="{{asset('Backend/dist/img/default.png')}}" alt="">
         </div>
         <div class="form-group mb-2">
           <label for="">Slug</label>
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group mb-2">
           <label for="">Status</label>
-          <select type="text" class="form-select" name="status" required>
+          <select type="text" class="form-control" name="status" required>
               <option value="">Select</option>
               <option value="1">Active</option>
               <option value="0">Inactive</option>

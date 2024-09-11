@@ -12,7 +12,8 @@
    <body class="hold-transition login-page">
       <div class="login-box">
          <div class="login-logo">
-            <a href="#"><b>Rakib</b>Soft</a>
+            <!-- <a href="#"><b>Rakib</b>Soft</a> -->
+             <!-- <img src="{{asset('Backend/dist/img/avatar.png')}}" class="img-fluid" alt=""> -->
          </div>
          <div class="card">
             <div class="card-header">
