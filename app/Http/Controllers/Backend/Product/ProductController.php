@@ -46,8 +46,6 @@ class ProductController extends Controller
             $product->title = $request->product_name;
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;
-            $product->sub_category_id = $request->sub_cat_id;
-            $product->child_category_id = $request->child_cat_id;
 
             $product->size = implode(",",$request->size);
             $product->color =implode(",",$request->color);
@@ -57,14 +55,10 @@ class ProductController extends Controller
 
 
 
-            $product->slug = $request->slug;
             $product->p_price = $request->p_price;
             $product->s_price = $request->s_price;
             $product->description = $request->description;
-            $product->short_description = $request->short_description;
-            $product->shipping_returns = $request->shipping_returns;
 
-            $product->sku = $request->sku;
             $product->barcode = $request->barcode;
             $product->track_qty = 'Yes';
             $product->qty = $request->qty;
@@ -99,6 +93,16 @@ class ProductController extends Controller
                     File::copy($sPath, $dPath);
                 }
             }
+            if (!empty($request->barcodes)) {
+                foreach ($request->barcodes as $barcode) {
+                    $product->barcodes()->create([
+                        'barcode' => $barcode,
+                        'product_id'=>$product->id
+                    ]);
+                }
+            }
+            
+
             return response()->json([
                 'status' => true,
                 'message' => 'Product added succesfully'

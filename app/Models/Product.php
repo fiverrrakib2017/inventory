@@ -20,4 +20,8 @@ class Product extends Model
     public function sub_category(){
         return $this->belongsTo(Product_sub_category::class, 'sub_cat_id');
     }
+    public function barcodes()
+    {
+        return $this->hasMany(Product_barcode::class);
+    }
 }

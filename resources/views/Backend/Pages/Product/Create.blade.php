@@ -4,6 +4,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('Backend/dist/css/dropzone.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('Backend/plugins/summernote/summernote-bs4.min.css') }}" type="text/css" />
 <style>
       /* dropzone.css */
 .dropzone {
@@ -164,7 +165,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12 ">
+    <div class="col-md-9 m-auto">
         <div class="card">
             <div class="card-header bg-info text-white">
               <h4>Add New Product</h4>
@@ -176,14 +177,12 @@
               <div class="form-group mb-2">
                 <label for="">Product Name</label>
                 <input type="text"  class="form-control" name="product_name" id="product_name" placeholder="Enter Product Name" required>
-                <p class="ierr"></p>
+                
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group mb-2">
-                <label for="">Product Slug</label>
-                <input type="text"  class="form-control" name="slug" id="slug" value="">
-                <p class="ierr"></p>
+               
             </div>
             </div>
           </div>
@@ -242,92 +241,36 @@
           </div>
 
 
-          
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group mb-2">
-                <label for="">Short Description</label>
-                <textarea type="text" class="form-control" name="short_description" id="short_description"   placeholder="Enter Your Short Description "></textarea>
-                <p class="ierr"></p>
-              </div>
-            </div>
-          </div>
+       
 
           <div class="row">
             <div class="col-md-12">
               <div class="form-group mb-2">
                 <label for="">Description</label>
-                <textarea type="text" class="form-control"  name="description" id="description" placeholder="Enter Your Description "></textarea>
-                <p class="ierr"></p>
+                <textarea type="text" class="form-control"  name="description" id="description" placeholder="Enter Your Description" style="height: 600px;"></textarea>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group mb-2">
-                <label for="">Shipping & Returns</label>
-                <textarea type="text" class="form-control" id="shipping_returns" name="shipping_returns"></textarea>
-                <p class="ierr"></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group mb-2">
-                <label for="">Purchase Price</label>
-                <input type="number" class="form-control" id="p_price"  name="p_price" placeholder="Enter Your Price" required/>
-                <p class="ierr"></p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group mb-2">
-                <label for="">Sale's Price</label>
-                <input type="number" class="form-control" id="s_price"  name="s_price" placeholder="Enter Your Sale's Price" required/>
-                <p class="ierr"></p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group mb-2">
-                <label for="">Sku</label>
-                <input type="text" class="form-control" name="sku" id="sku" required/>
-                <p class="ierr"></p>
-            </div>
-            </div>
-          </div>
-
-
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-2">
-                <label for="">Vat/Tax</label>
-                <select type="number" class="form-control" id="tax"  name="tax" required>
-                    <option >---Select---</option>
-                    <option value="0%">0%</option>
-                    <option value="5%">5%</option>
-                    <option value="10%">10%</option>
-                    <option value="15%">15%</option>
-                    <option value="20%">20%</option>
-                </select>
-                <p class="ierr"></p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-2">
-                <label for="">Delivery Charge</label>
-                <input type="text" class="form-control" name="dellivery_charge" id="dellivery_charge" placeholder="Enter Amount" required/>
-                <p class="ierr"></p>
-            </div>
-            </div>
-          </div>
-
-
 
           <div class="row">
             <div class="col">
+              <div class="form-group mb-2">
+                <label for="">Purchase Price</label>
+                <input type="number" class="form-control" id="p_price"  name="p_price" placeholder="Enter Your Price" required/>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group mb-2">
+                <label for="">Sale's Price</label>
+                <input type="number" class="form-control" id="s_price"  name="s_price" placeholder="Enter Your Sale's Price" required/>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="">Size</label>
                 <select type="text" class="form-control" id="size" name="size[]" multiple="multiple" >
@@ -337,10 +280,9 @@
                   @endforeach
 
                 </select>
-                <p class="ierr"></p>
               </div>
             </div>
-            <div class="col">
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="">Color</label>
                 <select class="form-control" id="color" name="color[]" multiple="multiple" >
@@ -349,10 +291,9 @@
                      <option value="{{ $item->name }}">{{ $item->name }}</option>
                     @endforeach
                 </select>
-                <p class="ierr"></p>
               </div>
             </div>
-            <div class="col">
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="">Product Type</label>
                 <select type="text" class="form-control" name="product_type" id="product_type" required>
@@ -361,47 +302,37 @@
                   <option value="Popular">Popular</option>
                   <option value="New">New</option>
                 </select>
-                <p class="ierr"></p>
               </div>
             </div>
           </div>
 
 
           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-2">
+            <div class="col-md-4" id="barcodeDiv">
+              <div class="form-group mb-2" >
                 <label for="">Barcode</label>
-                <input type="text" class="form-control"  name="barcode" id="barcode" required/>
-                <p class="ierr"></p>
+                <input type="text" class="form-control"  name="barcode[]" id="barcode"/><br>
+                <button type="button" class="btn btn-success" id="add-barcode">+</button>
+                <button type="button" class="btn btn-danger" id="remove-barcode">-</button>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group mb-2">
               <label for="qty" class="label">Quantity</label>
               <input type="number" name="qty" class="form-control" id="qty" placeholder="Enter Quantity" required>
-              <p class="ierr"></p>
+            
             </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group mb-2">
-                <label for="">Status</label>
+              <label for="">Status</label>
                 <select type="text" class="form-control" name="status" id="status" required>
                   <option value="">Select</option>
                   <option value="1">Active</option>
                   <option value="0">Inactive</option>
                 </select>
-                <p class="ierr"></p>
-              </div>
+              <p class="ierr"></p>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="">Track Quantity</label><br>
-                  <div class="br-toggle br-toggle-rounded br-toggle-primary on">
-                    <div class="br-toggle-switch"></div>
-                  </div>
-              </div>
             </div>
           </div>
           </div>
@@ -411,64 +342,40 @@
           </div>
         </form>
         </div>
-
     </div>
 </div>
 @endsection
 
 @section('script')
-<script src="https://cdn.tiny.cloud/1/zifeh3wuv4rjvx6ktqat7x169antz66gx9iwbh8sztsk1utd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="{{ asset('Backend/dist/js/dropzone.min.js') }}"></script>
+<script src="{{ asset('Backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script type="text/javascript">
     $("#brand_id").select2();
     $("#category_id").select2();
-    $("#sub_cat_id").select2();
-    $("#child_cat_id").select2();
     $("#status").select2();
-    $("#tax").select2();
     $("#product_type").select2();
 
     $("#color, #size").select2({
       allowClear: true,
       placeholder: "Select "
     });
-    /** Create Automatic Slug **/
-    $("#product_name").on('keyup',function(){
-        var inputString=$(this).val();
-        var result= inputString.replace(/\s+/g, '-').toLowerCase();
-        $("#slug").val(result);
+
+    $('#add-barcode').click(function() {
+      var html = `
+        <div class="form-group mb-2">
+          <input type="text" class="form-control" name="barcode[]" />
+        </div>`;
+      $('#barcodeDiv').append(html);
     });
 
-
-
-
-      /** Toggles **/
-        $('.br-toggle').on('click', function(e){
-          e.preventDefault();
-          $(this).toggleClass('on');
-        })
+    /* Remove last barcode input field*/
+    $('#remove-barcode').click(function() {
+      $('#barcodeDiv .form-group:last').remove();
+    });
+    
 
        /** Editor **/
-      tinymce.init({
-        selector: '#short_description',
-        plugins: 'lists link image',
-        toolbar: "undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | outdent indent",
-        height: 300, // Specify the height of the editor
-      });
-      tinymce.init({
-        selector: '#description',
-        plugins: 'lists link image',
-        toolbar: "undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | outdent indent",
-        height: 300, // Specify the height of the editor
-      });
-
-      tinymce.init({
-        selector: '#shipping_returns',
-        plugins: 'lists link image',
-        toolbar: 'undo redo | bold italic | bullist numlist | link image',
-        height: 300, // Specify the height of the editor
-      });
-
+      $('#description').summernote(); 
 
     /** Drag And Drop Image Upload **/
       Dropzone.autoDiscover = false;
@@ -524,54 +431,7 @@
           }
       });
     }
-    /* Load Sub Category */
-    $(document).on('change',"select[name='category_id']",function (){
-      var category_id=$(this).val();
-      if (category_id) {
-        $.ajax({
-          url: '/admin/product/get-sub_category/' + category_id,
-          type: 'GET',
-          success: function(data) {
-              /*Empty Child Category*/
-              $('#child_cat_id').empty();
-              $('#child_cat_id').append('<option value="">---Select---</option>');
-              /*Empty Sub Category*/
-              $('#sub_cat_id').empty();
-              $('#sub_cat_id').append('<option value="">Select</option>');
-              $.each(data, function(key, item) {
-                $('#sub_cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-              });
-          }
-        });
-      }else{
-        $('#sub_cat_id').empty();
-        $('#sub_cat_id').append('<option value="">Select</option>');
-        /*Empty Child Category*/
-        $('#child_cat_id').empty();
-        $('#child_cat_id').append('<option value="">---Select---</option>');
-      }
-    });
-
-    /* Load Child Category */
-    $(document).on('change',"select[name='sub_cat_id']",function (){
-      var sub_cat_id=$(this).val();
-      if (sub_cat_id) {
-        $.ajax({
-          url: '/admin/product/get-child_category/' + sub_cat_id,
-          type: 'GET',
-          success: function(data) {
-              $('#child_cat_id').empty();
-              $('#child_cat_id').append('<option value="">---Select---</option>');
-              $.each(data, function(key, item) {
-                $('#child_cat_id').append('<option value="' + item.id + '">' + item.name + '</option>');
-              });
-          }
-        });
-      }else{
-        $('#child_cat_id').empty();
-        $('#child_cat_id').append('<option value="">---Select---</option>');
-      }
-    });
+    
 
     /** Product Store  **/
     $('#productForm').submit(function (e) {
@@ -611,6 +471,5 @@
             }
         });
     });
-     /** Product Add  **/
   </script>
 @endsection
