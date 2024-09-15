@@ -53,7 +53,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  @include('Backend.Include.Footer')
+  <!-- @include('Backend.Include.Footer') -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

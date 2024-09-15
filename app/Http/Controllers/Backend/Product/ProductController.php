@@ -38,66 +38,55 @@ class ProductController extends Controller
         return view('Backend.Pages.Product.View',compact('product'));
     }
     public function store(Request $request){
-        $validator = Validator::make($request->all(), $this->validate_ruls());
-        if($validator->passes()){
+        // Validate request data
+        $validated = $request->validate([
+            'product_name' => 'required|string|max:255',
+            'brand_id' => 'required|exists:product__brands,id',
+            'category_id' => 'required|exists:product__categories,id',
+            'description' => 'nullable|string',
+            'p_price' => 'required|numeric',
+            's_price' => 'required|numeric',
+            'size' => 'nullable|array',
+            'color' => 'nullable|array',
+            'product_type' => 'required|string',
+            'qty' => 'required|integer',
+            'status' => 'required|integer',
+            'barcode' => 'nullable|array',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
            $user=Auth::guard('admin')->user();
             $product = new Product;
-            $product->user_id = $user->id;
+            $product->user_id = $user->id; 
             $product->title = $request->product_name;
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;
-
-            $product->size = implode(",",$request->size);
-            $product->color =implode(",",$request->color);
-            $product->tax = $request->tax;
-            $product->delivery_charge = $request->delivery_charge;
-            $product->product_type = $request->product_type;
-
-
-
+            $product->description = $request->description;
             $product->p_price = $request->p_price;
             $product->s_price = $request->s_price;
-            $product->description = $request->description;
-
-            $product->barcode = $request->barcode;
-            $product->track_qty = 'Yes';
+            $product->size = $request->size ? implode(',', $request->size) : null; 
+            $product->color = $request->color ? implode(',', $request->color) : null; 
+            $product->product_type = $request->product_type;
             $product->qty = $request->qty;
-
             $product->status = $request->status;
+            if ($request->hasFile('image')) {
+                $file = $request->file('image'); 
+                $ext = $file->getClientOriginalExtension(); 
+                $fileName = time() . '.' . $ext; 
+                $imagePath = 'uploads/product/' . $fileName; 
+                $file->move(public_path('uploads/product'), $fileName);
+                $product->image = $imagePath;
+            }
+           
 
             $product->save();
 
-            /* save gallery pic*/
-            if(!empty($request->image_array)){
-                foreach($request->image_array as $temp_image_id){
-
-                    $tempImageInfo = Temp_Image::find($temp_image_id);
-                    $extArray = explode('.',$tempImageInfo->name);
-                    $ext = last($extArray);
-
-                    $productImage = new Product_image();
-                    $productImage->product_id = $product->id;
-                    $productImage->image = 'Null';
-                    $productImage->save();
-
-                    $imageName = $product->id . '-' . $productImage->id.'-'.time().'.'.$ext;
-
-                    $productImage->image =$imageName;
-                    $productImage->save();
-
-                    /*Generate Product Thumbnails*/
-                    $sPath = public_path() . '/temp/' . $tempImageInfo->name;
-                    $dPath = public_path() . '/uploads/product/' . $imageName;
-                    
-
-                    File::copy($sPath, $dPath);
-                }
-            }
-            if (!empty($request->barcodes)) {
-                foreach ($request->barcodes as $barcode) {
+            
+             /* Save barcodes */
+            if (!empty($request->barcode)) {
+                foreach ($request->barcode as $barcode) {
                     $product->barcodes()->create([
-                        'barcode' => $barcode,
-                        'product_id'=>$product->id
+                        'barcode' => trim($barcode), 
+                        'product_id' => $product->id
                     ]);
                 }
             }
@@ -107,12 +96,6 @@ class ProductController extends Controller
                 'status' => true,
                 'message' => 'Product added succesfully'
             ]);
-        }else{
-            return response()->json([
-                'status' => false,
-                'errors' => $validator->errors()
-            ]);
-        }
     }
     public function product_update(Request $request){
 

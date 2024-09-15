@@ -5,163 +5,6 @@
 @section('style')
 <link rel="stylesheet" href="{{ asset('Backend/dist/css/dropzone.min.css') }}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('Backend/plugins/summernote/summernote-bs4.min.css') }}" type="text/css" />
-<style>
-      /* dropzone.css */
-.dropzone {
-    border: 2px dashed #287eff !important;
-    border-radius: 5px;
-    padding: 6px !important;
-    text-align: center;
-    cursor: pointer;
-}
-
-.dz-message {
-    font-size: 18px;
-    color: #777;
-}
-
-#rowImg {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap-reverse;
-
-  gap:10px;
-}
-.sortImage{
-  height: 100px;
-  max-width: 100%;
-}
-
-
-.invalid{
-  border: 2px solid rgb(255, 47, 47) !important;
-  background: rgba(255, 255, 255, 0.849) !important;
-  border-radius: 4px;
-}
-
-.errText {
-  color: #ff3030 !important;
-  font-size: 13px !important ;
-  font-weight: 400 !important;
-}
-
-.Neon {
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #494949;
-    position: relative;
-
-
-}
-.Neon * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-}
-.Neon-input-dragDrop {
-    display: block;
-    width: 100%;
-    margin: 15px 0;
-    padding: 25px;
-    color: #8d9499;
-    color: #97A1A8;
-    background: #fff;
-    border: 2px dashed #C8CBCE;
-    text-align: center;
-    -webkit-transition: box-shadow 0.3s, border-color 0.3s;
-    -moz-transition: box-shadow 0.3s, border-color 0.3s;
-    transition: box-shadow 0.3s, border-color 0.3s;
-
-}
-.Neon-input-dragDrop .Neon-input-icon {
-    font-size: 48px;
-    margin-top: -10px;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-
-}
-.Neon-input-text h3 {
-    margin: 0;
-    font-size: 18px;
-    cursor: pointer;
-}
-.Neon-input-text span {
-    font-size: 12px;
-}
-.Neon-input-choose-btn.blue {
-    color: #008BFF;
-    border: 1px solid #008BFF;
-}
-.Neon-input-choose-btn {
-    display: inline-block;
-    padding: 8px 14px;
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    white-space: nowrap;
-    font-size: 12px;
-    font-weight: bold;
-    color: #8d9496;
-    border-radius: 3px;
-    border: 1px solid #c6c6c6;
-    vertical-align: middle;
-    background-color: #fff;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.05);
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s;
-}
-
-
-
-*,
-::before,
-::after {
-  box-sizing: border-box;
-  /* 1 */
-  border-width: 0;
-  /* 2 */
-  border-style: solid;
-  /* 2 */
-  border-color: #e5e7eb;
-  /* 2 */
-}
-
-::before,
-::after {
-  --tw-content: '';
-}
-
-
-.textarea {
-    padding: 10px;
-    border: 1px solid gray;
-    border-radius: 5px;
-    height: 120px;
-    color: black;
-}
-
-.textarea:focus{
-  outline: none;
-}
-
-#scroll{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 90%;
-  background-color: white;
-  overflow-y: auto;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-    </style>
-</style>
-@endsection
 
 @section('content')
 <div class="row">
@@ -182,25 +25,13 @@
             </div>
             <div class="col-md-6">
               <div class="form-group mb-2">
-               
+                <label for="">Product Image</label>
+                <input type="file"  class="form-control" name="image" id="product_image">
+                <img id="image_preview" src="{{asset('Backend/dist/img/default.png')}}" alt=""  class="img-thumbnail" height="200px" width="200px">
             </div>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group mb-2">
-                <input type="text" name="image_id" id="image_id" hidden>
-                  <label for="image" class="label">Upload Image</label>
-                  <div id="image" class="dropzone dz-clickable">
-                    <div class="dz-message needsclick">
-                        <br>Drop files here or click to upload.<br><br>
-                    </div>
-                </div>
-                <div id="rowImg"></div>
-              </div>
-            </div>
-          </div>
 
           <div class="row">
 
@@ -235,7 +66,6 @@
                   @endif
 
                 </select>
-                <p class="ierr"></p>
               </div>
             </div>
           </div>
@@ -308,12 +138,10 @@
 
 
           <div class="row">
-            <div class="col-md-4" id="barcodeDiv">
+            <div class="col-md-4">
               <div class="form-group mb-2" >
                 <label for="">Barcode</label>
-                <input type="text" class="form-control"  name="barcode[]" id="barcode"/><br>
-                <button type="button" class="btn btn-success" id="add-barcode">+</button>
-                <button type="button" class="btn btn-danger" id="remove-barcode">-</button>
+                <input type="text" class="form-control"  name="barcode[]" id="barcodes"/>
               </div>
             </div>
             <div class="col-md-4">
@@ -331,7 +159,6 @@
                   <option value="1">Active</option>
                   <option value="0">Inactive</option>
                 </select>
-              <p class="ierr"></p>
             </div>
             </div>
           </div>
@@ -350,6 +177,16 @@
 <script src="{{ asset('Backend/dist/js/dropzone.min.js') }}"></script>
 <script src="{{ asset('Backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script type="text/javascript">
+  document.getElementById('product_image').addEventListener('change', function(event) {
+      if (event.target.files && event.target.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+              document.getElementById('image_preview').src = e.target.result;
+          }
+          reader.readAsDataURL(event.target.files[0]);
+      }
+  });
     $("#brand_id").select2();
     $("#category_id").select2();
     $("#status").select2();
@@ -359,117 +196,14 @@
       allowClear: true,
       placeholder: "Select "
     });
-
-    $('#add-barcode').click(function() {
-      var html = `
-        <div class="form-group mb-2">
-          <input type="text" class="form-control" name="barcode[]" />
-        </div>`;
-      $('#barcodeDiv').append(html);
-    });
-
-    /* Remove last barcode input field*/
-    $('#remove-barcode').click(function() {
-      $('#barcodeDiv .form-group:last').remove();
-    });
     
+   
 
        /** Editor **/
       $('#description').summernote(); 
 
-    /** Drag And Drop Image Upload **/
-      Dropzone.autoDiscover = false;
-      const dropzone = $("#image").dropzone({
-
-        url:  "{{route('tempimage.create')}}",
-        maxFiles: 10,
-        paramName: 'image',
-        addRemoveLinks: true,
-        acceptedFiles: "image/jpeg,image/png,image/gif",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }, success: function(file, response){
-            var html = `
-            <div id="image-row-${response.image_id}">
-                <input type="text" name="image_array[]" value="${response.image_id}" hidden>
-                <div  id="border">
-                    <img src="${response.imagePath}" class="sortImage">
-                    <a href="javascript:void(0)" onclick='deleteImage(${response.image_id})' class="errBtn">Remove</a>
-                </div>
-            </div>`;
-            $('#rowImg').append(html);
-        },
-        complete: function(file){
-            this.removeFile(file);
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-    /** Drag And Drop Image Upload **/
-
-    function deleteImage(id){
-        $.ajax({
-          url: "{{route('admin.product.delete.photo')}}",
-          type: 'POST',
-          data: {
-              id: id,
-              'type':'temp_file',
-          },
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          success: function(response) {
-              if (response.success==true) {
-                $('#image-row-' + id).remove();
-                  toastr.success(response.message);
-              }
-          },
-          error: function(xhr, status, error) {
-              toastr.error('Server Error');
-              console.error(xhr.responseText);
-          }
-      });
-    }
-    
 
     /** Product Store  **/
-    $('#productForm').submit(function (e) {
-        e.preventDefault();
-        tinymce.activeEditor.setProgressState(true);
-        tinymce.triggerSave();
-        var formArray = $(this).serializeArray();
-        $.ajax({
-            url: '{{ route("admin.products.store") }}',
-            type: 'post',
-            data: formArray,
-            beforeSend: function () {
-              $('form button[type=submit]').prop('disabled', true);
-              $("form button[type=submit]").html('<i class="fa fa-spinner fa-spin"></i> Loading...');
-            },
-            dataType: 'json',
-            success: function (response) {
-               if (response.status == true) {
-                  $('button[type=submit]').prop('disabled', false);
-                  $("button[type=submit]").html('Add Now');
-                  toastr.success(response.message);
-                  window.location.href = "{{ route('admin.products.index') }}";
-                } else {
-                    var errors = response.errors;
-                    $('.errText').html('');
-                    $('input, select').removeClass('invalid');
-                    $.each(errors, function (key, value) {
-                        $(`#${key}`).addClass('invalid')
-                            .siblings('p')
-                            .addClass('errText')
-                            .html(value);
-                    });
-                }
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    });
+    //handleSubmit('#productForm');
   </script>
 @endsection
