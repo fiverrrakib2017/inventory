@@ -176,6 +176,7 @@
 @section('script')
 <script src="{{ asset('Backend/dist/js/dropzone.min.js') }}"></script>
 <script src="{{ asset('Backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script  src="{{ asset('Backend/dist/js/__handle_submit.js') }}"></script>
 <script type="text/javascript">
   document.getElementById('product_image').addEventListener('change', function(event) {
       if (event.target.files && event.target.files[0]) {
@@ -204,6 +205,6 @@
 
 
     /** Product Store  **/
-    //handleSubmit('#productForm');
+    handleSubmit('#productForm');
   </script>
 @endsection

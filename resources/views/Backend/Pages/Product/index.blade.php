@@ -21,7 +21,6 @@
                               <th class="">Purchase Price</th>
                               <th class="">Sale's Price</th>
                               <th class="">Quantity</th>
-                              <th class="">Sku</th>
                               <th class=""></th>
                             </tr>
                         </thead>
@@ -33,12 +32,8 @@
                               <tr>
                                 <td>{{$i++}}</td>
                                 <td>
-                                @php
-                                  $productImage = $data->product_image->first();
-                                  $title = strlen($data->title) > 50 ? substr($data->title, 0, 50) . '...' : $data->title;
-                                @endphp
-                                @if (!empty($productImage->image))
-                                <img src="{{ asset('uploads/product/' . $productImage->image) }}" alt="" width="50px" height="50px" class="img-fluid">
+                                @if (!empty($data->image))
+                                <img src="{{ asset('uploads/product/' . $data->image) }}" alt="" width="50px" height="50px" class="img-fluid">
                                     
                                 @else
                                     <img src="https://dummyimage.com/250/ffffff/000000" alt="" srcset="" width="50px" height="50px" class="w-[40px] h-[40px]">
@@ -46,11 +41,17 @@
                                 @endif
                                 </td>
 
-                                <td>{{$title}}</td>
+                                <td>
+                                  @if (strlen($data->title) > 40)
+                                  {{ substr($data->title,0,40) }}...
+                                  @else
+                                  {{ $data->title }}
+                                  @endif
+                                  
+                                </td>
                                 <td>{{$data->p_price}}</td>
                                 <td>{{$data->s_price}}</td>
                                 <td>{{$data->qty}}</td>
-                                <td>{{$data->sku}}</td>
                                
                                 <td>
                                   <!-- Add your action buttons here -->

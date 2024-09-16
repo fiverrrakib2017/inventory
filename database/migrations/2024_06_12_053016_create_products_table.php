@@ -24,6 +24,7 @@ return new class extends Migration
             $table->double('p_price', 10,2)->nullable();
             $table->double('s_price', 10,2)->nullable();
             $table->string('product_type');
+            $table->string('barcode');
 
 
             $table->enum('track_qty', ['Yes', 'No'])->default('Yes');

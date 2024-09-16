@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Product_barcode;
 use App\Models\Product_Brand;
 use App\Models\Product_Category;
 use App\Models\Product_child_category;
@@ -39,8 +40,8 @@ class ProductController extends Controller
     }
     public function store(Request $request){
         // Validate request data
-        $validated = $request->validate([
-            'product_name' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+           'product_name' => 'required|string|max:255',
             'brand_id' => 'required|exists:product__brands,id',
             'category_id' => 'required|exists:product__categories,id',
             'description' => 'nullable|string',
@@ -54,6 +55,13 @@ class ProductController extends Controller
             'barcode' => 'nullable|array',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
            $user=Auth::guard('admin')->user();
             $product = new Product;
             $product->user_id = $user->id; 
@@ -68,32 +76,23 @@ class ProductController extends Controller
             $product->product_type = $request->product_type;
             $product->qty = $request->qty;
             $product->status = $request->status;
+
+           if (!empty($request->barcode) && is_array($request->barcode)) {
+                foreach ($request->barcode as $barcode) {
+                        $product->barcode= trim($barcode);
+                }
+            }
+
             if ($request->hasFile('image')) {
                 $file = $request->file('image'); 
                 $ext = $file->getClientOriginalExtension(); 
                 $fileName = time() . '.' . $ext; 
-                $imagePath = 'uploads/product/' . $fileName; 
                 $file->move(public_path('uploads/product'), $fileName);
-                $product->image = $imagePath;
+                $product->image = $fileName ?? '';
             }
-           
-
             $product->save();
-
-            
-             /* Save barcodes */
-            if (!empty($request->barcode)) {
-                foreach ($request->barcode as $barcode) {
-                    $product->barcodes()->create([
-                        'barcode' => trim($barcode), 
-                        'product_id' => $product->id
-                    ]);
-                }
-            }
-            
-
             return response()->json([
-                'status' => true,
+                'success' => true,
                 'message' => 'Product added succesfully'
             ]);
     }
