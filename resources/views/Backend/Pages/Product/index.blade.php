@@ -32,13 +32,7 @@
                               <tr>
                                 <td>{{$i++}}</td>
                                 <td>
-                                @if (!empty($data->image))
-                                <img src="{{ asset('uploads/product/' . $data->image) }}" alt="" width="50px" height="50px" class="img-fluid">
-                                    
-                                @else
-                                    <img src="https://dummyimage.com/250/ffffff/000000" alt="" srcset="" width="50px" height="50px" class="w-[40px] h-[40px]">
-                                   
-                                @endif
+                                  <img src="{{ asset('Backend/dist/img/default.png') }}" alt="" width="50px" height="50px" class="img-fluid">
                                 </td>
 
                                 <td>

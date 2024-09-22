@@ -39,21 +39,19 @@ class ProductController extends Controller
         return view('Backend.Pages.Product.View',compact('product'));
     }
     public function store(Request $request){
+        //return $request->all(); 
         // Validate request data
         $validator = Validator::make($request->all(), [
-           'product_name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'brand_id' => 'required|exists:product__brands,id',
             'category_id' => 'required|exists:product__categories,id',
-            'description' => 'nullable|string',
-            'p_price' => 'required|numeric',
-            's_price' => 'required|numeric',
-            'size' => 'nullable|array',
-            'color' => 'nullable|array',
+            'p_price' => 'nullable|numeric|min:0',
+            's_price' => 'nullable|numeric|min:0',
             'product_type' => 'required|string',
-            'qty' => 'required|integer',
-            'status' => 'required|integer',
-            'barcode' => 'nullable|array',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product_barcode' => 'required|string',
+            'qty' => 'nullable|integer|min:0',
+            'color' => 'nullable|array',
+            'size' => 'nullable|array',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -62,35 +60,36 @@ class ProductController extends Controller
             ], 422);
         }
 
-           $user=Auth::guard('admin')->user();
-            $product = new Product;
-            $product->user_id = $user->id; 
-            $product->title = $request->product_name;
+
+            $product = new Product();
+            $product->title = $request->title;
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;
-            $product->description = $request->description;
             $product->p_price = $request->p_price;
             $product->s_price = $request->s_price;
-            $product->size = $request->size ? implode(',', $request->size) : null; 
-            $product->color = $request->color ? implode(',', $request->color) : null; 
-            $product->product_type = $request->product_type;
+            $product->product_type = $request->input('product_type');
+            $product->track_qty = $request->input('track_qty', 'Yes');
             $product->qty = $request->qty;
-            $product->status = $request->status;
-
-           if (!empty($request->barcode) && is_array($request->barcode)) {
-                foreach ($request->barcode as $barcode) {
-                        $product->barcode= trim($barcode);
+            $product->status = 1;
+            $product->color =$request->color ? implode(',', $request->color) : null; 
+            $product->size =$request->size ? implode(',', $request->size) : null; 
+            $product->save();
+            
+           if (!empty($request->product_barcode)) {
+                /*Save product barcodes (splitting multiple barcodes)*/ 
+                $barcodes = explode(' ', trim($request->input('product_barcode')));
+                foreach ($barcodes as $barcode) {
+                    $productBarcode = new Product_barcode();
+                    $productBarcode->product_id = $product->id;
+                    $productBarcode->barcode = $barcode;
+                    $productBarcode->save();
                 }
             }
 
-            if ($request->hasFile('image')) {
-                $file = $request->file('image'); 
-                $ext = $file->getClientOriginalExtension(); 
-                $fileName = time() . '.' . $ext; 
-                $file->move(public_path('uploads/product'), $fileName);
-                $product->image = $fileName ?? '';
-            }
-            $product->save();
+           
+
+            
+           
             return response()->json([
                 'success' => true,
                 'message' => 'Product added succesfully'
