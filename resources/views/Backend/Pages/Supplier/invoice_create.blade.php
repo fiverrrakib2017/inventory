@@ -164,7 +164,7 @@
                      ${productName} <br> || ${barcode}
                   </td>
                   <td>
-                     <input type="number" min="1" name="qty[]" value="${qty}" class="form-control qty">
+                     <input readonly type="number" min="1" name="qty[]" value="${qty}" class="form-control qty">
                   </td>
                   <td>
                      <input readonly type="number" name="price[]" class="form-control" value="${price}">

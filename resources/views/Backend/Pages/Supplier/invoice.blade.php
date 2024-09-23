@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<div class="modal fade bs-example-modal-lg" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,28 +46,24 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!----- Start Add Form ------->
-            <form  action="{{ route('admin.supplier.invoice.pay_due_amount') }}" method="post">
+            <form action="{{ route('admin.supplier.invoice.pay_due_amount') }}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <!----- Start Add Form input ------->
                     <input type="number" name="id" class="d-none" required>
-                    <div class="row">
-                        <div class="form-group mb-2">
-                            <label for="sectionName">Amount:</label>
-                            <input type="number" name="amount" class="form-control" placeholder="Enter Your Amount" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount:</label>
+                        <input type="number" name="amount" class="form-control" placeholder="Enter Your Amount" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success tx-size-xs">Save changes</button>
-                    <button type="button" class="btn btn-danger tx-size-xs" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </form>
-            <!----- End Add Form ------->
         </div>
     </div>
 </div>
+
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
         <form action="{{route('admin.supplier.invoice.delete_invoice')}}" method="post" enctype="multipart/form-data">
