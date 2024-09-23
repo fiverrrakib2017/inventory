@@ -133,6 +133,16 @@
    $(document).ready(function(){
       $("#supplier_name").select2();
       $("#product_name").select2();
+
+      $('#product_barcode').on('input', function() {
+        let barcodeInput = $(this).val().trim();
+        let barcodes = barcodeInput.split(/\s+/); 
+         if (barcodes.length > 0) {
+            $('#product_qty').val(barcodes.length);
+         } else {
+            $('#product_qty').val(0); 
+        }
+      });
       // Add button click event
       $('#submitBtn').on('click', function() {
          // Get values from form fields
@@ -250,7 +260,7 @@
                }
                else {
                   console.error(xhr.responseText);
-                  toastr.error('Server Problem');
+                  toastr.error('Invoice Not Created');
                }
             },complete: function() {
                form.find('button[type="submit"]').prop('disabled',false).html('Create Now');
