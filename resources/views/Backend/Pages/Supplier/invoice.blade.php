@@ -79,13 +79,13 @@
                 </div>
                 <h4 class="modal-title w-100">Are you sure?</h4>
                 <input type="hidden" name="id" value="">
-                <a class="close" data-bs-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
+                <a class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-close"></i></a>
             </div>
             <div class="modal-body">
                 <p>Do you really want to delete these records? This process cannot be undone.</p>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-danger">Delete</button>
             </div>
             </div>
@@ -169,7 +169,7 @@
 
                   <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
 
-                  <a href="${editUrl}" class="btn btn-primary btn-sm mr-3 "><i class="fa fa-edit"></i></a>
+                  <a href="#" class="btn btn-primary btn-sm mr-3 "><i class="fa fa-edit"></i></a>
 
                   <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
                   `;

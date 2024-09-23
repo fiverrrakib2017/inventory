@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Backend\Supplier;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Add_Contract;
-use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Product_barcode;
 use App\Models\Supplier;
 use App\Models\Supplier_Invoice;
-use App\Models\Customer_Invoice;
 use App\Models\Supplier_Invoice_Details;
 use App\Models\Supplier_Transaction_History;
 use App\Services\InvoiceService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 
 class Supplier_invoiceController extends Controller
@@ -40,9 +39,9 @@ class Supplier_invoiceController extends Controller
         return view('Backend.Pages.Supplier.invoice');
     }
     public function view_invoice($id){
-       $data=  Supplier_Invoice::with('supplier','items.product')->find($id);
-       $pdf = Pdf::loadView('Backend.Pages.Supplier.invoice_view',compact('data'));
-       return $pdf->stream('supplier_invoice.pdf');
+      return $data=  Supplier_Invoice::with('supplier','items.product')->find($id);
+       //$pdf = Pdf::loadView('Backend.Pages.Supplier.invoice_view',compact('data'));
+       //return $pdf->stream('supplier_invoice.pdf');
     }
     public function edit_invoice($id){
         $supplier=Supplier::latest()->get();
@@ -123,11 +122,14 @@ class Supplier_invoiceController extends Controller
         ]);
     }
     public function store_invoice(Request $request){
-        /* Validate the request data*/
+        //return $request->all(); exit; 
+        /* Validate incoming request data*/
         $validator = Validator::make($request->all(), [
             'supplier_id' => 'required|integer',
             'product_id' => 'required|array',
             'product_id.*' => 'required|numeric',
+            'product_barcode' => 'required|array',
+            'product_barcode.*' => 'string',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric',
             'price' => 'required|array',
@@ -138,12 +140,17 @@ class Supplier_invoiceController extends Controller
             'paid_amount' => 'required|numeric',
             'due_amount' => 'required|numeric',
         ]);
+
         /* If validation fails, return the error response*/
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-        
-        /*Create the invoice*/
+
+        /*Begin a database transaction*/ 
+        DB::beginTransaction();
+
+    try {
+        /* Create the invoice*/
         $invoice = new Supplier_Invoice();
         $invoice->supplier_id = $request->supplier_id;
         $invoice->total_amount = $request->total_amount;
@@ -151,26 +158,45 @@ class Supplier_invoiceController extends Controller
         $invoice->due_amount = $request->due_amount ?? $request->total_amount;
         $invoice->save();
 
-
-        /* Create invoice items*/
+        /*Loop through each product to create invoice details and update stock*/ 
         foreach ($request->product_id as $index => $productId) {
             $invoiceItem = new Supplier_Invoice_Details();
             $invoiceItem->invoice_id = $invoice->id;
             $invoiceItem->product_id = $productId;
             $invoiceItem->qty = $request->qty[$index];
             $invoiceItem->price = $request->price[$index];
-            $invoiceItem->total_price = $request->qty[$index] * $request->price[$index];
+            $invoiceItem->total_price = $request->total_price[$index];
             $invoiceItem->save();
+
+            /*Create or update product barcode*/ 
+            $barcodes = explode(' ', $request->product_barcode[$index]);
             
-            /*Update product stock*/ 
+            foreach ($barcodes as $barcode) {
+                $trimmedBarcode = trim($barcode); 
+                if (!empty($trimmedBarcode)) {
+                    $productBarcode = new Product_barcode();
+                    $productBarcode->product_id = $productId;
+                    $productBarcode->barcode = $trimmedBarcode;
+                    $productBarcode->save();
+                }
+            }
+
+            /* Update product stock*/
             $product = Product::find($productId);
             if ($product) {
-                $product->qty += $request->qty[$index];
+                $product->qty += $request->qty[$index]; 
                 $product->save();
             }
         }
-        return response()->json(['success' =>true, 'message'=> 'Invoice stored successfully'], 201);
 
+        /*Commit the transaction if everything is fine*/ 
+        DB::commit();
+        return response()->json(['success' => true, 'message' => 'Invoice stored successfully'], 201);
+    } catch (\Exception $e) {
+        /*Rollback all changes if something goes wrong*/ 
+        DB::rollBack();
+        return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
+    }
     }
     public function delete_invoice(Request $request){
         $invoice = Supplier_Invoice::find($request->id);

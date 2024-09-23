@@ -5,7 +5,7 @@
 <div class="row">
    <div class="col-md-12">
       <div class="row d-flex">
-         <div class="col-md-7  ">
+         <div class="col-md-7 m-auto ">
             <div class="card card-body">
                <form id="form-data" action="{{route('admin.customer.invoice.store_invoice')}}" method="post">@csrf
                   <div class="input-group mb-2">
@@ -73,55 +73,7 @@
                </form>
             </div>
          </div>
-         <div class="col-md-5">
-            <div class="card ">
-               <div class="card-header">
-                  <input type="search-input" name="product_name_search" class="form-control" placeholder="Type Your Search product Name">
-               </div>
-               <div class="card-body">
-                  <div class="container">
-                     <div class="row" id="search-results">
-                        @foreach ($products as $product)
-                           <div class="col-sm-6 py-1">
-                              <div class="product-list-box card p-2">
-                                 <a href="javascript:void(0);"   onclick="__get_product({{ $product->id }})">
-                                 <img src="{{ asset('uploads/product/' . $product->product_image[0]->image ) }}" class="img-fluid" alt="work-thumbnail" style="height: 150px; width: 150px; ">
-                                 </a>
-                                 <div class="detail">
-                                 <h6 class="font-size-10 mt-2"><a href="#" onclick="__get_product({{ $product->id }})" class="text-dark">{{ Illuminate\Support\Str::limit($product->title, 40) }}</a> </h6>
-                                    <span>Price: {{ $product->s_price }}</span><br>
-                                    <span>Stock: {{ $product->qty }}</span>
-                                 </div>
-                              </div>
-                           </div>
-                        @endforeach
-                     </div>
-                     <div class="row mt-4">
-                        <nav aria-label="Page navigation">
-                           <ul class="pagination pagination-basic mg-b-0">
-                                 <li class="page-item {{ $products->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $products->previousPageUrl() }}" aria-label="Previous">
-                                       <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                 </li>
-                                 @for ($i = 1; $i <= $products->lastPage(); $i++)
-                                    <li class="page-item {{ $i === $products->currentPage() ? 'active' : '' }}">
-                                       <a class="page-link" href="{{ $products->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                 @endfor
-                                 <li class="page-item {{ $products->hasMorePages() ? '' : 'disabled' }}">
-                                    <a class="page-link" href="{{ $products->nextPageUrl() }}" aria-label="Next">
-                                       <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                 </li>
-                           </ul>
-                        </nav>
-                     </div>
-
-                  </div>
-               </div>
-            </div>
-         </div>
+        
       </div>
    </div>
 </div>

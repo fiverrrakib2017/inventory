@@ -1,36 +1,87 @@
 @extends('Backend.Layout.App')
 @section('title','Dashboard | Admin Panel')
+@section('style')
+<style>
+   /* Product Title column larger */
+   th:nth-child(1), td:nth-child(1) {
+      width: 30%; /* Adjust as necessary */
+   }
+
+   /* Qty column smaller */
+   th:nth-child(2), td:nth-child(2) {
+      width: 20%; /* Adjust as necessary */
+   }
+
+   /* Price column smaller */
+   th:nth-child(3), td:nth-child(3) {
+      width: 20%; /* Adjust as necessary */
+   }
+
+   /* Total Price column smaller */
+   th:nth-child(4), td:nth-child(4) {
+      width: 20%; /* Adjust as necessary */
+   }
+
+   /* Adjust remove button column */
+   th:nth-child(5), td:nth-child(5) {
+      width: 10%; /* Adjust as necessary */
+   }
+</style>
+@endsection
 @section('content')
 <!-- br-pageheader -->
 <div class="row">
    <div class="col-md-12">
       <div class="row d-flex">
-         <div class="col-md-9  m-auto">
+         <div class="col-md-12  m-auto">
             <div class="card card-body">
                <form id="form-data" action="{{route('admin.supplier.invoice.store_invoice')}}" method="post">@csrf
-                  <div class="input-group mb-2">
-                     <label><span class="input-group-text" id="inputGroupPrepend" style="display: inline-block;"><i class="fa fa-barcode"></i></span></label>
-                     <input type="text"  placeholder="Enter Your QR Bar code here" class="form-control" autofocus>
-                  </div>
-                  <div class="form-group mb-2">
-                     <label>Product Name</label>
-                     <select type="text" id="product_name"  class="form-select" style="width:100%">
-                        <option>Select</option>
-                        @foreach ($product as $item)
-                            <option value="{{$item->id}}">{{ $item->title }}</option>
-                        @endforeach
-
-                     </select>
-                  </div>
-                  <div class="form-group mb-2">
-                     <label>Supplier Name</label>
-                     <select type="text" id="supplier_name" name="supplier_id" class="form-select" style="width:100%">
-                        <option>---Select---</option>
-                        @foreach ($supplier as $item)
-                             <option value="{{$item->id}}">{{$item->fullname}}</option>
-                        @endforeach
-
-                     </select>
+                  <div class="row">
+                     <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                           <label for="supplier_name">Product Name</label>
+                           <select type="text" id="product_name" class="form-select" style="width:100%">
+                           <option>---Select---</option>
+                           @foreach ($product as $item)
+                              <option value="{{$item->id}}">{{ $item->title }}</option>
+                           @endforeach
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                           <label >Bar Code</label>
+                           <textarea type="text" id="product_barcode"  class="form-control" style="height: 38px;" placeholder="Enter barcode"></textarea>
+                        </div>
+                     </div>
+                     <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                           <label for="">QTY</label>
+                           <input type="number" id="product_qty"  class="form-control" placeholder="Enter quantity"/>
+                        </div>
+                     </div>
+                     <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                           <label for="supplier_name">Product Price</label>
+                           <input type="text" id="product_price" class="form-control" placeholder="Enter price"/>
+                        </div>
+                     </div>
+                     <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                           <label for="supplier_name">Supplier Name</label>
+                           <select class="form-select" name="supplier_id" id="supplier_name"  style="width:100%">
+                              <option>---Select---</option>
+                              @foreach ($supplier as $item)
+                                 <option value="{{$item->id}}">{{$item->fullname}}</option>
+                              @endforeach
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                           <button class="btn btn-primary " type="button" id="submitBtn" style="margin-top: 28px !important;">Add Now</button>
+                        </div>
+                     </div>
                   </div>
                   <div class="row">
                      <div class="col-md-12">
@@ -42,31 +93,30 @@
                               <th>Total</th>
                               <th></th>
                            </thead>
-                           <tbody id="tableRow">
-                           </tbody>
+                           <tbody id="tableRow"></tbody>
                            <tfoot class="">
                               <tr>
-                                 <th class="text-center" colspan="2"></th>
-                                 <th class="text-left" colspan="3">
-                                    Total Amount <input readonly class="form-control total_amount" name="total_amount" type="text">
+                                 <th class="text-center" colspan="3"></th>
+                                 <th class="text-left" colspan="2">
+                                    Total Amount <input readonly class="form-control total_amount" name="total_amount" type="text" >
                                  </th>
                               </tr>
                               <tr>
-                                 <th class="text-center" colspan="2"></th>
-                                 <th class="text-left" colspan="3">
-                                    Paid Amount <input  type="text" class="form-control paid_amount" name="paid_amount" >
+                                 <th class="text-center" colspan="3"></th>
+                                 <th class="text-left" colspan="2">
+                                    Paid Amount <input  type="text" class="form-control paid_amount" name="paid_amount" placeholder="Enter paid amount">
                                  </th>
                               </tr>
                               <tr>
-                                 <th class="text-center" colspan="2"></th>
-                                 <th class="text-left" colspan="3">
-                                    Due Amount <input type="text" readonly class="form-control due_amount" name="due_amount" >
+                                 <th class="text-center" colspan="3"></th>
+                                 <th class="text-left" colspan="2">
+                                    Due Amount <input type="text" readonly class="form-control due_amount" name="due_amount" placeholder="Enter due amount">
                                  </th>
                               </tr>
                            </tfoot>
                         </table>
-                        <div class="form-group text-center">
-                           <button type="submit"  class="btn btn-success"><i class="fe fe-dollar"></i> Create Now</button>
+                        <div class="form-group text-right">
+                           <button type="submit"  class="btn btn-success" style="margin-right: 100px;"><i class="fas fe-dollar"></i> Create Now</button>
                         </div>
                      </div>
                   </div>
@@ -80,213 +130,135 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-   $(document).ready(function() {
-    $("#supplier_name").select2();
-    $("#product_name").select2();
-    $(document).on('change','#product_name',function(){
-       var product_id = $(this).val();
-       __get_product(product_id);
-    });
-    /*Show Product item */
-    __get_product=(product_id)=>{
-       $.ajax({
-          url: "{{ route('admin.products.get_product', ':id') }}".replace(':id', product_id),
-          method: "GET",
-          success: function(response) {
+   $(document).ready(function(){
+      $("#supplier_name").select2();
+      $("#product_name").select2();
+      // Add button click event
+      $('#submitBtn').on('click', function() {
+         // Get values from form fields
+         var productID = $('#product_name').val();
+         var productName = $('#product_name option:selected').text();
+         var barcode = $('#product_barcode').val();
+         var qty = $('#product_qty').val();
+         var price = $('#product_price').val();
+         var totalPrice = qty * price;
 
-          $.each(response, function(index, product) {
-             var product_exists=false;
-             /*Check if the product already exists in the table*/
-             $("#tableRow tr").each(function(){
-                var existing_product_id=$(this).find('input[name="product_id[]"]').val();
-                if (existing_product_id==product_id) {
-                   product_exists=true;
-                   return false;
-                }
-             });
-             if (product_exists) {
-                toastr.error("Product already added. Please increase the quantity.");
-                return false;
-             }
-             /* Create table row with product details*/
-             var row = '<tr>' +
-                   '<td><input type="hidden" name="product_id[]" value="'+product.id+'">'+__get_short_string(product.title,50)+'</td>'+
+         /* Validate if all fields are filled*/
+         if(productID !== '' && barcode !== '' && qty !== '' && price !== '') {
+            /* Create a new table row*/
+            var newRow = `
+               <tr>
+                  <td>
+                     <input type="hidden" name="product_id[]" value="${productID}">
+                     <input type="hidden" name="product_barcode[]" value="${barcode}">
+                     ${productName} <br> || ${barcode}
+                  </td>
+                  <td>
+                     <input type="number" min="1" name="qty[]" value="${qty}" class="form-control qty">
+                  </td>
+                  <td>
+                     <input readonly type="number" name="price[]" class="form-control" value="${price}">
+                  </td>
+                  <td>
+                     <input readonly type="number" name="total_price[]" class="form-control" value="${totalPrice}">
+                  </td>
+                  <td>
+                     <a class="btn-sm btn-danger" type="button" id="itemRow"><i class="fas fa-trash"></i></a>
+                  </td>
+               </tr>
+            `;
 
-                   '<td><input type="number" min="1" name="qty[]"  value="1" class="form-control qty"></td>' +
+            /* Append the new row to the table*/
+            $('#tableRow').append(newRow);
 
-                   '<td><input readonly type="number"  name=price[] class="form-control " value="' + product.p_price + '"></td>' +
+            /* Clear form fields after adding the product*/
+            $('#product_name').val('');
+            $('#product_barcode').val('');
+            $('#product_qty').val('');
+            $('#product_price').val('');
 
-                   '<td><input readonly type="number" id="total_price"  name=total_price[] class="form-control" value="' + product.p_price+ '"></td>' +
+            /*Update the total amount*/ 
+            updateTotalAmount();
+         } else {
+            toastr.error('Please fill all fields before adding.');
+         }
+      });
 
-                   '<td><a class="btn-sm  btn-danger" type="button" id="itemRow"><i class="mdi mdi-close" ></i></a></td>' +
-                   '</tr>';
+      // Function to update total amount in the table footer
+      function updateTotalAmount() {
+         var totalAmount = 0;
+         $('input[name="total_price[]"]').each(function() {
+            totalAmount += parseFloat($(this).val());
+         });
+         $('.total_amount').val(totalAmount);
+         updateDueAmount();
+      }
 
-             // Append row to the table body
-             $('#tableRow').append(row);
-             calculateTotalPrice();
-          });
-          }
-       });
-    }
+      // Calculate due amount based on paid amount
+      $('.paid_amount').on('input', function() {
+         updateDueAmount();
+      });
 
+      function updateDueAmount() {
+         var totalAmount = parseFloat($('.total_amount').val());
+         var paidAmount = parseFloat($('.paid_amount').val()) || 0;
+         var dueAmount = totalAmount - paidAmount;
+         $('.due_amount').val(dueAmount);
+      }
 
-    $(document).on('change', '[name="qty[]"]', function() {
-       var quantity = $(this).val();
-       var price = $(this).closest('tr').find('[name="price[]"]').val();
-       var total_price = Number(quantity * price);
-       $(this).closest('tr').find('[name="total_price[]"]').val(total_price);
-       calculateTotalPrice();
-    });
+      // Remove row when delete button is clicked
+      $(document).on('click', '#itemRow', function() {
+         $(this).closest('tr').remove();
+         updateTotalAmount();
+      });
+      $("form").submit(function(e){
+         e.preventDefault();
 
+         var form = $(this);
+         form.find('button[type="submit"]').prop('disabled',true).html(`Loading...`);
+         var url = form.attr('action');
+         var formData = form.serialize();
+            /** Use Ajax to send the  request **/
+            $.ajax({
+            type:'POST',
+            'url':url,
+            data: formData,
+            success: function (response) {
+               if (response.success==true) {
+                  toastr.success(response.message);
+                     setTimeout(() => {
+                     location.reload();
+                  }, 500);
+               }
+               if(response.success==false){
+                  toastr.success(response.message);
+               }
+            },
 
+            error: function (xhr, status, error) {
+               /** Handle  errors **/
+               if (xhr.status === 400) {
+                  toastr.error(xhr.responseJSON.message);
+                  return false;
+               }
+               if (xhr.responseJSON && xhr.responseJSON.errors) {
+                  var errors = xhr.responseJSON.errors;
+                  Object.values(errors).forEach(function(errorMessage) {
+                     toastr.error(errorMessage);
+                  });
+                  return false;
+               }
+               else {
+                  console.error(xhr.responseText);
+                  toastr.error('Server Problem');
+               }
+            },complete: function() {
+               form.find('button[type="submit"]').prop('disabled',false).html('Create Now');
+            }
+         });
+      });
 
-    $(document).on('click', '#itemRow', function() {
-       $(this).closest('tr').remove();
-       $(".paid_amount").val('');
-       $(".due_amount").val('');
-       calculateTotalPrice();
-    });
-
-
-
-    function calculateTotalPrice() {
-       var totalPrice = 0;
-       $('[name="total_price[]"]').each(function() {
-          totalPrice += parseFloat($(this).val() || 0);
-       });
-       $('.total_amount').val(totalPrice);
-    }
-
-    $(document).on('keyup','.paid_amount',function(){
-       var paid_amount=$(this).val();
-       var total_amount=$('.total_amount').val();
-       var totalDue=Number(total_amount-paid_amount);
-       /*check don't give much more money*/
-       if (Number(paid_amount) > Number(total_amount)) {
-          $(this).val(total_amount);
-          total_due=0;
-          $('.due_amount').val(total_due);
-          return false;
-       }
-       $(".due_amount").val(totalDue);
-
-    });
-    $("form").submit(function(e){
-       e.preventDefault();
-
-       var form = $(this);
-       form.find('button[type="submit"]').prop('disabled',true).html(`Loading...`);
-       var url = form.attr('action');
-       var formData = form.serialize();
-          /** Use Ajax to send the  request **/
-          $.ajax({
-          type:'POST',
-          'url':url,
-          data: formData,
-          success: function (response) {
-             if (response.success==true) {
-                toastr.success(response.message);
-                   setTimeout(() => {
-                   location.reload();
-                }, 500);
-             }
-             if(response.success==false){
-                toastr.success(response.message);
-             }
-          },
-
-          error: function (xhr, status, error) {
-             /** Handle  errors **/
-             if (xhr.status === 400) {
-                toastr.error(xhr.responseJSON.message);
-                return false;
-             }
-             if (xhr.responseJSON && xhr.responseJSON.errors) {
-                var errors = xhr.responseJSON.errors;
-                Object.values(errors).forEach(function(errorMessage) {
-                   toastr.error(errorMessage);
-                });
-                return false;
-             }
-              else {
-                console.error(xhr.responseText);
-                toastr.error('Server Problem');
-             }
-          },complete: function() {
-             form.find('button[type="submit"]').prop('disabled',false).html('Create Now');
-          }
-       });
-    });
-
-    $(document).on('keyup', '[name="product_name_search"]', function() {
-       var search = $(this).val();
-       if (search.trim() === '') {
-          fetchAllProducts();
-       } else {
-          searchProducts(search);
-       }
-    });
-    function fetchAllProducts(){
-       $.ajax({
-          url: "{{ route('admin.customer.invoice.search_product_data') }}",
-          method: 'POST',
-          headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-          data: { search: '' },
-          success: function(response) {
-             if (response.success) {
-                displayProducts(response.data);
-             }
-          },
-          error: function(xhr, status, error) {
-             console.error(xhr.responseText);
-          }
-       });
-    }
-    function searchProducts(search) {
-       $.ajax({
-          url: "{{ route('admin.customer.invoice.search_product_data') }}",
-          method: 'POST',
-          headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-          data: { search: search },
-          success: function(response) {
-             if (response.success) {
-                displayProducts(response.data);
-             }
-          },
-          error: function(xhr, status, error) {
-             console.error(xhr.responseText);
-          }
-       });
-    }
-    function displayProducts(products) {
-       var products_container = $('#search-results');
-       products_container.empty();
-       $.each(products, function(index, product) {
-          var imageUrl = product.product_image.length > 0 ? product.product_image[0].image : '';
-          var newImageUrl = imageUrl !== '' ? "{{ asset('uploads/product/') }}/" + imageUrl : '';
-          products_container.append(
-                `<div class="col-sm-6 py-1">
-                   <div class="product-list-box card p-2">
-                      <a href="javascript:void(0);" onclick="__get_product(${product.id})">
-                            <img src="${newImageUrl}" class="img-fluid" alt="work-thumbnail" style="height: 150px; width: 150px;">
-                      </a>
-                      <div class="detail">
-                            <h6 class="font-size-10 mt-2"><a href="#" onclick="__get_product(${product.id})" class="text-dark">${__get_short_string (product.title,40)}</a></h6>
-                            <span>Price: ${ product.p_price}</span><br>
-                            <span>Stock: ${product.qty}</span>
-                      </div>
-                   </div>
-                </div>`
-          );
-       });
-    }
-    function __get_short_string(str,num){
-       if(str.length <=num){
-          return str;
-       }
-       return str.slice(0,num)+'...';
-    }
-  });
+   });
 </script>
 
 
