@@ -39,9 +39,8 @@ class Supplier_invoiceController extends Controller
         return view('Backend.Pages.Supplier.invoice');
     }
     public function view_invoice($id){
-      return $data=  Supplier_Invoice::with('supplier','items.product')->find($id);
-       //$pdf = Pdf::loadView('Backend.Pages.Supplier.invoice_view',compact('data'));
-       //return $pdf->stream('supplier_invoice.pdf');
+        $data=  Supplier_Invoice::with('supplier','items.product')->find($id);
+       return view('Backend.Pages.Supplier.invoice_view',compact('data'));
     }
     public function edit_invoice($id){
         $supplier=Supplier::latest()->get();
@@ -163,6 +162,7 @@ class Supplier_invoiceController extends Controller
             $invoiceItem = new Supplier_Invoice_Details();
             $invoiceItem->invoice_id = $invoice->id;
             $invoiceItem->product_id = $productId;
+            $invoiceItem->barcode = $request->product_barcode[$index];
             $invoiceItem->qty = $request->qty[$index];
             $invoiceItem->price = $request->price[$index];
             $invoiceItem->total_price = $request->total_price[$index];

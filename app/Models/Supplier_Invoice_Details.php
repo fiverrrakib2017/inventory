@@ -17,4 +17,8 @@ class Supplier_Invoice_Details extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    // public function barcodes()
+    // {
+    //     return $this->belongsTo(Product_barcode::class, 'product_id');
+    // }
 }

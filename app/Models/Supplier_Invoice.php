@@ -17,4 +17,5 @@ class Supplier_Invoice extends Model
     {
         return $this->hasMany(Supplier_Invoice_Details::class,'invoice_id','id');
     }
+    
 }
