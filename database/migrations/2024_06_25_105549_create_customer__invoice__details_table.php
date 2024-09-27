@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('product_id');
+            $table->text('barcode');
             $table->integer('qty');
             $table->decimal('price', 10, 2);
             $table->decimal('total_price', 10, 2);

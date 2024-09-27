@@ -9,12 +9,13 @@ use App\Models\Customer_Invoice_Details;
 use App\Models\Customer_Transaction_History;
 use App\Models\Add_Contract;
 use App\Models\Product;
+use App\Models\Product_barcode;
 use App\Models\User;
 use App\Services\InvoiceService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use function App\Helpers\__due_payment_received;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -26,22 +27,13 @@ class InvoiceController extends Controller
     public function create_invoice(){
         return $this->invoiceService->createInvoice('Customer');
     }
-    public function search_product_data(Request $request){
-        if ($request->search=='') {
-            $products = Product::with('product_image')->latest()->get();
-            return response()->json(['success'=>true,'data' => $products]);
-            exit;
-        }
-        $products = Product::with('product_image')->where('title', 'like', "%$request->search%")->get();
-        return response()->json(['success'=>true,'data' => $products]);
-    }
+   
     public function show_invoice(){
         return view('Backend.Pages.Customer.invoice');
     }
     public function view_invoice($id){
        $data=  Customer_Invoice::with('customer','items.product')->find($id);
-       $pdf = Pdf::loadView('Backend.Pages.Customer.invoice_view',compact('data'));
-       return $pdf->stream('customer_invoice.pdf');
+       return view('Backend.Pages.Customer.invoice_view',compact('data'));
     }
     public function edit_invoice($id){
         $customer=Customer::latest()->get();
@@ -50,51 +42,7 @@ class InvoiceController extends Controller
        $data=  Customer_Invoice::with('customer','items')->where('id',$id)->get();
        return view('Backend.Pages.Customer.invoice_edit',compact('data','customer','product','products'));
     }
-    public function update_invoice(Request $request){
-        /* Validate the request data*/
-        $this->__validate_method($request)->validate();
-        /*check invoice existing*/
-        $invoice = Customer_Invoice::find($request->id);
-        if (!$invoice) {
-            return response()->json(['success' => false, 'message' => 'Invoice not found'], 404);
-        }
-        /* Fetch existing invoice details*/
-        $existing_items = $invoice->items;
-        /*crate a map for existing quantity*/
-        $existing_qty=[];
-        foreach ($existing_items as $item) {
-            $existing_qty[$item->product_id] = $item->qty;
-        }
-        /*Validate new quantities against current stock*/ 
-        foreach ($request->product_id as $index => $productId) {
-            $product = Product::find($productId);
-            if ($product) {
-                $request_qty = $request->qty[$index];
-                $old_qty = $existing_qty[$productId] ?? 0;
-                $difference = $request_qty - $old_qty;
-
-                if ($difference > 0 && $difference > $product->qty) {
-                    return response()->json(['success' => false, 'message' => 'Insufficient quantity for product ID: ' . $productId], 400);
-                }
-            } else {
-                return response()->json(['success' => false, 'message' => 'Product not found for ID: ' . $productId], 404);
-            }
-        /*Update the invoice*/
-        $invoice = Customer_Invoice::find($request->id);
-        $invoice->customer_id = $request->customer_id;
-        $invoice->total_amount = $request->total_amount;
-        $invoice->paid_amount = $request->paid_amount ?? 0;
-        $invoice->due_amount = $request->due_amount ?? $request->total_amount;
-        $invoice->update();
-
-        /* Delete existing invoice items */
-        $invoice->items()->delete();
-
-        /* Create new invoice items*/
-        $this->__create_invoice($request,$invoice,$existing_qty);
-        return response()->json(['success' => true, 'message' => 'Invoice updated successfully'], 201);
-    }
-    }
+    
     public function show_invoice_data(Request $request){
         $search = $request->search['value'];
         $columnsForOrderBy = ['id', 'customer_name', 'phone_number','total_amount', 'paid_amount', 'due_amount','status','created_at'];
@@ -122,18 +70,34 @@ class InvoiceController extends Controller
         ]);
     }
     public function store_invoice(Request $request){
-        /* Validate the request data*/
-        $this->__validate_method($request)->validate();
+        /* Validate incoming request data*/
+        $validator = Validator::make($request->all(), [
+            'customer_id' => 'required|integer',
+            'product_id' => 'required|array',
+            'product_id.*' => 'required|numeric',
+            'product_barcode' => 'required|array',
+            'product_barcode.*' => 'string',
+            'qty' => 'required|array',
+            'qty.*' => 'required|numeric',
+            'price' => 'required|array',
+            'price.*' => 'required|numeric',
+            'total_price' => 'required|array',
+            'total_price.*' => 'required|numeric',
+            'total_amount' => 'required|numeric',
+            'paid_amount' => 'required|numeric',
+            'due_amount' => 'required|numeric',
+        ]);
 
-        foreach ($request->product_id as $index => $productId) {
-           /*Get the product quantity*/
-           $product_qty=$this->__get_product_qty($productId);
-           /*Check the product quantity*/
-           if( $request->qty[$index] >= $product_qty){
-            return response()->json(['success' =>false, 'message'=> 'Insufficient quantity for product ID: ' . $productId], 400);
-           }
+        /* If validation fails, return the error response*/
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-        /*Create the invoice*/
+
+        /*Begin a database transaction*/ 
+        DB::beginTransaction();
+
+    try {
+        /* Create the invoice*/
         $invoice = new Customer_Invoice();
         $invoice->customer_id = $request->customer_id;
         $invoice->total_amount = $request->total_amount;
@@ -141,11 +105,33 @@ class InvoiceController extends Controller
         $invoice->due_amount = $request->due_amount ?? $request->total_amount;
         $invoice->save();
 
-        /* Create invoice items*/
-        $this->__create_invoice($request,$invoice , $qty=NULL);
+        /*Loop through each product to create invoice details and update stock*/ 
+        foreach ($request->product_id as $index => $productId) {
+            $invoiceItem = new Customer_Invoice_Details();
+            $invoiceItem->invoice_id = $invoice->id;
+            $invoiceItem->product_id = $productId;
+            $invoiceItem->barcode = $request->product_barcode[$index];
+            $invoiceItem->qty = $request->qty[$index];
+            $invoiceItem->price = $request->price[$index];
+            $invoiceItem->total_price = $request->total_price[$index];
+            $invoiceItem->save();
 
-        return response()->json(['success' =>true, 'message'=> 'Invoice stored successfully'], 201);
+            /* Update product stock*/
+            $product = Product::find($productId);
+            if ($product) {
+                $product->qty -= $request->qty[$index]; 
+                $product->save();
+            }
+        }
 
+        /*Commit the transaction if everything is fine*/ 
+        DB::commit();
+            return response()->json(['success' => true, 'message' => 'Invoice stored successfully'], 201);
+        } catch (\Exception $e) {
+            /*Rollback all changes if something goes wrong*/ 
+            DB::rollBack();
+            return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
+        }
     }
     public function delete_invoice(Request $request){
         $invoice = Customer_Invoice::find($request->id);
