@@ -97,6 +97,26 @@ class InvoiceController extends Controller
         DB::beginTransaction();
 
     try {
+        /* Check product stock before creating invoice */
+        foreach ($request->product_id as $index => $productId) {
+            $product = Product::find($productId);
+            $requestedQty = $request->qty[$index];
+
+            if (!$product) {
+                return response()->json([
+                    'success' => false,
+                    'message'=>'Product not found for ID: ' . $productId,
+                ], 404);
+            }
+
+            /* Check if stock is sufficient */
+            if ($product->qty < $requestedQty) {
+                return response()->json([
+                    'success' => false,                    
+                    'message'=>'Insufficient stock for product. Available stock: ' . $product->qty . ', Requested quantity: ' . $requestedQty
+                ], 400);
+            }
+        }
         /* Create the invoice*/
         $invoice = new Customer_Invoice();
         $invoice->customer_id = $request->customer_id;
