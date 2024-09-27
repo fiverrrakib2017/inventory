@@ -45,6 +45,7 @@
       24 => 'App\\Providers\\EventServiceProvider',
       25 => 'App\\Providers\\RouteServiceProvider',
       26 => 'App\\Providers\\InvoiceServiceProvider',
+      27 => 'App\\Providers\\DateServiceProvider',
     ),
     'aliases' => 
     array (
