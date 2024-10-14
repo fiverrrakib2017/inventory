@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input type="text" class="form-control" name="address"  placeholder="Enter phone number" required>
+                        <input type="text" class="form-control" name="address"  placeholder="Enter Address" required>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -42,5 +42,5 @@
     $(document).ready(function(){
         handleSubmit('#customerForm');
     });
-</script> 
+</script>
 @endsection
