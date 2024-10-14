@@ -143,10 +143,13 @@ class InvoiceController extends Controller
                 $product->save();
             }
 
-            /*Remove Product BARCODE*/
-            $barcode=Product_barcode::where('barcode',$request->product_barcode[$index])->first();
-            if($barcode){
-                $barcode->delete();
+            /* Remove Product BARCODE */
+            $barcodes = explode(' ', $request->product_barcode[$index]);
+            foreach ($barcodes as $barcode) {
+                $productBarcode = Product_barcode::where('barcode', $barcode)->first();
+                if ($productBarcode) {
+                    $productBarcode->delete();
+                }
             }
 
         }
