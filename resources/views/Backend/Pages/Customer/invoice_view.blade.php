@@ -24,7 +24,7 @@
                 <div class="tm_invoice_in">
                     <div class="tm_invoice_head tm_mb20">
                         <div class="tm_invoice_left">
-                            <div class="tm_logo"><img src="http://103.146.16.154/assets/images/it-fast.png" alt="Logo"><br> </div>
+                            <div class="tm_logo"><img src="{{ asset('Backend/dist/img/logo.jpg') }}" alt="Logo"><br> </div>
                         </div>
                         <div class="tm_invoice_right tm_text_right">
                             <div class="tm_primary_color tm_f50 tm_text_uppercase">Invoice</div>
@@ -33,9 +33,9 @@
                     <div class="tm_invoice_info tm_mb20">
                         <div class="tm_invoice_seperator tm_gray_bg"></div>
                         <div class="tm_invoice_info_list">
-                            <p class="tm_invoice_number tm_m0">Invoice No: <b class="tm_primary_color">{{$data->id}}</b></p>
-                            <p class="tm_invoice_date tm_m0">Date: 
-                            {{ \Carbon\Carbon::parse($data->created_at)->format('d M Y') }}                       
+                            <p class="tm_invoice_number tm_m0">Invoice No: <b class="tm_primary_color">#srtc{{$data->id}}</b></p>
+                            <p class="tm_invoice_date tm_m0">Date:
+                            {{ \Carbon\Carbon::parse($data->created_at)->format('d M Y') }}
                             </p>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                                 <div>
                                     <p class="tm_m0">Customer Create Date</p>
                                     <b class="tm_primary_color">
-                                    {{ \Carbon\Carbon::parse($data->customer->created_at)->format('d M Y') }}  
+                                    {{ \Carbon\Carbon::parse($data->customer->created_at)->format('d M Y') }}
 
                                     </b>
                                 </div>

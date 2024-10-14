@@ -9,7 +9,7 @@
                     Add New Invoice</a>
             </div>
             <div class="card-body">
-              
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -116,7 +116,10 @@
         },
         "columns":[
           {
-            "data":"id"
+            "data":"id",
+            "render":function(data,type,row){
+                return '#srtc'+row.id;
+            }
           },
           {
             "data":"customer.fullname"
@@ -206,7 +209,7 @@
       type:'POST',
       'url':url,
       data: formData,
-      success: function (response) {        
+      success: function (response) {
         if (response.success==true) {
           $('#deleteModal').modal('hide');
           toastr.success(response.message);
