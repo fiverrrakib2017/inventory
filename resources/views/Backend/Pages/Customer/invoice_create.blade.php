@@ -189,7 +189,7 @@
             $("#customer_id").select2();
             $("#product_name").select2();
 
-            
+
             /*Barcode check*/
             $('#product_barcode').on('input', function() {
                 let barcodeInput = $(this).val().trim();
@@ -206,20 +206,24 @@
                         },
                         success: function(response) {
                             if (response.success) {
-                            // $('#error_message').html('');
+                                toastr.success('Barcode Found');
                             } else {
                                 toastr.error('Invalid barcode(s): ' + response.invalid_barcodes.join(', '));
                                 $('#product_qty').val(0);
+
+                                $('#product_barcode').val('');
+                                $('#product_barcode').focus();
                             }
                         },
                         error: function() {
                             toastr.error('An error occurred while checking the barcodes.');
                             $('#product_qty').val(0);
+                            $('#product_barcode').val('');
+                            $('#product_barcode').focus();
                         }
                     });
                 } else {
                     $('#product_qty').val(0);
-                    $('#error_message').html('');
                 }
             });
 
