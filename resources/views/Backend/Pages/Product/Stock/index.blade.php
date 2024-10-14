@@ -30,7 +30,7 @@
                             @php
                                 $title = strlen($product->title) > 50 ? substr($product->title, 0, 50) . '...' : $product->title;
                                 $productTotal = $product->qty * $product->p_price;
-                                $total += $productTotal; 
+                                $total += $productTotal;
                             @endphp
                             <tr>
                                 <td>{{ $index + 1 }}</td>
@@ -38,11 +38,17 @@
                                     @if(isset($product->product_image[0]))
                                     <img src="{{ asset('uploads/product/'.$product->product_image[0]->image ) }}" alt="" srcset="" width="40px" height="40px" class="image-fluid">
                                     @else
-                                    <span>No Image</span>
+                                    <span  class="badge badge-danger">No Image</span>
                                     @endif
                                 </td>
                                 <td>{{ $title }}</td>
-                                <td>{{ $product->qty }}</td>
+                                <td>
+                                    @if ($product->qty == 0)
+                                    <span class="badge badge-danger">Out of Stock</span>
+                                    @else
+                                    <span class="badge badge-success">{{ $product->qty }}</span>
+                                    @endif
+                                </td>
                                 <td>{{ $product->p_price }}</td>
                                 <td>{{ $productTotal }}</td>
                             </tr>

@@ -51,9 +51,9 @@
 
                                 <td>
                                   <!-- Add your action buttons here -->
-                                  <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a>
-                                  <button data-bs-toggle="modal" data-bs-target="#deleteModal{{$data->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
-                                  <a class="btn btn-success btn-sm mr-3" href="{{route('admin.products.view', $data->id)}}"><i class="fa fa-eye"></i></a>
+                                  {{-- <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a> --}}
+                                  <button data-toggle="modal" data-target="#deleteModal{{$data->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
+                                  {{-- <a class="btn btn-success btn-sm mr-3" href="{{route('admin.products.view', $data->id)}}"><i class="fa fa-eye"></i></a> --}}
                                 </td>
                               </tr>
                             <!--Start Delete MODAL ---->
@@ -74,7 +74,7 @@
                                           <p>Do you really want to delete these records? This process cannot be undone.</p>
                                       </div>
                                       <div class="modal-footer justify-content-center">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                           <button type="submit" class="btn btn-danger">Delete</button>
                                       </div>
                                       </div>
