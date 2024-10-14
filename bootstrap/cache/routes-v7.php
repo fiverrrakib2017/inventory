@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::mX2tijxOoOlce4t8',
+            '_route' => 'generated::yCQFQfFZ6kE5rviE',
           ),
           1 => NULL,
           2 => 
@@ -1709,6 +1709,45 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/admin/accounts/transaction/report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.transaction.report.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/accounts/transaction/report_generate' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.accounts.transaction.report_generate',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
     ),
     2 => 
     array (
@@ -2064,7 +2103,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::X5WRT1IC6hvLUZHi',
+            '_route' => 'generated::iRHB8o0Fw8upZTyD',
           ),
           1 => 
           array (
@@ -2155,7 +2194,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::g6IaXtZBHKYpn3g0',
+            '_route' => 'generated::8Qt6tukkhLHst9qj',
           ),
           1 => 
           array (
@@ -2517,7 +2556,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::mX2tijxOoOlce4t8' => 
+    'generated::yCQFQfFZ6kE5rviE' => 
     array (
       'methods' => 
       array (
@@ -2540,7 +2579,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::mX2tijxOoOlce4t8',
+        'as' => 'generated::yCQFQfFZ6kE5rviE',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4732,7 +4771,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::g6IaXtZBHKYpn3g0' => 
+    'generated::8Qt6tukkhLHst9qj' => 
     array (
       'methods' => 
       array (
@@ -4754,7 +4793,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::g6IaXtZBHKYpn3g0',
+        'as' => 'generated::8Qt6tukkhLHst9qj',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4957,7 +4996,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::X5WRT1IC6hvLUZHi' => 
+    'generated::iRHB8o0Fw8upZTyD' => 
     array (
       'methods' => 
       array (
@@ -4979,7 +5018,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::X5WRT1IC6hvLUZHi',
+        'as' => 'generated::iRHB8o0Fw8upZTyD',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6668,6 +6707,81 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'admin.transaction.store',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.transaction.report.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/accounts/transaction/report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Accounts\\Transaction\\TransactionController@transaction_report',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Accounts\\Transaction\\TransactionController@transaction_report',
+        'namespace' => NULL,
+        'prefix' => 'admin/accounts/transaction',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.transaction.report.index',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.accounts.transaction.report_generate' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/accounts/transaction/report_generate',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Accounts\\Transaction\\TransactionController@report_generate',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Accounts\\Transaction\\TransactionController@report_generate',
+        'namespace' => NULL,
+        'prefix' => 'admin/accounts/transaction',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.accounts.transaction.report_generate',
       ),
       'fallback' => false,
       'defaults' => 

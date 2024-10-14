@@ -206,6 +206,12 @@
                   <p>Transaction</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('admin.transaction.report.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transaction Report</p>
+                </a>
+              </li>
             </ul>
           </li>
 

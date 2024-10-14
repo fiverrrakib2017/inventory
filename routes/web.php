@@ -191,6 +191,8 @@ Route::group(['middleware'=>'admin'],function(){
             Route::controller(App\Http\Controllers\Backend\Accounts\Transaction\TransactionController::class)->group(function(){
                 Route::get('/list','index')->name('admin.transaction.index');
                 Route::post('/store','store')->name('admin.transaction.store');
+                Route::get('/report','transaction_report')->name('admin.transaction.report.index');
+                Route::post('/report_generate','report_generate')->name('admin.accounts.transaction.report_generate');
             });
         });
     });
