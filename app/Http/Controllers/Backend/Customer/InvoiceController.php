@@ -235,4 +235,24 @@ class InvoiceController extends Controller
         /*Return the quantity */
         return $product->qty;
     }
+    public function check_barcodes(Request $request){
+        $barcodes = $request->input('barcodes');
+        $invalidBarcodes = [];
+
+        foreach ($barcodes as $barcode) {
+            $product = Product_barcode::where('barcode', $barcode)->first();
+            if (!$product) {
+                $invalidBarcodes[] = $barcode;
+            }
+        }
+
+        if (count($invalidBarcodes) > 0) {
+            return response()->json([
+                'success' => false,
+                'invalid_barcodes' => $invalidBarcodes
+            ]);
+        } else {
+            return response()->json(['success' => true]);
+        }
+    }
 }

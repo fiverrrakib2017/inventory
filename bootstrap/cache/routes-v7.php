@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::cnDemuEta1ljT0Mm',
+            '_route' => 'generated::8G27jgdAE9tCn327',
           ),
           1 => NULL,
           2 => 
@@ -455,6 +455,25 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'admin.customer.invoice.delete_invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/check_barcodes' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.check_barcodes',
           ),
           1 => NULL,
           2 => 
@@ -2103,7 +2122,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::K7X7xZYI4m3m2XLM',
+            '_route' => 'generated::xdFB39mPHQ9hi1gg',
           ),
           1 => 
           array (
@@ -2194,7 +2213,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::BV4Og7FOuuyud2nC',
+            '_route' => 'generated::Axs5SN1E52FjB1tb',
           ),
           1 => 
           array (
@@ -2556,7 +2575,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::cnDemuEta1ljT0Mm' => 
+    'generated::8G27jgdAE9tCn327' => 
     array (
       'methods' => 
       array (
@@ -2579,7 +2598,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::cnDemuEta1ljT0Mm',
+        'as' => 'generated::8G27jgdAE9tCn327',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3442,6 +3461,43 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'admin.customer.invoice.delete_invoice',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.check_barcodes' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/check_barcodes',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@check_barcodes',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@check_barcodes',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.check_barcodes',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4771,7 +4827,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::BV4Og7FOuuyud2nC' => 
+    'generated::Axs5SN1E52FjB1tb' => 
     array (
       'methods' => 
       array (
@@ -4793,7 +4849,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::BV4Og7FOuuyud2nC',
+        'as' => 'generated::Axs5SN1E52FjB1tb',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4996,7 +5052,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::K7X7xZYI4m3m2XLM' => 
+    'generated::xdFB39mPHQ9hi1gg' => 
     array (
       'methods' => 
       array (
@@ -5018,7 +5074,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::K7X7xZYI4m3m2XLM',
+        'as' => 'generated::xdFB39mPHQ9hi1gg',
       ),
       'fallback' => false,
       'defaults' => 

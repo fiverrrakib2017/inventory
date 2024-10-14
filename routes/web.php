@@ -36,6 +36,8 @@ Route::group(['middleware'=>'admin'],function(){
             Route::get('/edit/{id}', 'edit_invoice')->name('admin.customer.invoice.edit_invoice');
             Route::post('/update', 'update_invoice')->name('admin.customer.invoice.update_invoice');
             Route::post('/delete', 'delete_invoice')->name('admin.customer.invoice.delete_invoice');
+            /*Check Bar code When Add Invoice*/
+            Route::post('/check_barcodes', 'check_barcodes')->name('admin.customer.invoice.check_barcodes');
         });
     });
     /** Supplier Route **/
@@ -196,5 +198,5 @@ Route::group(['middleware'=>'admin'],function(){
             });
         });
     });
-   
+
 });
