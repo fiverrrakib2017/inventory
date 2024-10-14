@@ -142,6 +142,13 @@ class InvoiceController extends Controller
                 $product->qty -= $request->qty[$index];
                 $product->save();
             }
+
+            /*Remove Product BARCODE*/
+            $barcode=Product_barcode::where('barcode',$request->product_barcode[$index])->first();
+            if($barcode){
+                $barcode->delete();
+            }
+
         }
 
         /*Commit the transaction if everything is fine*/
