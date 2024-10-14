@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('category_id');
+            $table->text('warenty');
 
-        
+
             $table->double('p_price', 10,2)->nullable();
             $table->double('s_price', 10,2)->nullable();
             $table->string('product_type');

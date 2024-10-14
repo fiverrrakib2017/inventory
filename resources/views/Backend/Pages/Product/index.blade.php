@@ -9,7 +9,7 @@
                     Add New Product</a>
             </div>
             <div class="card-body">
-              
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -18,6 +18,7 @@
                               <th class="">No.</th>
                               <th class="">Product Image</th>
                               <th class="">Product Name</th>
+                              <th class="">Warenty</th>
                               <th class="">Purchase Price</th>
                               <th class="">Sale's Price</th>
                               <th class="">Quantity</th>
@@ -41,12 +42,13 @@
                                   @else
                                   {{ $data->title }}
                                   @endif
-                                  
+
                                 </td>
+                                <td>{{$data->warenty?? 'No Data'}}</td>
                                 <td>{{$data->p_price}}</td>
                                 <td>{{$data->s_price}}</td>
                                 <td>{{$data->qty}}</td>
-                               
+
                                 <td>
                                   <!-- Add your action buttons here -->
                                   <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a>

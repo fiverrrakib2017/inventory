@@ -39,10 +39,10 @@ class ProductController extends Controller
         return view('Backend.Pages.Product.View',compact('product'));
     }
     public function store(Request $request){
-        //return $request->all(); 
+        //return $request->all();
         // Validate request data
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:products',
             'brand_id' => 'required|exists:product__brands,id',
             'category_id' => 'required|exists:product__categories,id',
             'p_price' => 'nullable|numeric|min:0',
@@ -65,18 +65,19 @@ class ProductController extends Controller
             $product->title = $request->title;
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;
+            $product->warenty = $request->warenty;
             $product->p_price = $request->p_price;
             $product->s_price = $request->s_price;
             $product->product_type = $request->input('product_type');
             $product->track_qty = $request->input('track_qty', 'Yes');
             $product->qty = $request->qty;
             $product->status = 1;
-            $product->color =$request->color ? implode(',', $request->color) : null; 
-            $product->size =$request->size ? implode(',', $request->size) : null; 
+            $product->color =$request->color ? implode(',', $request->color) : null;
+            $product->size =$request->size ? implode(',', $request->size) : null;
             $product->save();
-            
+
            if (!empty($request->product_barcode)) {
-                /*Save product barcodes (splitting multiple barcodes)*/ 
+                /*Save product barcodes (splitting multiple barcodes)*/
                 $barcodes = explode(' ', trim($request->input('product_barcode')));
                 foreach ($barcodes as $barcode) {
                     $productBarcode = new Product_barcode();
@@ -86,10 +87,10 @@ class ProductController extends Controller
                 }
             }
 
-           
 
-            
-           
+
+
+
             return response()->json([
                 'success' => true,
                 'message' => 'Product added succesfully'
@@ -108,7 +109,7 @@ class ProductController extends Controller
              $product->title = $request->product_name;
              $product->brand_id = $request->brand_id;
              $product->category_id = $request->category_id;
-
+             $product->warenty = $request->warenty;
 
              $product->size = implode(",",$request->size);
              $product->color =implode(",",$request->color);
@@ -220,10 +221,10 @@ class ProductController extends Controller
                 return response()->json(['success' => true, 'message' => 'Delete Successful']);
             }
         }
-        
+
         return response()->json(['success' => false, 'message' => 'Image not found']);
     }
-    
+
     private function validate_ruls(){
             return  [
             'product_name' => 'required',

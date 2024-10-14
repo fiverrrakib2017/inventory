@@ -33,7 +33,7 @@
             </div>
             <div class="row">
                <!-- Category Select -->
-               <div class="col-md-6">
+               <div class="col-md-4">
                   <div class="form-group mb-3">
                      <label for="category_id" class="form-label">Category <span class="text-danger">*</span></label>
                      <select name="category_id" id="category_id" class="form-control" required>
@@ -44,8 +44,15 @@
                      </select>
                   </div>
                </div>
+               <!-- Warenty input -->
+               <div class="col-md-4">
+                  <div class="form-group mb-3">
+                     <label for="" class="form-label">Warenty <span class="text-danger">*</span></label>
+                     <input name="warenty" id="warenty" class="form-control" placeholder="Enter Your Product Warenty" required />
+                  </div>
+               </div>
                <!-- Purchase Price -->
-               <div class="col-md-6">
+               <div class="col-md-4">
                   <div class="form-group mb-3">
                      <label for="p_price" class="form-label">Purchase Price</label>
                      <input type="number" name="p_price" id="p_price" class="form-control" step="0.01" placeholder="Enter purchase price">
@@ -128,14 +135,14 @@
 <script  src="{{ asset('Backend/dist/js/__handle_submit.js') }}"></script>
 <script type="text/javascript">
    $(document).ready(function() {
-      /*Product barcode textarea change event*/ 
+      /*Product barcode textarea change event*/
       $('#product_barcode').on('input', function() {
         let barcodeInput = $(this).val().trim();
-        let barcodes = barcodeInput.split(/\s+/); 
+        let barcodes = barcodeInput.split(/\s+/);
          if (barcodes.length > 0) {
             $('#qty').val(barcodes.length);
          } else {
-            $('#qty').val(0); 
+            $('#qty').val(0);
         }
       });
    });
@@ -148,11 +155,11 @@
      allowClear: true,
      placeholder: "Select "
    });
-   
+
    /** Product Store  **/
    handleSubmit('#productForm');
 
 
-   
+
 </script>
 @endsection
