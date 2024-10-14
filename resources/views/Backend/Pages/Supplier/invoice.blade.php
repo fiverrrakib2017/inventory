@@ -9,7 +9,7 @@
                     Add New Invoice</a>
             </div>
             <div class="card-body">
-              
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -117,7 +117,10 @@
         },
         "columns":[
           {
-            "data":"id"
+            "data":"id",
+            "render":function(data,type,row){
+                return '#srtc'+row.id;
+            }
           },
           {
             "data":"supplier.fullname"
@@ -163,8 +166,6 @@
                   return `
                   <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
 
-                  <a href="${editUrl}" class="btn btn-primary btn-sm mr-3 "><i class="fa fa-edit"></i></a>
-
                   <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
                   `;
                 }else{
@@ -172,8 +173,6 @@
                   <button class="btn btn-primary btn-sm mr-3 pay-button"  data-id="${row.id}">Pay Now</button>
 
                   <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
-
-                  <a href="#" class="btn btn-primary btn-sm mr-3 "><i class="fa fa-edit"></i></a>
 
                   <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
                   `;
@@ -207,7 +206,7 @@
       type:'POST',
       'url':url,
       data: formData,
-      success: function (response) {        
+      success: function (response) {
         if (response.success==true) {
           $('#deleteModal').modal('hide');
           toastr.success(response.message);
