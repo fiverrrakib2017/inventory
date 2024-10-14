@@ -27,7 +27,7 @@ class InvoiceController extends Controller
     public function create_invoice(){
         return $this->invoiceService->createInvoice('Customer');
     }
-   
+
     public function show_invoice(){
         return view('Backend.Pages.Customer.invoice');
     }
@@ -42,7 +42,7 @@ class InvoiceController extends Controller
        $data=  Customer_Invoice::with('customer','items')->where('id',$id)->get();
        return view('Backend.Pages.Customer.invoice_edit',compact('data','customer','product','products'));
     }
-    
+
     public function show_invoice_data(Request $request){
         $search = $request->search['value'];
         $columnsForOrderBy = ['id', 'customer_name', 'phone_number','total_amount', 'paid_amount', 'due_amount','status','created_at'];
@@ -93,7 +93,7 @@ class InvoiceController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        /*Begin a database transaction*/ 
+        /*Begin a database transaction*/
         DB::beginTransaction();
 
     try {
@@ -112,7 +112,7 @@ class InvoiceController extends Controller
             /* Check if stock is sufficient */
             if ($product->qty < $requestedQty) {
                 return response()->json([
-                    'success' => false,                    
+                    'success' => false,
                     'message'=>'Insufficient stock for product. Available stock: ' . $product->qty . ', Requested quantity: ' . $requestedQty
                 ], 400);
             }
@@ -125,7 +125,7 @@ class InvoiceController extends Controller
         $invoice->due_amount = $request->due_amount ?? $request->total_amount;
         $invoice->save();
 
-        /*Loop through each product to create invoice details and update stock*/ 
+        /*Loop through each product to create invoice details and update stock*/
         foreach ($request->product_id as $index => $productId) {
             $invoiceItem = new Customer_Invoice_Details();
             $invoiceItem->invoice_id = $invoice->id;
@@ -139,16 +139,16 @@ class InvoiceController extends Controller
             /* Update product stock*/
             $product = Product::find($productId);
             if ($product) {
-                $product->qty -= $request->qty[$index]; 
+                $product->qty -= $request->qty[$index];
                 $product->save();
             }
         }
 
-        /*Commit the transaction if everything is fine*/ 
+        /*Commit the transaction if everything is fine*/
         DB::commit();
-            return response()->json(['success' => true, 'message' => 'Invoice stored successfully'], 201);
+            return response()->json(['success' => true, 'message' => 'Invoice stored successfully', 'data' => $invoice], 201);
         } catch (\Exception $e) {
-            /*Rollback all changes if something goes wrong*/ 
+            /*Rollback all changes if something goes wrong*/
             DB::rollBack();
             return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
         }
@@ -178,7 +178,7 @@ class InvoiceController extends Controller
             'paid_amount' => $paid_amount,
             'due_amount' => $due_amount,
         ]);
-        /*Log transaction history*/ 
+        /*Log transaction history*/
         $object = new Customer_Transaction_History();
         $object->invoice_id = $request->id;
         $object->customer_id = $invoice->customer_id;
@@ -219,7 +219,7 @@ class InvoiceController extends Controller
             if ($product) {
                 $old_qty = $existing_qty[$productId] ?? 0;
                 $difference= $request->qty[$index]-$old_qty;
-                $product->qty-=$difference; 
+                $product->qty-=$difference;
                 $product->save();
             }
         }

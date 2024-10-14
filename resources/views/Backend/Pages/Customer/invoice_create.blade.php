@@ -166,7 +166,7 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                    <div class="form-group text-right">
+                                    <div class="form-group text-right" id="footerBtn">
                                         <button type="submit" class="btn btn-success" style="margin-right: 100px;"><i
                                                 class="fas fe-dollar"></i> Create Now</button>
                                     </div>
@@ -290,10 +290,18 @@
                     data: formData,
                     success: function(response) {
                         if (response.success == true) {
+                            console.log(response.data.id);
                             toastr.success(response.message);
-                            setTimeout(() => {
-                                location.reload();
-                            }, 500);
+                            $("#form-data")[0].reset();
+
+                            // Correcting this line
+                            var viewUrl = "{{ route('admin.customer.invoice.view_invoice', ':id') }}";
+                            viewUrl = viewUrl.replace(':id', response.data.id);
+
+                            // Fixing the viewUrl usage
+                            $("#footerBtn").html(
+                                `<a href='${viewUrl}' class="btn btn-success"><i class="fas fe-file"></i> Print</a>`
+                            );
                         }
                         if (response.success == false) {
                             toastr.success(response.message);
