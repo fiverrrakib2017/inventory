@@ -17,50 +17,7 @@
 
 @section('content')
 <div class="row">
-    <div class="row">
-        <div class="">
-            <div class="row">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                    <div class="d-flex py-2" style="float:right;">
-                        <abbr title="Complain">
-                            <button type="button" data-bs-target="#ComplainModalCenter" data-bs-toggle="modal"
-                                class="btn-sm btn btn-warning">
-                                <i class="mdi mdi-alert-outline"></i>
-                            </button>
-                        </abbr>
-                        &nbsp;
-                        <abbr title="Payment received">
-                            <button type="button" data-bs-target="#paymentModal" data-bs-toggle="modal"
-                                class="btn-sm btn btn-info">
-                                <i class="mdi mdi mdi-cash-multiple"></i>
-                            </button>
-                        </abbr>
-                        &nbsp;
-                        <abbr title="Disable">
-                            <button type="button" class="btn-sm btn btn-danger">
-                                <i class="mdi mdi mdi-wifi-off "></i>
-                            </button>
-                        </abbr>
-                        &nbsp;
-                        <abbr title="Reconnect">
-                            <button type="button" class="btn-sm btn btn-success">
-                                <i class="mdi mdi-sync"></i>
-                            </button>
-                        </abbr>
-                        &nbsp;
-                        <abbr title="Edit Customer">
-                            <a href="{{ route('admin.customer.edit', $data->id) }}">
-                                <button type="button" class="btn-sm btn btn-info">
-                                    <i class="mdi mdi-account-edit"></i>
-                                </button>
-                            </a>
-                        </abbr>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="row">
         <div class="container">
             <div class="main-body">
@@ -68,7 +25,7 @@
                     <div class="col-md-4 mb-3">
                         <div class="card" style="height: 80vh; overflow-y: auto;">
                             <div class="card-header">
-                                <img src="{{ asset('Backend/uploads/photos/' . $data->profile_image) }}" alt='Profile Picture' class="img-fluid" style="max-width: 300px; max-height:200px;"/>
+                                <img src="{{ asset('Backend/dist/img/avatar.png') }}" alt='Profile Picture' class="img-fluid" style="max-width: 300px; max-height:200px;"/>
                             </div>
                             <div class="card-body" style="padding: 0 !important">
                                 <ul class="list-group" id="customer_info">
@@ -79,65 +36,12 @@
                                         <strong>Full Name:</strong> {{ $data->fullname }}
                                     </li>
                                     <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Email Address:</strong> {{ $data->email_address }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
                                         <strong>Phone Number:</strong> {{ $data->phone_number }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Emergency Contact:</strong> {{ $data->emergency_contact }}
-                                    </li>
-                                    <li class="section-header">
-                                        <strong>Address Information</strong>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>City:</strong> {{ $data->city }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>State:</strong> {{ $data->state }}
                                     </li>
                                     <li class="list-group-item list-group-item-action list-group-item-primary">
                                         <strong>Address:</strong> {{ $data->address }}
                                     </li>
-                                    <li class="section-header">
-                                        <strong>Additional Information</strong>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Date of Birth:</strong> {{ $data->dob }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Gender:</strong> {{ $data->gender == 1 ? 'Male' : 'Female' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Marital Status:</strong> {{ $data->marital_status }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Verification Status:</strong> {{ $data->verification_status == 1 ? 'Verified' : 'Unverified' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Verification Info:</strong> {{ $data->verification_info ?: 'N/A' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Opening Balance:</strong> {{ $data->opening_balance }}
-                                    </li>
-                                    <li class="section-header">
-                                        <strong>Bank Information</strong>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Bank Name:</strong> {{ $data->bank_name ?: 'N/A' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Bank Account Name:</strong> {{ $data->bank_acc_name ?: 'N/A' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Bank Account Number:</strong> {{ $data->bank_acc_no ?: 'N/A' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Bank Routing Number:</strong> {{ $data->bank_routing_no ?: 'N/A' }}
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                        <strong>Bank Payment Status:</strong> {{ $data->bank_payment_status == 1 ? 'Active' : 'Inactive' }}
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -201,8 +105,8 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table id="datatable-buttons"
+                                        <div class="table table-responsive">
+                                            <table id="datatable1"
                                                 class="table table-striped table-bordered dt-responsive nowrap"
                                                 cellspacing="0" width="100%">
                                                 <thead>
@@ -234,8 +138,7 @@
                                                         <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
                                                         <td>
                                                         <a href="{{ route('admin.customer.invoice.view_invoice',$item->id) }}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
-                                                        <a href="{{ route('admin.customer.invoice.edit_invoice',$item->id) }}" class="btn btn-primary btn-sm mr-3 "><i class="fa fa-edit"></i></a>
-                                                        <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
+                                                       
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -251,7 +154,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="datatable-buttons datatable2"
+                                            <table id="datatable2"
                                                 class="table table-striped table-bordered dt-responsive nowrap"
                                                 cellspacing="0" width="100%">
                                                 <thead>
@@ -280,7 +183,7 @@
                                 </div>
                             </div>
                         </div>
-                   
+
                     </div>
                 </div>
             </div>
@@ -293,6 +196,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#datatable1").DataTable();
         $("#datatable2").DataTable();
     });
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Customer_Invoice;
+use App\Models\Customer_Transaction_History;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,15 +20,15 @@ class CustomerController extends Controller
     {
         return view('Backend.Pages.Customer.Create');
     }
-   
+
     public function get_all_data(Request $request){
         $search = $request->search['value'];
         $columnsForOrderBy =  ['id', 'fullname', 'phone_number', 'address', 'created_at'];
         $orderByColumn = $columnsForOrderBy[$request->order[0]['column']];
         $orderDirection = $request->order[0]['dir'];
-    
+
         $query = Customer::query();
-    
+
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->orWhere('fullname', 'like', "%$search%")
@@ -36,21 +37,21 @@ class CustomerController extends Controller
                   ->orWhere('created_at', 'like', "%$search%");
             });
         }
-    
+
         $total = $query->count();
         $items = $query->orderBy($orderByColumn, $orderDirection)
                        ->skip($request->start)
                        ->take($request->length)
                        ->get();
-    
+
         return response()->json([
             'draw' => $request->draw,
-            'recordsTotal' => Customer::count(),  
-            'recordsFiltered' => $total,  
+            'recordsTotal' => Customer::count(),
+            'recordsFiltered' => $total,
             'data' => $items,
         ]);
     }
-      
+
     public function store(Request $request)
     {
         $rules=[
@@ -73,10 +74,10 @@ class CustomerController extends Controller
         $object->fullname = $request->fullname;
         $object->phone_number = $request->phone_number;
         $object->address = $request->address;
-        /*Save to the database table*/ 
+        /*Save to the database table*/
         $object->save();
 
-       
+
         return response()->json([
             'success' => true,
             'message' => 'Customer added successfully!'
@@ -113,7 +114,7 @@ class CustomerController extends Controller
 
     public function update(Request $request, $id)
     {
-        /*Validate the form data*/ 
+        /*Validate the form data*/
         $rules=[
             'fullname' => 'required|string',
             'phone_number' => 'required|string|unique:customers,phone_number,' . $id,
@@ -126,7 +127,7 @@ class CustomerController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        
+
         /* Find the Customer*/
 
         $object = Customer::findOrFail($id);
