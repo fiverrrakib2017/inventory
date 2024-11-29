@@ -247,10 +247,11 @@ class InvoiceController extends Controller
     }
     public function check_barcodes(Request $request){
         $barcodes = $request->input('barcodes');
+        $product_id = $request->product_id;
         $invalidBarcodes = [];
 
         foreach ($barcodes as $barcode) {
-            $product = Product_barcode::where('barcode', $barcode)->first();
+            $product = Product_barcode::where(['barcode'=>$barcode,'product_id'=>$product_id])->first();
             if (!$product) {
                 $invalidBarcodes[] = $barcode;
             }

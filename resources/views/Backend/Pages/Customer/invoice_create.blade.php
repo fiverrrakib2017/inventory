@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label for="address">Address</label>
                                         <input type="text" class="form-control" name="address"
-                                            placeholder="Enter phone number" required>
+                                            placeholder="Enter Address" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -193,6 +193,7 @@
             /*Barcode check*/
             $('#product_barcode').on('input', function() {
                 let barcodeInput = $(this).val().trim();
+                let product_id = $("#product_name").val();
                 let barcodes = barcodeInput.split(/\s+/);
 
                 if (barcodes.length > 0) {
@@ -202,6 +203,7 @@
                         method: 'POST',
                         data: {
                             barcodes: barcodes,
+                            product_id: product_id,
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
