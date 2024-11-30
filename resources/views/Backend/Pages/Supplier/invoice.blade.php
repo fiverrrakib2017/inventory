@@ -108,9 +108,16 @@
          "processing":true,
         "responsive": true,
         "serverSide":true,
-        beforeSend: function () {
+        // beforeSend: function (xhr) {
+        //     var searchValue = $('#datatable1_filter input').val();
+        //     xhr.setRequestHeader('X-Search-Value', searchValue);
+        // },
+        ajax: {
+            url: "{{ route('admin.supplier.invoice.show_invoice_data') }}",
+            data: function (d) {
+                d.search = $('#datatable1_filter input').val();
+            }
         },
-        ajax: "{{ route('admin.supplier.invoice.show_invoice_data') }}",
         language: {
           searchPlaceholder: 'Search...',
           sSearch: '',

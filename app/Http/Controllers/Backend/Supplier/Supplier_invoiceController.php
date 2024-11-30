@@ -94,35 +94,47 @@ class Supplier_invoiceController extends Controller
         return response()->json(['success' => true, 'message' => 'Invoice updated successfully'], 201);
     }
     }
-    public function show_invoice_data(Request $request){
-        $search = $request->search['value'];
-        $columnsForOrderBy = ['id', 'fullname', 'phone_number','total_amount', 'paid_amount', 'due_amount','status','created_at'];
+    public function show_invoice_data(Request $request)
+    {
+        $search = $request->search['value'] ?? '';
+        $columnsForOrderBy = ['id', 'fullname', 'phone_number', 'total_amount', 'paid_amount', 'due_amount', 'status', 'created_at'];
         $orderByColumn = $request->order[0]['column'];
         $orderDirection = $request->order[0]['dir'];
 
-        $query = Supplier_Invoice::with('supplier','user')->when($search, function ($query) use ($search) {
+        $user = auth('admin')->user();
+
+        $query = Supplier_Invoice::with('supplier', 'user');
+
+        if ($user->user_type != 1) {
+            $query->where('user_id', $user->id);
+        }
+
+
+        $query->when($search, function ($query) use ($search) {
             $query->where('total_amount', 'like', "%$search%")
-                  ->orWhere('paid_amount', 'like', "%$search%")
-                  ->orWhere('due_amount', 'like', "%$search%")
-                  ->orWhere('created_at', 'like', "%$search%")
-                  ->orWhereHas('supplier', function ($query) use ($search) {
-                      $query->where('fullname', 'like', "%$search%")
+                ->orWhere('paid_amount', 'like', "%$search%")
+                ->orWhere('due_amount', 'like', "%$search%")
+                ->orWhere('created_at', 'like', "%$search%")
+                ->orWhereHas('supplier', function ($query) use ($search) {
+                    $query->where('fullname', 'like', "%$search%")
                             ->orWhere('phone_number', 'like', "%$search%");
-                  })
-                  ->orWhereHas('user', function ($query) use ($search) {
+                })
+                ->orWhereHas('user', function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%");
                 });
-        }) ->orderBy($columnsForOrderBy[$orderByColumn], $orderDirection)
-        ->paginate($request->length);
+        })->orderBy($columnsForOrderBy[$orderByColumn], $orderDirection);
 
+        $invoices = $query->paginate($request->length);
 
         return response()->json([
             'draw' => $request->draw,
-            'recordsTotal' => $query->total(),
-            'recordsFiltered' => $query->total(),
-            'data' => $query->items(),
+            'recordsTotal' => $invoices->total(),
+            'recordsFiltered' => $invoices->total(),
+            'data' => $invoices->items(),
         ]);
     }
+
+
     public function store_invoice(Request $request){
         //return $request->all(); exit;
         /* Validate incoming request data*/
