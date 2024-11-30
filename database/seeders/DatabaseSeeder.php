@@ -23,6 +23,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'Rakib Mahmud',
             'email' => 'rakibas375@gmail.com',
             'username' => 'rakibas375',
+            'user_type' => '1',
+            'password' => Hash::make('12345678'),
+        ]);
+        \App\Models\Admin::create([
+            'name' => 'Shamim Khan',
+            'email' => 'shamim@gmail.com',
+            'username' => 'shamim',
+            'user_type' => '2',
+            'password' => Hash::make('12345678'),
+        ]);
+        \App\Models\Admin::create([
+            'name' => 'Ismail Hossain',
+            'email' => 'ismail@gmail.com',
+            'username' => 'ismail',
+            'user_type' => '2',
             'password' => Hash::make('12345678'),
         ]);
     }

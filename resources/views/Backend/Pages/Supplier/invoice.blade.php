@@ -23,6 +23,7 @@
                             <th class="">Due Amount</th>
                             <th class="">Status</th>
                             <th class="">Create Date</th>
+                            <th class="">Create By</th>
                             <th class="">Action</th>
                             </tr>
                         </thead>
@@ -153,6 +154,9 @@
                 var formattedDate = moment(row.created_at).format('DD MMM YYYY');
                 return formattedDate;
             }
+          },
+          {
+            "data":"user.name",
           },
           {
             "data":null,

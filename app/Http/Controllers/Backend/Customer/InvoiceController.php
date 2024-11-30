@@ -49,7 +49,7 @@ class InvoiceController extends Controller
         $orderByColumn = $request->order[0]['column'];
         $orderDirection = $request->order[0]['dir'];
 
-        $query = Customer_Invoice::with('customer')->when($search, function ($query) use ($search) {
+        $query = Customer_Invoice::with('customer','user')->when($search, function ($query) use ($search) {
             $query->where('total_amount', 'like', "%$search%")
                   ->orWhere('paid_amount', 'like', "%$search%")
                   ->orWhere('due_amount', 'like', "%$search%")
@@ -57,6 +57,9 @@ class InvoiceController extends Controller
                   ->orWhereHas('customer', function ($query) use ($search) {
                       $query->where('fullname', 'like', "%$search%")
                             ->orWhere('phone_number', 'like', "%$search%");
+                  })
+                  ->orWhereHas('user', function ($query) use ($search) {
+                      $query->where('name', 'like', "%$search%");
                   });
         }) ->orderBy($columnsForOrderBy[$orderByColumn], $orderDirection)
         ->paginate($request->length);
@@ -120,6 +123,7 @@ class InvoiceController extends Controller
         /* Create the invoice*/
         $invoice = new Customer_Invoice();
         $invoice->customer_id = $request->customer_id;
+        $invoice->user_id = auth('admin')->id();
         $invoice->total_amount = $request->total_amount;
         $invoice->paid_amount = $request->paid_amount ?? 0;
         $invoice->due_amount = $request->due_amount ?? $request->total_amount;

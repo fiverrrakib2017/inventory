@@ -64,7 +64,7 @@ class Supplier_invoiceController extends Controller
         foreach ($existing_items as $item) {
             $existing_qty[$item->product_id] = $item->qty;
         }
-        /*Validate new quantities against current stock*/ 
+        /*Validate new quantities against current stock*/
         foreach ($request->product_id as $index => $productId) {
             $product = Product::find($productId);
             if ($product) {
@@ -100,7 +100,7 @@ class Supplier_invoiceController extends Controller
         $orderByColumn = $request->order[0]['column'];
         $orderDirection = $request->order[0]['dir'];
 
-        $query = Supplier_Invoice::with('supplier')->when($search, function ($query) use ($search) {
+        $query = Supplier_Invoice::with('supplier','user')->when($search, function ($query) use ($search) {
             $query->where('total_amount', 'like', "%$search%")
                   ->orWhere('paid_amount', 'like', "%$search%")
                   ->orWhere('due_amount', 'like', "%$search%")
@@ -108,7 +108,10 @@ class Supplier_invoiceController extends Controller
                   ->orWhereHas('supplier', function ($query) use ($search) {
                       $query->where('fullname', 'like', "%$search%")
                             ->orWhere('phone_number', 'like', "%$search%");
-                  });
+                  })
+                  ->orWhereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%");
+                });
         }) ->orderBy($columnsForOrderBy[$orderByColumn], $orderDirection)
         ->paginate($request->length);
 
@@ -121,7 +124,7 @@ class Supplier_invoiceController extends Controller
         ]);
     }
     public function store_invoice(Request $request){
-        //return $request->all(); exit; 
+        //return $request->all(); exit;
         /* Validate incoming request data*/
         $validator = Validator::make($request->all(), [
             'supplier_id' => 'required|integer',
@@ -145,19 +148,20 @@ class Supplier_invoiceController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        /*Begin a database transaction*/ 
+        /*Begin a database transaction*/
         DB::beginTransaction();
 
     try {
         /* Create the invoice*/
         $invoice = new Supplier_Invoice();
         $invoice->supplier_id = $request->supplier_id;
+        $invoice->user_id = auth('admin')->id();
         $invoice->total_amount = $request->total_amount;
         $invoice->paid_amount = $request->paid_amount ?? 0;
         $invoice->due_amount = $request->due_amount ?? $request->total_amount;
         $invoice->save();
 
-        /*Loop through each product to create invoice details and update stock*/ 
+        /*Loop through each product to create invoice details and update stock*/
         foreach ($request->product_id as $index => $productId) {
             $invoiceItem = new Supplier_Invoice_Details();
             $invoiceItem->invoice_id = $invoice->id;
@@ -168,11 +172,11 @@ class Supplier_invoiceController extends Controller
             $invoiceItem->total_price = $request->total_price[$index];
             $invoiceItem->save();
 
-            /*Create or update product barcode*/ 
+            /*Create or update product barcode*/
             $barcodes = explode(' ', $request->product_barcode[$index]);
-            
+
             foreach ($barcodes as $barcode) {
-                $trimmedBarcode = trim($barcode); 
+                $trimmedBarcode = trim($barcode);
                 if (!empty($trimmedBarcode)) {
                     $productBarcode = new Product_barcode();
                     $productBarcode->product_id = $productId;
@@ -184,16 +188,16 @@ class Supplier_invoiceController extends Controller
             /* Update product stock*/
             $product = Product::find($productId);
             if ($product) {
-                $product->qty += $request->qty[$index]; 
+                $product->qty += $request->qty[$index];
                 $product->save();
             }
         }
 
-        /*Commit the transaction if everything is fine*/ 
+        /*Commit the transaction if everything is fine*/
         DB::commit();
         return response()->json(['success' => true, 'message' => 'Invoice stored successfully'], 201);
     } catch (\Exception $e) {
-        /*Rollback all changes if something goes wrong*/ 
+        /*Rollback all changes if something goes wrong*/
         DB::rollBack();
         return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
     }
@@ -223,7 +227,7 @@ class Supplier_invoiceController extends Controller
             'paid_amount' => $paid_amount,
             'due_amount' => $due_amount,
         ]);
-        /*Log transaction history*/ 
+        /*Log transaction history*/
         $object = new Supplier_Transaction_History();
         $object->invoice_id = $request->id;
         $object->supplier_id = $invoice->supplier_id;
@@ -264,7 +268,7 @@ class Supplier_invoiceController extends Controller
             if ($product) {
                 $old_qty = $existing_qty[$productId] ?? 0;
                 $difference= $request->qty[$index]-$old_qty;
-                $product->qty+=$difference; 
+                $product->qty+=$difference;
                 $product->save();
             }
         }

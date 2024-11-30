@@ -27,7 +27,7 @@
               <p> Dashboard  </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-users"></i>
@@ -46,7 +46,7 @@
               <li class="nav-item">
                 <a href="{{route('admin.customer.index')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Customer Management</p>
+                  <p>Customer List</p>
                 </a>
               </li>
             </ul>
@@ -69,7 +69,7 @@
               <li class="nav-item">
                 <a href="{{ route('admin.supplier.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Supplier Management</p>
+                  <p>Supplier List</p>
                 </a>
               </li>
             </ul>
@@ -122,7 +122,7 @@
               <li class="nav-item">
                 <a href="{{route('admin.products.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Products Management</p>
+                  <p>Products List</p>
                 </a>
               </li>
             </ul>

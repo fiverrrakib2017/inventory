@@ -17,4 +17,7 @@ class Customer_Invoice extends Model
     {
         return $this->hasMany(Customer_Invoice_Details::class,'invoice_id','id');
     }
+    public function user(){
+        return $this->belongsTo(Admin::class,'user_id','id');
+    }
 }
