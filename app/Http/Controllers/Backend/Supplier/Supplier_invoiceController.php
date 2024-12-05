@@ -187,13 +187,18 @@ class Supplier_invoiceController extends Controller
             /*Create or update product barcode*/
             $barcodes = explode(' ', $request->product_barcode[$index]);
 
-            foreach ($barcodes as $barcode) {
-                $trimmedBarcode = trim($barcode);
-                if (!empty($trimmedBarcode)) {
-                    $productBarcode = new Product_barcode();
-                    $productBarcode->product_id = $productId;
-                    $productBarcode->barcode = $trimmedBarcode;
-                    $productBarcode->save();
+            
+            if (!empty($barcodes && count($barcodes) > 0)) {
+                $barcodes = preg_split('/[\s]+/', $request->product_barcode[$index]);
+
+                foreach ($barcodes as $barcode) {
+                    $barcode = trim($barcode);
+                    if (!empty($barcode)) {
+                        $productBarcode = new Product_barcode();
+                        $productBarcode->product_id = $productId;
+                        $productBarcode->barcode = $barcode;
+                        $productBarcode->save();
+                    }
                 }
             }
 

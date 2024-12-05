@@ -15,30 +15,27 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+
         \App\Models\Admin::create([
-            'name' => 'Rakib Mahmud',
-            'email' => 'rakibas375@gmail.com',
-            'username' => 'rakibas375',
+            'name' => 'SHAMIM',
+            'email' => 'shamim8087@gmail.com',
+            'username' => 'shamim8087',
             'user_type' => '1',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('shamim@8087'),
         ]);
         \App\Models\Admin::create([
-            'name' => 'Shamim Khan',
-            'email' => 'shamim@gmail.com',
-            'username' => 'shamim',
+            'name' => 'SR TECHNOLOGY',
+            'email' => 'srtech8087@gmail.com',
+            'username' => 'srtech8087',
             'user_type' => '2',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('srtech@8087'),
         ]);
         \App\Models\Admin::create([
-            'name' => 'Ismail Hossain',
-            'email' => 'ismail@gmail.com',
-            'username' => 'ismail',
+            'name' => 'STAR TECHNOLOGY',
+            'email' => 'startech8087@gmail.com',
+            'username' => 'startech8087',
             'user_type' => '2',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('startech@8087'),
         ]);
     }
 }
