@@ -76,16 +76,21 @@ class ProductController extends Controller
             $product->size =$request->size ? implode(',', $request->size) : null;
             $product->save();
 
-           if (!empty($request->product_barcode)) {
-                /*Save product barcodes (splitting multiple barcodes)*/
-                $barcodes = explode(' ', trim($request->input('product_barcode')));
+            if (!empty($request->product_barcode)) {
+                $barcodes = preg_split('/[\s]+/', trim($request->input('product_barcode')));
+
                 foreach ($barcodes as $barcode) {
-                    $productBarcode = new Product_barcode();
-                    $productBarcode->product_id = $product->id;
-                    $productBarcode->barcode = $barcode;
-                    $productBarcode->save();
+                    $barcode = trim($barcode);
+                    if (!empty($barcode)) { 
+                        $productBarcode = new Product_barcode();
+                        $productBarcode->product_id = $product->id;
+                        $productBarcode->barcode = $barcode;
+                        $productBarcode->save();
+                    }
                 }
             }
+
+
 
 
 
