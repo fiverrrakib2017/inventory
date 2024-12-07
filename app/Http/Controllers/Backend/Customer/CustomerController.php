@@ -24,10 +24,14 @@ class CustomerController extends Controller
     public function get_all_data(Request $request){
         $search = $request->search['value'];
         $columnsForOrderBy =  ['id', 'fullname', 'phone_number', 'address', 'created_at'];
-        $orderByColumn = $columnsForOrderBy[$request->order[0]['column']];
-        $orderDirection = $request->order[0]['dir'];
-
-        $query = Customer::query();
+        $orderByColumn = $columnsForOrderBy[$request->order[0]['column']] ?? 'id';
+        $orderDirection = $request->order[0]['dir']?? 'asc';
+        $user = auth('admin')->user();
+        if($user->user_type != 1){
+            $query = Customer::where('user_id', $user->id);
+        }else{
+            $query = Customer::query();
+        }
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
@@ -71,6 +75,7 @@ class CustomerController extends Controller
 
         // Create a new Customer
         $object = new Customer();
+        $object->user_id=auth('admin')->user()->id;
         $object->fullname = $request->fullname;
         $object->phone_number = $request->phone_number;
         $object->address = $request->address;

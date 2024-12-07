@@ -22,7 +22,13 @@ use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     public function index(){
-         $product=Product::latest()->get();
+        $user= auth('admin')->user();
+        $query = Product::query();
+        if ($user->user_type != 1) {
+            $query->where('user_id', $user->id);
+        }
+
+        $product = $query->latest()->get();
         return view('Backend.Pages.Product.index',compact('product'));
     }
     public function get_product($id){
@@ -64,6 +70,7 @@ class ProductController extends Controller
 
 
             $product = new Product();
+            $product->user_id = auth('admin')->user()->id;
             $product->title = $request->title;
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;

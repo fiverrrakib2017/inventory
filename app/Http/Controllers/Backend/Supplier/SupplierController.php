@@ -21,26 +21,36 @@ class SupplierController extends Controller
     }
     public function get_all_data(Request $request)
     {
-        $search = $request->search['value'];
+        $search = $request->search['value'] ?? '';
         $columnsForOrderBy = ['id', 'fullname','phone_number','address', 'created_at'];
         $orderByColumn = $request->order[0]['column'];
-        $orderDirectection = $request->order[0]['dir'];
-    
-        $object = Supplier::when($search, function ($query) use ($search) {
-            $query->where('fullname', 'like', "%$search%");
-            $query->where('phone_number', 'like', "%$search%");
-            $query->where('address', 'like', "%$search%");
-            $query->where('created_at', 'like', "%$search%");
-        })->orderBy($columnsForOrderBy[$orderByColumn], $orderDirectection);
-    
-        $total = $object->count();
-        $item = $object->skip($request->start)->take($request->length)->get();
-    
+        $orderDirection = $request->order[0]['dir'];
+        $user = auth('admin')->user();
+        if($user->user_type != 1){
+            $query = Supplier::where('user_id', $user->id);
+        }else{
+            $query = Supplier::query();
+        }
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->orWhere('fullname', 'like', "%$search%")
+                  ->orWhere('phone_number', 'like', "%$search%")
+                  ->orWhere('address', 'like', "%$search%")
+                  ->orWhere('created_at', 'like', "%$search%");
+            });
+        }
+
+        $total = $query->count();
+        $items = $query->orderBy($orderByColumn, $orderDirection)
+                       ->skip($request->start)
+                       ->take($request->length)
+                       ->get();
+
         return response()->json([
             'draw' => $request->draw,
-            'recordsTotal' => $total,
+            'recordsTotal' => Supplier::count(),
             'recordsFiltered' => $total,
-            'data' => $item,
+            'data' => $items,
         ]);
     }
     public function store(Request $request)
@@ -119,7 +129,7 @@ class SupplierController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        
+
         /* Find the Customer*/
         $object = Supplier::findOrFail($id);
         $object->fullname = $request->fullname;

@@ -42,6 +42,7 @@ class Supplier_invoiceController extends Controller
         $data=  Supplier_Invoice::with('supplier','items.product')->find($id);
        return view('Backend.Pages.Supplier.invoice_view',compact('data'));
     }
+
     public function edit_invoice($id){
         $supplier=Supplier::latest()->get();
         $product=Product::latest()->get();
@@ -187,7 +188,7 @@ class Supplier_invoiceController extends Controller
             /*Create or update product barcode*/
             $barcodes = explode(' ', $request->product_barcode[$index]);
 
-            
+
             if (!empty($barcodes && count($barcodes) > 0)) {
                 $barcodes = preg_split('/[\s]+/', $request->product_barcode[$index]);
 
