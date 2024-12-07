@@ -9,7 +9,7 @@
                     Add New Color</button>
             </div>
             <div class="card-body">
-              
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -143,9 +143,15 @@
         "processing":true,
         "responsive": true,
         "serverSide":true,
-        beforeSend: function () {
+        beforeSend: function () {},
+        complete: function(){},
+        ajax: {
+          url: "{{ route('admin.product.color.all_data') }}",
+          type: "GET",
+          data: function (d) {
+            d.search = $('input[type="search"]').val();
+          },
         },
-        ajax: "{{ route('admin.product.color.all_data') }}",
         language: {
           searchPlaceholder: 'Search...',
           sSearch: '',
@@ -158,7 +164,7 @@
           {
             "data":"name"
           },
-          { 
+          {
             "data":null,
             render:function(data,type,row){
               return `<button class="btn btn-primary btn-sm mr-3 edit-btn" data-id="${row.id}"><i class="fa fa-edit"></i></button>
@@ -171,7 +177,7 @@
         ],
 
       });
-    
+
       });
 
 

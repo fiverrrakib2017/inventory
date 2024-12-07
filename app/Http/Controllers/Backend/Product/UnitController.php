@@ -15,23 +15,33 @@ class UnitController extends Controller
     }
     public function get_all_data(Request $request)
     {
-        $search = $request->search['value'];
-        $columnsForOrderBy = ['id', 'unit_name'];
-        $orderByColumn = $request->order[0]['column'];
-        $orderDirectection = $request->order[0]['dir'];
+        $user = auth('admin')->user();
+        $search = $request->search['value'] ?? '';
+        $columnsForOrderBy = ['id', 'unit_name', 'status', 'created_at'];
+        $orderByColumnIndex = $request->order[0]['column'] ?? 0;
+        $orderByColumn = $columnsForOrderBy[$orderByColumnIndex] ?? 'id';
+        $orderDirection = $request->order[0]['dir'] ?? 'asc';
 
-        $object = Unit::when($search, function ($query) use ($search) {
+        $query = Unit::query();
+
+        if ($user->user_type != 1) {
+            $query->where('user_id', $user->id);
+        }
+
+        if (!empty($search)) {
             $query->where('unit_name', 'like', "%$search%");
-        })->orderBy($columnsForOrderBy[$orderByColumn], $orderDirectection);
-
-        $total = $object->count();
-        $item = $object->skip($request->start)->take($request->length)->get();
+        }
+        $totalRecords = $query->count();
+        $units = $query->orderBy($orderByColumn, $orderDirection)
+                        ->skip($request->start)
+                        ->take($request->length)
+                        ->get();
 
         return response()->json([
             'draw' => $request->draw,
-            'recordsTotal' => $total,
-            'recordsFiltered' => $total,
-            'data' => $item,
+            'recordsTotal' => Unit::count(),
+            'recordsFiltered' => $totalRecords,
+            'data' => $units,
         ]);
     }
     public function store(Request $request)
@@ -40,6 +50,7 @@ class UnitController extends Controller
         $this->validateForm($request);
 
         $object = new Unit();
+        $object->user_id=auth('admin')->user()->id;
         $object->unit_name = $request->name;
 
         /* Save to the database table*/

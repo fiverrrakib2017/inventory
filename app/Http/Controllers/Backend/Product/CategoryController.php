@@ -10,7 +10,15 @@ use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
     public function index(){
-        $data=Product_Category::latest()->get();
+        $user = auth('admin')->user();
+
+        $query = Product_Category::query();
+        if ($user->user_type != 1) {
+            $query->where('user_id', $user->id);
+        }
+
+
+        $data = $query->latest()->get();
         return view('Backend.Pages.Product.Category.index',compact('data'));
     }
     public function create(){
@@ -38,6 +46,7 @@ class CategoryController extends Controller
 
         // Create a new  object
         $object = new Product_Category();
+        $object->user_id=auth('admin')->user()->id;
         $object->category_name=$request->category_name;
         $object->category_image=$imageName;
         $object->slug=$request->slug;

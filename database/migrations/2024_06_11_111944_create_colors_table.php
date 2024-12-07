@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('colors', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->text('name');
             $table->integer('status')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->on('admins')->references('id')->onDelete('cascade');
         });
     }
 

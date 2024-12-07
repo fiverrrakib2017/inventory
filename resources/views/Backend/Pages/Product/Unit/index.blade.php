@@ -46,7 +46,13 @@
     "serverSide":true,
     beforeSend: function () {},
     complete: function(){},
-    ajax: "{{ route('admin.unit.get_all_data') }}",
+    ajax: {
+        url: "{{ route('admin.unit.get_all_data') }}",
+        type: "GET",
+        data: function (d) {
+        d.search = $('input[type="search"]').val();
+        },
+    },
     language: {
         searchPlaceholder: 'Search...',
         sSearch: '',

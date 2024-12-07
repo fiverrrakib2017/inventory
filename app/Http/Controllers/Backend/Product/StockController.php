@@ -8,8 +8,13 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller{
     public function index(){
-        $products= Product::with('product_image')->get();
-        return view('Backend.Pages.Product.Stock.index',compact('products'));
+        $user = auth('admin')->user();
+        $query = Product::with('product_image');
+        if ($user->user_type != 1) {
+            $query->where('user_id', $user->id);
+        }
+        $products = $query->get();
+        return view('Backend.Pages.Product.Stock.index', compact('products'));
     }
     public function add_stock(Request $request){
         // StockMovement::create([
@@ -27,7 +32,7 @@ class StockController extends Controller{
         //     'quantity' => $quantity,
         //     'movement_type' => 'out',
         // ]);
-        
+
         // $product = Product::find($product_id);
         // $product->qty -= $quantity;
         // $product->save();

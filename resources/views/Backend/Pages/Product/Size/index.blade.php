@@ -143,7 +143,13 @@
         "serverSide":true,
         beforeSend: function () {
         },
-        ajax: "{{ route('admin.product.size.all_data') }}",
+        ajax: {
+          url: "{{ route('admin.product.color.all_data') }}",
+          type: "GET",
+          data: function (d) {
+            d.search = $('input[type="search"]').val();
+          },
+        },
         language: {
           searchPlaceholder: 'Search...',
           sSearch: '',
@@ -156,7 +162,7 @@
           {
             "data":"name"
           },
-          { 
+          {
             "data":null,
             render:function(data,type,row){
               return `<button class="btn btn-primary btn-sm mr-3 edit-btn" data-id="${row.id}"><i class="fa fa-edit"></i></button>

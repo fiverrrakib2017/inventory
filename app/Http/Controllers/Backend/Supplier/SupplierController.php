@@ -21,16 +21,17 @@ class SupplierController extends Controller
     }
     public function get_all_data(Request $request)
     {
-        $search = $request->search['value'] ?? '';
-        $columnsForOrderBy = ['id', 'fullname','phone_number','address', 'created_at'];
-        $orderByColumn = $request->order[0]['column'];
-        $orderDirection = $request->order[0]['dir'];
+        $search = $request->search['value'];
+        $columnsForOrderBy =  ['id', 'fullname', 'phone_number', 'address', 'created_at'];
+        $orderByColumn = $columnsForOrderBy[$request->order[0]['column']] ?? 'id';
+        $orderDirection = $request->order[0]['dir']?? 'asc';
         $user = auth('admin')->user();
         if($user->user_type != 1){
             $query = Supplier::where('user_id', $user->id);
         }else{
             $query = Supplier::query();
         }
+
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->orWhere('fullname', 'like', "%$search%")
@@ -73,6 +74,7 @@ class SupplierController extends Controller
 
         /* Create a new Supplier*/
         $object = new Supplier();
+        $object->user_id=auth('admin')->user()->id;
         $object->fullname = $request->fullname;
         $object->phone_number = $request->phone_number;
         $object->address = $request->address;

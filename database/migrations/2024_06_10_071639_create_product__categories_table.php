@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('product__categories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('category_name');
             $table->string('category_image')->nullable();
             $table->string('slug');
             $table->integer('status');
             $table->timestamps();
+            $table->foreign('user_id')->on('admins')->references('id')->onDelete('cascade');
         });
     }
 
