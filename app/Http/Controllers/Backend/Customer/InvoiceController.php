@@ -49,8 +49,8 @@ class InvoiceController extends Controller
 
     public function show_invoice_data(Request $request)
     {
-        $search = $request->search['value'];
-        $columnsForOrderBy = ['id', 'customer_name', 'phone_number', 'total_amount', 'paid_amount', 'due_amount', 'status', 'created_at'];
+        $search = $request->search['value'] ?? '';
+        $columnsForOrderBy = ['id', 'fullname', 'phone_number', 'total_amount', 'paid_amount', 'due_amount', 'status', 'created_at'];
         $orderByColumn = $request->order[0]['column'];
         $orderDirection = $request->order[0]['dir'];
 

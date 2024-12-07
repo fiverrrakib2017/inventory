@@ -109,7 +109,12 @@
         "serverSide":true,
         beforeSend: function () {
         },
-        ajax: "{{ route('admin.customer.invoice.show_invoice_data') }}",
+        ajax: {
+            url: "{{ route('admin.customer.invoice.show_invoice_data') }}",
+            data: function (d) {
+                d.search = $('#datatable1_filter input').val();
+            }
+        },
         language: {
           searchPlaceholder: 'Search...',
           sSearch: '',
