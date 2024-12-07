@@ -4,7 +4,7 @@
 <style>
 /* Barcode cell customization */
 .barcode-cell {
-    max-width: 200px; 
+    max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -131,7 +131,7 @@
 
                                 <td>
                                   <!-- Add your action buttons here -->
-                                  {{-- <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a> --}}
+                                  <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a>
                                   <button data-toggle="modal" data-target="#deleteModal{{$data->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
                                   {{-- <a class="btn btn-success btn-sm mr-3" href="{{route('admin.products.view', $data->id)}}"><i class="fa fa-eye"></i></a> --}}
                                 </td>

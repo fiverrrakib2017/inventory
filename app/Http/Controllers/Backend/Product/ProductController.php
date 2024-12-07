@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     public function index(){
-         $product=Product::with('product_image')->latest()->get();
+         $product=Product::latest()->get();
         return view('Backend.Pages.Product.index',compact('product'));
     }
     public function get_product($id){
@@ -91,34 +91,19 @@ class ProductController extends Controller
         }
         $validator = Validator::make($request->all(), $this->validate_ruls());
         if($validator->passes()){
-            $user=Auth::guard('admin')->user();
-             $product->user_id = $user->id;
-             $product->title = $request->product_name;
-             $product->brand_id = $request->brand_id;
-             $product->category_id = $request->category_id;
-             $product->warenty = $request->warenty;
-
-             $product->size = implode(",",$request->size);
-             $product->color =implode(",",$request->color);
-             $product->tax = $request->tax;
-             $product->delivery_charge = $request->delivery_charge;
-             $product->product_type = $request->product_type;
-
-
-
-             $product->slug = $request->slug;
-             $product->p_price = $request->p_price;
-             $product->s_price = $request->s_price;
-             $product->description = $request->description;
-             $product->short_description = $request->short_description;
-             $product->shipping_returns = $request->shipping_returns;
-
-             $product->sku = $request->sku;
-             $product->barcode = $request->barcode;
-             $product->track_qty = 'Yes';
-             $product->qty = $request->qty;
-
-             $product->status = $request->status;
+            $product->title = $request->title;
+            $product->brand_id = $request->brand_id;
+            $product->category_id = $request->category_id;
+            $product->unit_id = $request->unit_id;
+            $product->warenty = $request->warenty;
+            $product->p_price = $request->p_price;
+            $product->s_price = $request->s_price;
+            $product->product_type = $request->input('product_type');
+            $product->track_qty = $request->input('track_qty', 'Yes');
+            $product->qty = $request->qty;
+            $product->status = 1;
+            $product->color =$request->color ? implode(',', $request->color) : null;
+            $product->size =$request->size ? implode(',', $request->size) : null;
 
              $product->update();
 
@@ -158,8 +143,9 @@ class ProductController extends Controller
         $sub_category=Product_sub_category::latest()->get();
         $colors=Color::where('status', 1)->get();
         $sizes=Size::where('status',1)->get();
-        $data=Product::with('product_image')->find($id);
-        return view('Backend.Pages.Product.Update',compact('data','category','brand','sub_category','child_category','colors','sizes'));
+        $data=Product::find($id);
+        $units=Unit::latest()->get();
+        return view('Backend.Pages.Product.Update',compact('units','data','category','brand','sub_category','child_category','colors','sizes'));
     }
     public function photo_update(Request $request){
         $image = $request->image;
