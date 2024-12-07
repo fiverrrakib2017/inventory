@@ -15,7 +15,7 @@
                <div class="col-md-6">
                   <div class="form-group mb-3">
                      <label for="title" class="form-label">Product Title <span class="text-danger">*</span></label>
-                     <input type="text" name="id" id="id" class="d-none" required>
+                     <input type="text" name="id" class="d-none" value="{{ $data->id }}">
                      <input type="text" name="title" id="title" class="form-control" placeholder="Enter product title" value="{{ $data->title }}" required>
                   </div>
                </div>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('units_id');
+            $table->unsignedBigInteger('unit_id');
             $table->text('warenty');
 
 
@@ -34,7 +34,7 @@ return new class extends Migration
 
             $table->foreign('category_id')->on('product__categories')->references('id')->onDelete('cascade');
             $table->foreign('brand_id')->on('product__brands')->references('id')->onDelete('cascade');
-            $table->foreign('units_id')->on('units')->references('id')->onDelete('cascade');
+            $table->foreign('unit_id')->on('units')->references('id')->onDelete('cascade');
         });
     }
 

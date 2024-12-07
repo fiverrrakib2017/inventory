@@ -44,7 +44,7 @@ class ProductController extends Controller
         //return $request->all();
         // Validate request data
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255|unique:products',
+            'title' => 'required|string|max:255',
             'brand_id' => 'required|exists:product__brands,id',
             'category_id' => 'required|exists:product__categories,id',
             'unit_id' => 'required|exists:units,id',
@@ -200,7 +200,7 @@ class ProductController extends Controller
 
     private function validate_ruls(){
             return  [
-            'product_name' => 'required',
+            'title' => 'required',
             'brand_id'=>'required',
             'category_id'=>'required',
             'slug' => 'nullable',

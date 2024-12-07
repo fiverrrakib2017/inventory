@@ -129,7 +129,7 @@
             </div>
             <div class="card-footer ">
                <button type="button" onclick="window.history.back()" class="btn btn-danger">Back</button>
-               <button type="submit" class="btn btn-primary">Create Product</button>
+               <button type="submit" class="btn btn-success">Create Product</button>
             </div>
       </form>
     </div>
