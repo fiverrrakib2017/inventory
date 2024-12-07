@@ -1,5 +1,52 @@
 @extends('Backend.Layout.App')
 @section('title','Dashboard | Admin Panel')
+@section('style')
+<style>
+/* Barcode cell customization */
+.barcode-cell {
+    max-width: 200px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Barcode wrapper */
+.barcode-wrapper {
+    display: inline-block;
+    max-width: 180px;
+    vertical-align: middle;
+}
+
+/* Tooltip customization for extra barcodes */
+.barcode-tooltip {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.barcode-tooltip:hover {
+    color: #0056b3;
+}
+/* Tooltip container customization */
+.tooltip {
+    background-color: #ced2d6 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+    max-width: 300px !important;
+    text-align: left;
+    word-wrap: break-word !important;
+}
+
+/* Tooltip arrow */
+.tooltip .arrow::before {
+    border-top-color: #343a40 !important;
+}
+
+</style>
+@endsection
 @section('content')
 <div class="row">
     <div class="col-md-12 ">
@@ -16,8 +63,10 @@
                         <thead>
                             <tr>
                               <th class="">No.</th>
-                              <th class="">Product Image</th>
+                              <th class="">Product Barcode</th>
                               <th class="">Product Name</th>
+                              <th class="">Brand</th>
+                              <th class="">Category</th>
                               <th class="">Warenty</th>
                               <th class="">Purchase Price</th>
                               <th class="">Sale's Price</th>
@@ -32,9 +81,25 @@
                           @foreach ($product as $data)
                               <tr>
                                 <td>{{$i++}}</td>
-                                <td>
-                                  <img src="{{ asset('Backend/dist/img/default.png') }}" alt="" width="50px" height="50px" class="img-fluid">
+                                <td class="barcode-cell">
+                                    @if ($data->barcodes)
+                                        <div class="barcode-wrapper">
+                                            @php
+                                                $barcodes = $data->barcodes->pluck('barcode');
+                                                $visibleBarcodes = $barcodes->take(2);
+                                                $hiddenBarcodes = $barcodes->slice(2);
+                                            @endphp
+                                            {{ $visibleBarcodes->implode(', ') }}
+                                            @if ($hiddenBarcodes->isNotEmpty())
+                                                <a href="javascript:void(0)" class="barcode-tooltip"
+                                                   title="{{ $hiddenBarcodes->implode(', ') }}"> ...more</a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        No Data
+                                    @endif
                                 </td>
+
 
                                 <td>
                                   @if (strlen($data->title) > 40)
@@ -44,10 +109,25 @@
                                   @endif
 
                                 </td>
+                                <td>
+                                  {{ $data->brand->brand_name?? 'No Data' }}
+
+                                </td>
+                                <td>
+                                    {{ $data->category->category_name?? 'No Data' }}
+
+                                </td>
                                 <td>{{$data->warenty?? 'No Data'}}</td>
                                 <td>{{$data->p_price}}</td>
                                 <td>{{$data->s_price}}</td>
-                                <td>{{$data->qty}}</td>
+                                <td>
+                                  @if ($data->qty==0)
+                                  <span class="badge badge-danger">Out of Stock</span>
+                                  @else
+
+                                    <span class="badge badge-success">  {{ $data->qty }}</span>
+                                  @endif
+                                </td>
 
                                 <td>
                                   <!-- Add your action buttons here -->
@@ -110,6 +190,13 @@
         });
         //$('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
     });
+    $(document).ready(function () {
+        $('.barcode-tooltip').tooltip({
+            placement: 'top',
+            html: true
+        });
+    });
+
   </script>
 
   @if(session('success'))

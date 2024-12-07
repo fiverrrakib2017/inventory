@@ -64,7 +64,7 @@
                <div class="col-md-6">
                   <div class="form-group mb-3">
                      <label for="s_price" class="form-label">Sale Price</label>
-                     <input type="number" name="s_price" id="s_price" class="form-control" step="0.01" placeholder="Enter sale price">
+                     <input type="number" name="s_price" id="s_price" class="form-control" placeholder="Enter sale price">
                   </div>
                </div>
                <!-- Product Type -->
@@ -81,18 +81,23 @@
                </div>
             </div>
             <div class="row">
-               <!-- Product Barcode -->
+               <!-- Product Unit -->
                <div class="col-md-6">
                   <div class="form-group mb-3">
-                     <label for="product_barcode" class="form-label">Product Barcode <span class="text-danger">*</span></label>
-                     <textarea name="product_barcode" id="product_barcode" class="form-control" placeholder="Enter Product Barcode" required></textarea>
+                     <label for="Product Unit" class="form-label">Product Unit <span class="text-danger">*</span></label>
+                     <select name="unit_id" id="unit_id" class="form-control"  required>
+                        <option value="">---Select---</option>
+                        @foreach ($units as $item)
+                            <option value="{{ $item->id }}">{{ $item->unit_name }}</option>
+                        @endforeach
+                     </select>
                   </div>
                </div>
                <!-- Quantity -->
                <div class="col-md-6">
                   <div class="form-group mb-3">
                      <label for="qty" class="form-label">Quantity</label>
-                     <input type="number" name="qty" id="qty" class="form-control" placeholder="Enter quantity">
+                     <input type="number" name="qty" id="qty" class="form-control" placeholder="Enter quantity" value="0">
                   </div>
                </div>
             </div>
@@ -151,6 +156,7 @@
    $("#category_id").select2();
    $("#status").select2();
    $("#product_type").select2();
+   $("#unit_id").select2();
    $("#color, #size").select2({
      allowClear: true,
      placeholder: "Select "

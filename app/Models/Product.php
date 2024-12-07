@@ -22,6 +22,9 @@ class Product extends Model
     }
     public function barcodes()
     {
-        return $this->hasMany(Product_barcode::class);
+        return $this->hasMany(Product_barcode::class, 'product_id', 'id');
+    }
+    public function unit(){
+        return $this->belongsTo(Unit::class);
     }
 }

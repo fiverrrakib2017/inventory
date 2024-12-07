@@ -14,6 +14,7 @@ use App\Models\Product_sub_category;
 use App\Models\Seller;
 use App\Models\Size;
 use App\Models\Temp_Image;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,8 @@ class ProductController extends Controller
         $brand=Product_Brand::where('status',1)->latest()->get();
         $color=Color::where('status',1)->latest()->get();
         $size=Size::where('status',1)->latest()->get();
-        return view('Backend.Pages.Product.Create',compact('category','brand','color','size'));
+        $units=Unit::latest()->get();
+        return view('Backend.Pages.Product.Create',compact('category','brand','color','size','units'));
     }
     public function view($id){
         $product=Product::with('product_image','brand','category')->find($id);
@@ -45,10 +47,10 @@ class ProductController extends Controller
             'title' => 'required|string|max:255|unique:products',
             'brand_id' => 'required|exists:product__brands,id',
             'category_id' => 'required|exists:product__categories,id',
-            'p_price' => 'nullable|numeric|min:0',
-            's_price' => 'nullable|numeric|min:0',
+            'unit_id' => 'required|exists:units,id',
+            'p_price' => 'required|numeric|min:0',
+            's_price' => 'required|numeric|min:0',
             'product_type' => 'required|string',
-            'product_barcode' => 'required|string',
             'qty' => 'nullable|integer|min:0',
             'color' => 'nullable|array',
             'size' => 'nullable|array',
@@ -65,6 +67,7 @@ class ProductController extends Controller
             $product->title = $request->title;
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;
+            $product->unit_id = $request->unit_id;
             $product->warenty = $request->warenty;
             $product->p_price = $request->p_price;
             $product->s_price = $request->s_price;
@@ -75,27 +78,6 @@ class ProductController extends Controller
             $product->color =$request->color ? implode(',', $request->color) : null;
             $product->size =$request->size ? implode(',', $request->size) : null;
             $product->save();
-
-            if (!empty($request->product_barcode)) {
-                $barcodes = preg_split('/[\s]+/', trim($request->input('product_barcode')));
-
-                foreach ($barcodes as $barcode) {
-                    $barcode = trim($barcode);
-                    if (!empty($barcode)) { 
-                        $productBarcode = new Product_barcode();
-                        $productBarcode->product_id = $product->id;
-                        $productBarcode->barcode = $barcode;
-                        $productBarcode->save();
-                    }
-                }
-            }
-
-
-
-
-
-
-
             return response()->json([
                 'success' => true,
                 'message' => 'Product added succesfully'
