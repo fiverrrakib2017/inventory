@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::VZnwZ0WRaN8K3tSi',
+            '_route' => 'generated::e4yM8eiIfNJntoqA',
           ),
           1 => NULL,
           2 => 
@@ -1224,6 +1224,84 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/admin/product/unit/list' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.unit.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/product/unit/all-data' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.unit.get_all_data',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/product/unit/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.unit.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/product/unit/store' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.unit.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/admin/product/all' => 
       array (
         0 => 
@@ -1770,7 +1848,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/admin/(?|customer/(?|edit/([^/]++)(*:42)|view/([^/]++)(*:62)|update/([^/]++)(*:84)|invoice/(?|view/([^/]++)(*:115)|edit/([^/]++)(*:136)))|supplier/(?|edit/([^/]++)(*:171)|view/([^/]++)(*:192)|update/([^/]++)(*:215)|invoice/(?|view/([^/]++)(*:247)|edit/([^/]++)(*:268)))|product/(?|brand/(?|delete/([^/]++)(*:313)|edit/([^/]++)(*:334))|c(?|ategory/edit/([^/]++)(*:368)|hild\\-category/(?|edit/([^/]++)(*:407)|update/([^/]++)(*:430)|get\\-child_category/([^/]++)(*:466))|olor/edit/([^/]++)(*:493))|s(?|ub\\-category/(?|edit/([^/]++)(*:535)|update/([^/]++)(*:558)|get\\-sub_category/([^/]++)(*:592))|ize/edit/([^/]++)(*:618))|get_product/([^/]++)(*:647)|edit/([^/]++)(*:668)|view/([^/]++)(*:689))|accounts/(?|master_ledger/edit/([^/]++)(*:737)|ledger/edit/([^/]++)(*:765)|sub_ledger/(?|edit/([^/]++)(*:800)|get/([^/]++)(*:820)))))/?$}sDu',
+      0 => '{^(?|/admin/(?|customer/(?|edit/([^/]++)(*:42)|view/([^/]++)(*:62)|update/([^/]++)(*:84)|invoice/(?|view/([^/]++)(*:115)|edit/([^/]++)(*:136)))|supplier/(?|edit/([^/]++)(*:171)|view/([^/]++)(*:192)|update/([^/]++)(*:215)|invoice/(?|view/([^/]++)(*:247)|edit/([^/]++)(*:268)))|product/(?|brand/(?|delete/([^/]++)(*:313)|edit/([^/]++)(*:334))|c(?|ategory/edit/([^/]++)(*:368)|hild\\-category/(?|edit/([^/]++)(*:407)|update/([^/]++)(*:430)|get\\-child_category/([^/]++)(*:466))|olor/edit/([^/]++)(*:493))|s(?|ub\\-category/(?|edit/([^/]++)(*:535)|update/([^/]++)(*:558)|get\\-sub_category/([^/]++)(*:592))|ize/edit/([^/]++)(*:618))|unit/(?|edit/([^/]++)(*:648)|update/([^/]++)(*:671))|get_product/([^/]++)(*:700)|edit/([^/]++)(*:721)|view/([^/]++)(*:742))|accounts/(?|master_ledger/edit/([^/]++)(*:790)|ledger/edit/([^/]++)(*:818)|sub_ledger/(?|edit/([^/]++)(*:853)|get/([^/]++)(*:873)))))/?$}sDu',
     ),
     3 => 
     array (
@@ -2122,7 +2200,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ThIbVay0pGTJbmp2',
+            '_route' => 'generated::4rvxe6NJMV66fpKV',
           ),
           1 => 
           array (
@@ -2213,7 +2291,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::rOm9NpcHV1L9p3LW',
+            '_route' => 'generated::GoQK6KDa0lcroLmJ',
           ),
           1 => 
           array (
@@ -2253,7 +2331,52 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      647 => 
+      648 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.unit.edit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      671 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.unit.update',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      700 => 
       array (
         0 => 
         array (
@@ -2276,7 +2399,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      668 => 
+      721 => 
       array (
         0 => 
         array (
@@ -2299,7 +2422,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      689 => 
+      742 => 
       array (
         0 => 
         array (
@@ -2322,7 +2445,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      737 => 
+      790 => 
       array (
         0 => 
         array (
@@ -2345,7 +2468,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      765 => 
+      818 => 
       array (
         0 => 
         array (
@@ -2368,7 +2491,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      800 => 
+      853 => 
       array (
         0 => 
         array (
@@ -2391,7 +2514,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      820 => 
+      873 => 
       array (
         0 => 
         array (
@@ -2575,7 +2698,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::VZnwZ0WRaN8K3tSi' => 
+    'generated::e4yM8eiIfNJntoqA' => 
     array (
       'methods' => 
       array (
@@ -2598,7 +2721,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::VZnwZ0WRaN8K3tSi',
+        'as' => 'generated::e4yM8eiIfNJntoqA',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4827,7 +4950,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::rOm9NpcHV1L9p3LW' => 
+    'generated::GoQK6KDa0lcroLmJ' => 
     array (
       'methods' => 
       array (
@@ -4849,7 +4972,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::rOm9NpcHV1L9p3LW',
+        'as' => 'generated::GoQK6KDa0lcroLmJ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5052,7 +5175,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::ThIbVay0pGTJbmp2' => 
+    'generated::4rvxe6NJMV66fpKV' => 
     array (
       'methods' => 
       array (
@@ -5074,7 +5197,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::ThIbVay0pGTJbmp2',
+        'as' => 'generated::4rvxe6NJMV66fpKV',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5525,6 +5648,231 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'admin.product.size.delete',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.unit.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/product/unit/list',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@index',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@index',
+        'namespace' => NULL,
+        'prefix' => 'admin/product/unit',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.unit.index',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.unit.get_all_data' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/product/unit/all-data',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@get_all_data',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@get_all_data',
+        'namespace' => NULL,
+        'prefix' => 'admin/product/unit',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.unit.get_all_data',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.unit.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/product/unit/edit/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@edit',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@edit',
+        'namespace' => NULL,
+        'prefix' => 'admin/product/unit',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.unit.edit',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.unit.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/product/unit/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@delete',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@delete',
+        'namespace' => NULL,
+        'prefix' => 'admin/product/unit',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.unit.delete',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.unit.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/product/unit/store',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@store',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@store',
+        'namespace' => NULL,
+        'prefix' => 'admin/product/unit',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.unit.store',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.unit.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/product/unit/update/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@update',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Product\\UnitController@update',
+        'namespace' => NULL,
+        'prefix' => 'admin/product/unit',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.unit.update',
       ),
       'fallback' => false,
       'defaults' => 

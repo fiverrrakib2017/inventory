@@ -114,6 +114,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{route('admin.unit.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Units</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{route('admin.products.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Products</p>

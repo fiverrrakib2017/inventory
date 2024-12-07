@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Product\UnitController;
 use Illuminate\Support\Facades\Route;
 
 /*Backend Route*/
@@ -126,6 +127,14 @@ Route::group(['middleware'=>'admin'],function(){
             Route::get('/edit/{id}', 'edit')->name('admin.product.size.edit');
             Route::post('/update', 'update')->name('admin.product.size.update');
             Route::post('/delete', 'delete')->name('admin.product.size.delete');
+        });
+        Route::prefix('unit')->controller(UnitController::class)->group(function() {
+            Route::get('/list', 'index')->name('admin.unit.index');
+            Route::get('/all-data', 'get_all_data')->name('admin.unit.get_all_data');
+            Route::get('/edit/{id}', 'edit')->name('admin.unit.edit');
+            Route::post('/delete', 'delete')->name('admin.unit.delete');
+            Route::post('/store', 'store')->name('admin.unit.store');
+            Route::post('/update/{id}', 'update')->name('admin.unit.update');
         });
 
         /* Product Route */
