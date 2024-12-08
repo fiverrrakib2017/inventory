@@ -24,7 +24,13 @@
                 <div class="tm_invoice_in">
                     <div class="tm_invoice_head tm_mb20">
                         <div class="tm_invoice_left">
-                            <div class="tm_logo"><img src="{{ asset('Backend/dist/img/logo.jpg') }}" alt="Logo"><br> </div>
+                            <div class="tm_logo">
+                                @if(auth('admin')->user()->user_type == 1)
+                                    <img src="{{ asset('Backend/dist/img/star_logo.jpg') }}" alt="Admin Logo"><br>
+                                @else
+                                    <img src="{{ asset('Backend/dist/img/logo.jpg') }}" alt="User Logo"><br>
+                                @endif
+                             </div>
                         </div>
                         <div class="tm_invoice_right tm_text_right">
                             <div class="tm_primary_color tm_f50 tm_text_uppercase">Invoice</div>
@@ -41,12 +47,17 @@
                     </div>
                     <div class="tm_invoice_head tm_mb10">
                         <div class="tm_invoice_left">
-                            <p class="tm_mb2 tm_f16"><b class="tm_primary_color tm_text_uppercase">STAR COMMUNICATION</b></p>
+                            <p class="tm_mb2 tm_f16">
+                                <b class="tm_primary_color tm_text_uppercase">
+                                    {{-- STAR COMMUNICATION --}}
+                                    {{ auth('admin')->user()->name }}
+                                </b>
+                            </p>
                             <p>
-                                Sarkar super market 2nd floor <br>Gouripur Bazar, Daudkandi, Cumilla <br>
+                                Ahammed Center, Shop No:3 <br>Gouripur Bazar, Daudkandi, Cumilla <br>
                                 www.sr-communication.com <br>
-                                hello@sr-cummunication.com<br>
-                                01580-651309
+                                hello@starcummunication.com<br>
+                                +8801644366446, +8801762338087
                             </p>
                         </div>
                         <div class="tm_invoice_right" style="width:69% !important">

@@ -1,9 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{route('admin.dashboard')}}" class="brand-link">
-      <img src="{{asset('Backend/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Rakib Software</span>
-    </a>
+   
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -13,7 +9,7 @@
           <img src="{{asset('Backend/dist/img/avatar.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{Auth::guard('admin')->user()->name}}</a>
+          <a href="{{route('admin.dashboard')}}" class="d-block">{{Auth::guard('admin')->user()->name}}</a>
         </div>
       </div>
 
