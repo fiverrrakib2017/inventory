@@ -14,4 +14,7 @@ class Product_Brand extends Model
          'slug',
          'status',
      ];
+     public function user(){
+        return $this->belongsTo(Admin::class,'user_id','id');
+    }
 }

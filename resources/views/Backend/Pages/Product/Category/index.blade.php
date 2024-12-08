@@ -19,6 +19,7 @@
                             <th class="">Category Name</th>
                             <th class="">Image</th>
                             <th class="">Slug</th>
+                            <th class="">Status</th>
                             <th class="">Added By</th>
                             <th class="">Action</th>
                             </tr>
@@ -41,6 +42,13 @@
                     @endif
                 </td>
                 <td>{{ $item->slug}}</td>
+                <td>
+                    @if ($item->status==1)
+                    <span class="badge bg-success">Active</span>
+                    @else
+                    <span class="badge bg-danger">Inactive</span>
+                    @endif
+                  </td>
                 <td>{{ $item->user->name}}</td>
 
                 @if (auth('admin')->user()->user_type==1)

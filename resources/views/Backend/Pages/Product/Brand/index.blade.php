@@ -20,6 +20,7 @@
                             <th class="">Image</th>
                             <th class="">Slug</th>
                             <th class="">Status</th>
+                            <th class="">Added By</th>
                             <th class=""></th>
                             </tr>
                         </thead>
@@ -46,12 +47,18 @@
                   <span class="badge bg-danger">Inactive</span>
                   @endif
                 </td>
-                
+                <td>{{ $item->user->name}}</td>
+                @if (auth('admin')->user()->user_type==1)
+                    <td>
+                        <!-- Add your action buttons here -->
+                        <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.brand.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
+                        <a onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{route('admin.brand.delete', $item->id)}}"><i class="fa fa-trash"></i></a>
+                    </td>
+                @else
                 <td>
-                    <!-- Add your action buttons here -->
-                    <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.brand.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
-                    <a onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{route('admin.brand.delete', $item->id)}}"><i class="fa fa-trash"></i></a>
+
                 </td>
+                @endif
             </tr>
           @endforeach
                         </tbody>

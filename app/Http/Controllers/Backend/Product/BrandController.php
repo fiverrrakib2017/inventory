@@ -11,7 +11,7 @@ class BrandController extends Controller
     public function index(){
         $user = auth('admin')->user();
 
-        $query = Product_Brand::query();
+        $query = Product_Brand::query()->with('user');
         if ($user->user_type != 1) {
             $query->where('user_id', $user->id);
         }
