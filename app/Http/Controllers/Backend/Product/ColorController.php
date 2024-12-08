@@ -13,7 +13,7 @@ class ColorController extends Controller
      }
      public function get_all_data(Request $request){
         $user = auth('admin')->user();
-        $search = $request->search['value'] ?? ''; 
+        $search = $request->search['value'] ?? '';
         $columnsForOrderBy = ['id', 'name', 'status', 'created_at'];
         $orderByColumnIndex = $request->order[0]['column'] ?? 0;
         $orderByColumn = $columnsForOrderBy[$orderByColumnIndex] ?? 'id';
@@ -49,6 +49,7 @@ class ColorController extends Controller
 
          // Create a new Color instance
          $category = new Color();
+         $category->user_id=auth('admin')->user()->id;
          $category->name = $request->name;
          $category->status = $request->status;
          $category->save();

@@ -9,7 +9,7 @@
              <a  href="{{route('admin.category.create')}}" class="btn btn btn-success">Add New Category</a>
           </div>
             <div class="card-body">
-             
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-striped table-bordered    " cellspacing="0" width="100%">
@@ -19,7 +19,8 @@
                             <th class="">Category Name</th>
                             <th class="">Image</th>
                             <th class="">Slug</th>
-                            <th class=""></th>
+                            <th class="">Added By</th>
+                            <th class="">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,47 +36,52 @@
                     <img class="img-circle" height="50px" src="{{ asset('/Backend/uploads/photos/' . $item->category_image) }}" alt="Photo">
 
                     @else
-                        <img src="{{ asset('Backend/images/default.jpg') }}" height="50px" alt="Default Photo">
+                        {{-- <img src="{{ asset('Backend/images/default.jpg') }}" height="50px" alt="Default Photo"> --}}
+                        No Images
                     @endif
                 </td>
                 <td>{{ $item->slug}}</td>
-                
-               
+                <td>{{ $item->user->name}}</td>
+
+                @if (auth('admin')->user()->user_type==1)
                 <td>
                     <!-- Add your action buttons here -->
                     <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.category.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
-                    <button data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
+                    <button data-toggle="modal" data-target="#deleteModal{{$item->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
                 </td>
+                @else
+                <td>
+
+                </td>
+                @endif
+
+
             </tr>
-
-
-
-
           <!--Start Delete MODAL ---->
-          <div id="deleteModal{{$item->id}}" class="modal fade">
-            <div class="modal-dialog modal-confirm">
-                <form action="{{route('admin.category.delete')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-content">
-                    <div class="modal-header flex-column">
-                        <div class="icon-box">
-                            <i class="fas fa-trash"></i>
+            <div id="deleteModal{{$item->id}}" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <form action="{{route('admin.category.delete')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                        <div class="modal-header flex-column">
+                            <div class="icon-box">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                            <h4 class="modal-title w-100">Are you sure?</h4>
+                            <input type="hidden" name="id" value="{{$item->id}}">
+                            <a class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
                         </div>
-                        <h4 class="modal-title w-100">Are you sure?</h4>
-                        <input type="hidden" name="id" value="{{$item->id}}">
-                        <a class="close" data-bs-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
-                    </div>
-                    <div class="modal-body">
-                        <p>Do you really want to delete these records? This process cannot be undone.</p>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
-                    </div>
-                </form>
+                        <div class="modal-body">
+                            <p>Do you really want to delete these records? This process cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
           <!--End Delete MODAL ---->
           @endforeach
                         </tbody>

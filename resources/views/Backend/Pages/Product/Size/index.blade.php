@@ -144,7 +144,7 @@
         beforeSend: function () {
         },
         ajax: {
-          url: "{{ route('admin.product.color.all_data') }}",
+          url: "{{ route('admin.product.size.all_data') }}",
           type: "GET",
           data: function (d) {
             d.search = $('input[type="search"]').val();

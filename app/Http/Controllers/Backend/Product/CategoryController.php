@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index(){
         $user = auth('admin')->user();
 
-        $query = Product_Category::query();
+        $query = Product_Category::query()->with('user');
         if ($user->user_type != 1) {
             $query->where('user_id', $user->id);
         }

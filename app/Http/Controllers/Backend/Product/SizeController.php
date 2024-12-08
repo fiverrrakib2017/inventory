@@ -48,10 +48,11 @@ class SizeController extends Controller
          ]);
 
          // Create a new Size instance
-         $category = new Size();
-         $category->name = $request->name;
-         $category->status = $request->status;
-         $category->save();
+         $object = new Size();
+         $object->user_id=auth('admin')->user()->id;
+         $object->name = $request->name;
+         $object->status = $request->status;
+         $object->save();
 
          return response()->json(['success' =>true, 'message'=> 'Added Successfully']);
      }
