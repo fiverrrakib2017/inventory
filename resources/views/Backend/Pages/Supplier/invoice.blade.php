@@ -103,7 +103,9 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-
+        var user_type = @php
+            echo auth('admin')->user()->user_type;
+        @endphp;
       var table=$("#datatable1").DataTable({
          "processing":true,
         "responsive": true,
@@ -173,20 +175,36 @@
                 editUrl = editUrl.replace(':id', row.id);
                 viewUrl = viewUrl.replace(':id', row.id);
 
-                if (row.due_amount==0) {
-                  return `
-                  <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
+                if(user_type==1){
+                    if (row.due_amount==0) {
+                    return `
+                    <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
 
-                  <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
-                  `;
+                    <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
+                    `;
+                    }else{
+                    return `
+                    <button class="btn btn-primary btn-sm mr-3 pay-button"  data-id="${row.id}">Pay Now</button>
+
+                    <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
+
+                    <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
+                    `;
+                    }
                 }else{
-                  return `
-                  <button class="btn btn-primary btn-sm mr-3 pay-button"  data-id="${row.id}">Pay Now</button>
+                    if (row.due_amount==0) {
+                    return `
+                    <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
 
-                  <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
+                    <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
+                    `;
+                    }else{
+                    return `
+                    <button class="btn btn-primary btn-sm mr-3 pay-button"  data-id="${row.id}">Pay Now</button>
 
-                  <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
-                  `;
+                    <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
+                    `;
+                    }
                 }
             }
           },
