@@ -28,9 +28,9 @@ class CustomerController extends Controller
         $orderDirection = $request->order[0]['dir']?? 'asc';
         $user = auth('admin')->user();
         if($user->user_type != 1){
-            $query = Customer::where('user_id', $user->id);
+            $query = Customer::with('user')->where('user_id', $user->id);
         }else{
-            $query = Customer::query();
+            $query = Customer::query()->with('user');
         }
 
         if (!empty($search)) {

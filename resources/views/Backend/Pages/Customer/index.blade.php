@@ -9,7 +9,7 @@
                 <a href="{{ route('admin.customer.create') }}" class="btn-sm btn btn-success mb-2"><i class="mdi mdi-account-plus"></i>Add New Customer</a>
             </div>
             <div class="card-body">
-               
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-striped table-bordered    " cellspacing="0" width="100%">
@@ -19,6 +19,8 @@
                                 <th class="">Fullname</th>
                                 <th class="">Phone Number</th>
                                 <th class="">Address</th>
+                                <th class="">Added By</th>
+                                <th class="">Created Date</th>
                                 <th class=""></th>
                             </tr>
                         </thead>
@@ -61,61 +63,76 @@
 
   <script type="text/javascript">
      $(document).ready(function(){
-    var table=$("#datatable1").DataTable({
-    "processing":true,
-    "responsive": true,
-    "serverSide":true,
-    beforeSend: function () {},
-    complete: function(){},
-    ajax: "{{ route('admin.customer.get_all_data') }}",
-    language: {
-        searchPlaceholder: 'Search...',
-        sSearch: '',
-        lengthMenu: '_MENU_ items/page',
-    },
-    "columns":[
-          {
-            "data":"id"
-          },
-          {
-            "data":"fullname",
-            render:function(data,type,row){
-              var link ="{{ route('admin.customer.view', ':id') }}".replace(':id', row.id);
-              return '<a href="'+link+'">'+row.fullname+'</a>';
-            }
-          },
-          {
-            "data":"phone_number"
-          },
-          {
-            "data":"address"
-          },
-          
-          {
-            data:null,
-            render: function (data, type, row) {
-              var editUrl = "{{ route('admin.customer.edit', ':id') }}".replace(':id', row.id);
+        var user_type = @php
+            echo auth('admin')->user()->user_type;
+        @endphp;
+
+        var table=$("#datatable1").DataTable({
+        "processing":true,
+        "responsive": true,
+        "serverSide":true,
+        beforeSend: function () {},
+        complete: function(){},
+        ajax: "{{ route('admin.customer.get_all_data') }}",
+        language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+        },
+        "columns":[
+            {
+                "data":"id"
+            },
+            {
+                "data":"fullname",
+                render:function(data,type,row){
+                var link ="{{ route('admin.customer.view', ':id') }}".replace(':id', row.id);
+                return '<a href="'+link+'">'+row.fullname+'</a>';
+                }
+            },
+            {
+                "data":"phone_number"
+            },
+            {
+                "data":"address"
+            },
+            {
+                "data":"user.name"
+            },
+            {
+                "data":"created_at",
+                render: function (data, type, row) {
+                    return moment(row.created_at).format('D MMMM YYYY');
+                }
+            },
+
+            {
+                data:null,
+                render: function (data, type, row) {
+                    var editUrl = "{{ route('admin.customer.edit', ':id') }}".replace(':id', row.id);
+                    var viewUrl = "{{ route('admin.customer.view', ':id') }}".replace(':id', row.id);
+
+                    if(user_type==1){
+                        return `<a href="${editUrl}" class="btn btn-primary btn-sm mr-3 edit-btn" data-id="${row.id}"><i class="fa fa-edit"></i></a>
+                        <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
+
+                        <a href="${viewUrl}" class="btn btn-success btn-sm mr-3 edit-btn"><i class="fa fa-eye"></i></a>`;
+                    }else{
+                        return ``;
+                    }
 
 
-              var viewUrl = "{{ route('admin.customer.view', ':id') }}".replace(':id', row.id);
 
 
-              return `<a href="${editUrl}" class="btn btn-primary btn-sm mr-3 edit-btn" data-id="${row.id}"><i class="fa fa-edit"></i></a>
-              <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
+                }
 
-              <a href="${viewUrl}" class="btn btn-success btn-sm mr-3 edit-btn"><i class="fa fa-eye"></i></a>
-
-
-              `;
-            }
-
-          },
+            },
+            ],
+        order:[
+            [0, "desc"]
         ],
-    order:[
-        [0, "desc"]
-    ],
 
-    });
+        });
 
     });
 
