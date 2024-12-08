@@ -27,9 +27,9 @@ class SupplierController extends Controller
         $orderDirection = $request->order[0]['dir']?? 'asc';
         $user = auth('admin')->user();
         if($user->user_type != 1){
-            $query = Supplier::where('user_id', $user->id);
+            $query = Supplier::with('user')->where('user_id', $user->id);
         }else{
-            $query = Supplier::query();
+            $query = Supplier::query()->with('user');
         }
 
         if (!empty($search)) {

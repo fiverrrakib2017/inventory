@@ -6,7 +6,7 @@
     <div class="col-md-12 ">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('admin.customer.create') }}" class="btn-sm btn btn-success mb-2"><i class="mdi mdi-account-plus"></i>Add New Customer</a>
+                <a href="{{ route('admin.customer.create') }}" class="btn btn-success mb-2"><i class="mdi mdi-account-plus"></i>Add New Customer</a>
             </div>
             <div class="card-body">
 
@@ -118,7 +118,7 @@
 
                         <a href="${viewUrl}" class="btn btn-success btn-sm mr-3 edit-btn"><i class="fa fa-eye"></i></a>`;
                     }else{
-                        return ``;
+                        return `<a href="${viewUrl}" class="btn btn-success btn-sm mr-3 edit-btn"><i class="fa fa-eye"></i></a>`;
                     }
 
 
