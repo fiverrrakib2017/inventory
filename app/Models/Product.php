@@ -27,4 +27,7 @@ class Product extends Model
     public function unit(){
         return $this->belongsTo(Unit::class);
     }
+    public function user(){
+        return $this->belongsTo(Admin::class,'user_id','id');
+    }
 }

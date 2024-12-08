@@ -71,6 +71,7 @@
                               <th class="">Purchase Price</th>
                               <th class="">Sale's Price</th>
                               <th class="">Quantity</th>
+                              <th class="">Added By</th>
                               <th class=""></th>
                             </tr>
                         </thead>
@@ -128,6 +129,7 @@
                                     <span class="badge badge-success">  {{ $data->qty }}</span>
                                   @endif
                                 </td>
+                                <td>{{ $data->user->name}}</td>
 
                                 <td>
                                     @if(auth('admin')->user()->user_type==1)
