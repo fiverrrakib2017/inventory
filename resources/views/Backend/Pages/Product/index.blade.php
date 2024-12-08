@@ -130,10 +130,15 @@
                                 </td>
 
                                 <td>
-                                  <!-- Add your action buttons here -->
-                                  <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a>
-                                  <button data-toggle="modal" data-target="#deleteModal{{$data->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
-                                  {{-- <a class="btn btn-success btn-sm mr-3" href="{{route('admin.products.view', $data->id)}}"><i class="fa fa-eye"></i></a> --}}
+                                    @if(auth('admin')->user()->user_type==1)
+                                        <a class="btn btn-primary btn-sm mr-3" href="{{route('admin.products.edit', $data->id)}}"><i class="fa fa-edit"></i></a>
+                                        <button data-toggle="modal" data-target="#deleteModal{{$data->id}}" class="btn btn-danger btn-sm mr-3"><i class="fa fa-trash"></i></button>
+                                        {{-- <a class="btn btn-success btn-sm mr-3" href="{{route('admin.products.view', $data->id)}}"><i class="fa fa-eye"></i></a> --}}
+                                    @else
+
+                                    @endif
+
+
                                 </td>
                               </tr>
                             <!--Start Delete MODAL ---->

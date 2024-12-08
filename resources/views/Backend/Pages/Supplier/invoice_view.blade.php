@@ -56,9 +56,9 @@
                             </p>
                             <p>
                                 Ahammed Center, Shop No:3 <br>Gouripur Bazar, Daudkandi, Cumilla <br>
-                                www.sr-communication.com <br>
-                                hello@starcummunication.com<br>
-                                +8801644366446, +8801762338087
+
+                                {{ auth('admin')->user()->email }}<br>
+                                {{ auth('admin')->user()->phone ?? '' }}
                             </p>
                         </div>
                         <div class="tm_invoice_right" style="width:69% !important">
@@ -125,9 +125,11 @@
 
                                             <td class="tm_width_2 "><b>{{ $item->qty}}</b></td>
 
-                                            <td class="tm_width_2 "><b>{{ $item->price  }} ৳</b></td>
+                                            <td class="tm_width_2 "><b>{{ isset($item->price) ? number_format(floatval($item->price), 0, '.', '') : '0' }} ৳</b></td>
 
-                                            <td class="tm_width_2 tm_text_right"><b> {{ $item->total_price }} ৳</b></td>
+
+
+                                            <td class="tm_width_2 tm_text_right"><b> {{ isset($item->total_price) ? number_format(floatval($item->total_price), 0, '.', '') : '0' }} ৳</b></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -143,18 +145,18 @@
                                     <tbody>
                                     <tr class="table_footer_row">
                                         <td colspan="3"><strong>Total Amount</strong></td>
-                                        <td><strong>{{ isset($data->total_amount) ? number_format(floatval($data->total_amount), 0, '.', '') : '0' }}</strong></td>
+                                        <td class="tm_text_right"><strong>{{ isset($data->total_amount) ? number_format(floatval($data->total_amount), 0, '.', '') : '0' }} ৳</strong></td>
                                     </tr>
                                     <tr class="table_footer_row">
                                         <td colspan="3"><strong>Paid Amount</strong></td>
-                                        <td><strong>{{ isset($data->paid_amount) ? number_format(floatval($data->paid_amount), 0, '.', '') : '0' }}</strong></td>
+                                        <td class="tm_text_right"><strong>{{ isset($data->paid_amount) ? number_format(floatval($data->paid_amount), 0, '.', '') : '0' }} ৳</strong></td>
                                     </tr>
 
 
 
                                     <tr class="table_footer_row">
                                         <td colspan="3"><strong>Due Amount</strong></td>
-                                        <td><strong>{{ isset($data->due_amount) ? number_format(floatval($data->due_amount), 0, '.', '') : '0' }}</strong></td>
+                                        <td class="tm_text_right"><strong>{{ isset($data->due_amount) ? number_format(floatval($data->due_amount), 0, '.', '') : '0' }} ৳</strong></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -163,7 +165,7 @@
                     </div>
                     <div class="tm_note tm_text_center tm_m0_md">
                         <p class="tm_m0" align=""><br> <br>Authorization signature and seal. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                            Prepared By:Rakib Mahmud
+                            Prepared By: {{ auth('admin')->user()->name }}
                         </p>
                     </div><!-- .tm_note -->
                 </div>

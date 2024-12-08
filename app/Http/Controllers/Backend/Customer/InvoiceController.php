@@ -168,15 +168,19 @@ class InvoiceController extends Controller
                     $product->qty -= $request->qty[$index];
                     $product->save();
                 }
-
                 /* Remove Product BARCODE */
                 $barcodes = explode(' ', $request->product_barcode[$index]);
-                foreach ($barcodes as $barcode) {
-                    $productBarcode = Product_barcode::where('barcode', $barcode)->first();
-                    if ($productBarcode) {
-                        $productBarcode->delete();
+                if (!empty($barcodes && count($barcodes) > 0)) {
+                    $barcodes = preg_split('/[\s]+/', $request->product_barcode[$index]);
+
+                    foreach ($barcodes as $barcode) {
+                        $barcode = trim($barcode);
+                        if (!empty($barcode)) {
+                            Product_barcode::where('barcode', $barcode)->delete();
+                        }
                     }
                 }
+
             }
 
             /*Commit the transaction if everything is fine*/
