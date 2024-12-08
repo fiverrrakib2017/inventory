@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('sub_ledgers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('ledger_id');
             $table->string('sub_ledger_name');
             $table->integer('status');
             $table->timestamps();
-            
+
             $table->foreign('ledger_id')
             ->on('ledgers')
             ->references('id')
             ->onDelete('cascade');
+
+            $table->foreign('user_id')->on('admins')->references('id')->onDelete('cascade');
         });
     }
 

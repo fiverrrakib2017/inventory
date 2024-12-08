@@ -12,8 +12,12 @@ use Illuminate\Support\Carbon;
 class TransactionController extends Controller
 {
     public function index(){
-        $master_ledger=Master_ledger::where('status',1)->latest()->get();
-        $ledger=Ledger::where('status',1)->latest()->get();
+        $master_ledger = Master_ledger::where('status', 1)->latest()->get();
+
+        $ledger = Ledger::where('status', 1)
+                ->where('user_id', auth('admin')->user()->id)
+                ->latest()
+                ->get();
         return view('Backend.Pages.Accounts.Transaction.index',compact('ledger','master_ledger'));
     }
     public function store(Request $request){
@@ -24,12 +28,14 @@ class TransactionController extends Controller
             'qty'=>'required|integer',
             'amount'=>'required|integer',
             'total'=>'required|integer',
-            
+
            ]);
            $object=new Account_transaction();
+           $object->user_id=auth('admin')->user()->id;
            $object->type=$request->transaction_type;
-           $object->refer_no=$request->refer_no;
-           $object->description=$request->description;
+           $object->master_ledger_id=$request->transaction_type;
+           $object->refer_no=$request->refer_no ?? '';
+           $object->description=$request->description ?? '';
            $object->ledger_id=$request->ledger_id;
            $object->sub_ledger_id=$request->sub_ledger_id;
            $object->qty=$request->qty;
@@ -44,7 +50,7 @@ class TransactionController extends Controller
     }
     public function report_generate(Request $request)
     {
-        /*Validate date inputs*/ 
+        /*Validate date inputs*/
         $request->validate([
             'from_date' => 'required|date',
             'master_ledger_id' => 'required|integer',
@@ -58,14 +64,21 @@ class TransactionController extends Controller
 
         /* Fetch data with relations*/
         $transactions = Account_transaction::with(['ledger', 'sub_ledger'])
-        ->where('master_ledger_id', $master_ledger_id)
-         ->whereBetween('created_at', [$from_date, $to_date])
-        ->get()
-        ->groupBy('ledger.ledger_name');
+            ->where('master_ledger_id', $master_ledger_id)
+            ->where('user_id', auth('admin')->user()->id ?? 1)
+            ->whereBetween('created_at', [$from_date, $to_date])
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->ledger->ledger_name ?? 'Unknown Ledger'; 
+            });
 
         $master_ledger = Master_ledger::where('status', 1)->latest()->get();
-        $ledger = Ledger::where('status', 1)->latest()->get();
+        $ledger = Ledger::where('status', 1)
+            ->where('user_id', auth('admin')->user()->id ?? 1)
+            ->latest()
+            ->get();
 
         return view('Backend.Pages.Accounts.Transaction.Report.index', compact('transactions', 'master_ledger', 'ledger'));
     }
+
 }

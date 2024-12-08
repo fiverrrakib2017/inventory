@@ -4,12 +4,8 @@
 <div class="row">
     <div class="col-md-12 ">
         <div class="card">
-            <div class="card-header">
-                  <button data-toggle="modal" data-target="#addModal" type="button" class="btn-sm btn btn-success mb-2"><i class="mdi mdi-account-plus"></i>
-                  Add New </button>
-            </div>
             <div class="card-body">
-              
+
 
                 <div class="table-responsive" id="tableStyle">
                     <table id="datatable1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -19,7 +15,6 @@
                               <th class="">Master Ledger Name</th>
                               <th class="">Status</th>
                               <th class="">Create Date</th>
-                              <th class="">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,7 +137,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-     
+
      var table=$("#datatable1").DataTable({
        "processing":true,
        "responsive": true,
@@ -181,13 +176,6 @@
            render: function (data, type, row) {
                var formattedDate = moment(row.created_at).format('DD MMM YYYY');
                return formattedDate;
-           }
-         },
-         {
-           "data":null,
-           render:function(data,type,row){
-             return `<button class="btn btn-primary btn-sm mr-3 edit-btn" data-id="${row.id}"><i class="fa fa-edit"></i></button>
-               <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>`
            }
          },
        ],
@@ -238,17 +226,17 @@
  });
 
 
- 
+
  /** Handle form submission for delete **/
  $('#deleteModal form').submit(function(e){
    e.preventDefault();
-   /*Get the submit button*/ 
+   /*Get the submit button*/
    var submitBtn =  $('#deleteModal form').find('button[type="submit"]');
-   
+
    /* Save the original button text*/
    var originalBtnText = submitBtn.html();
 
-   /*Change button text to loading state*/ 
+   /*Change button text to loading state*/
    submitBtn.html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Loading...</span>`);
 
    var form = $(this);
@@ -327,7 +315,7 @@
 
    // Get the submit button
    var submitBtn = form.find('button[type="submit"]');
-   
+
    // Save the original button text
    var originalBtnText = submitBtn.html();
 
@@ -343,10 +331,10 @@
      'url':url,
      data: formData,
      beforeSend: function () {
-       form.find(':input').prop('disabled', true);  
+       form.find(':input').prop('disabled', true);
      },
      success: function (response) {
-       
+
        $('#editModal').modal('hide');
        $('#editModal form')[0].reset();
        if (response.success) {

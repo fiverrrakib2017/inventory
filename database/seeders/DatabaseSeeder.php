@@ -37,5 +37,13 @@ class DatabaseSeeder extends Seeder
             'user_type' => '2',
             'password' => Hash::make('startech@8087'),
         ]);
+        $master_ledger_name = ['Income', 'Expense', 'Asset', 'Liabilities'];
+
+        foreach ($master_ledger_name as $name) {
+            \App\Models\Master_ledger::create([
+                'name' => $name,
+                'status' => 1,
+            ]);
+        }
     }
 }

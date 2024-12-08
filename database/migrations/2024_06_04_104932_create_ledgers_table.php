@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('ledgers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('master_ledger_id');
             $table->string('ledger_name');
             $table->integer('status');
             $table->timestamps();
-            
+
             $table->foreign('master_ledger_id')
             ->on('master_ledgers')
+            ->references('id')
+            ->onDelete('cascade');
+
+            $table->foreign('user_id')
+            ->on('admins')
             ->references('id')
             ->onDelete('cascade');
         });

@@ -19,8 +19,8 @@ class SubLedgerController extends Controller
         $columnsForOrderBy = ['id', 'ledger_id','sub_ledger_name','status', 'created_at'];
         $orderByColumn = $request->order[0]['column'];
         $orderDirectection = $request->order[0]['dir'];
-    
-        $object = Sub_ledger::with('ledger')
+
+        $object = Sub_ledger::with('ledger')->where('user_id',auth('admin')->user()->id ?? 1)
         ->when($search, function ($query) use ($search) {
             $query->whereHas('ledger', function ($q) use ($search) {
                 $q->where('ledger_name', 'like', "%$search%");
@@ -42,7 +42,7 @@ class SubLedgerController extends Controller
         if (!$data) {
             return response()->json(['error' => 'not found']);
         }
-        return response()->json(['success'=>true,'data' => $data]); 
+        return response()->json(['success'=>true,'data' => $data]);
     }
     public function update(Request $request){
         $request->validate([
@@ -65,6 +65,7 @@ class SubLedgerController extends Controller
          'status'=>'required|in:0,1',
         ]);
         $object=new Sub_ledger();
+        $object->user_id=auth('admin')->user()->id;
         $object->ledger_id=$request->ledger_id;
         $object->sub_ledger_name=$request->sub_ledger_name;
         $object->status=$request->status;
@@ -78,7 +79,7 @@ class SubLedgerController extends Controller
         }
         /* Delete the data*/
         $object->delete();
-        return response()->json(['success' => true , 'message'=> 'Deleted successfully']); 
+        return response()->json(['success' => true , 'message'=> 'Deleted successfully']);
     }
     public function get_sub_ledger($id){
         $object = Sub_Ledger::where('ledger_id',$id)->latest()->get();

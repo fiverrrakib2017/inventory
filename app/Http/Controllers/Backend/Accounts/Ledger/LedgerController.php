@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class LedgerController extends Controller
 {
     public function index(){
-        $ledger=Ledger::with('master_ledger')->get();
+        $ledger=Ledger::with('master_ledger')->where('user_id',auth('admin')->user()->id ?? 1)->latest()->get();
         $master_ledger=Master_Ledger::where('status',1)->latest()->get();
         return view('Backend.Pages.Accounts.Ledger.index',compact('master_ledger'));
     }
@@ -19,8 +19,8 @@ class LedgerController extends Controller
         $columnsForOrderBy = ['id', 'master_ledger_id','ledger_name','status', 'created_at'];
         $orderByColumn = $request->order[0]['column'];
         $orderDirectection = $request->order[0]['dir'];
-    
-        $states = Ledger::with('master_ledger')
+
+        $states = Ledger::with('master_ledger')->where('user_id',auth('admin')->user()->id ?? 1)
         ->when($search, function ($query) use ($search) {
             $query->whereHas('master_ledger', function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
@@ -42,7 +42,7 @@ class LedgerController extends Controller
         if (!$data) {
             return response()->json(['error' => 'Api not found']);
         }
-        return response()->json(['success'=>true,'data' => $data]); 
+        return response()->json(['success'=>true,'data' => $data]);
     }
     public function update(Request $request){
         $request->validate([
@@ -51,6 +51,7 @@ class LedgerController extends Controller
             'status'=>'required|in:0,1',
         ]);
         $object= Ledger::find($request->id);
+        $object->user_id=auth('admin')->user()->id ?? 1;
         $object->master_ledger_id = $request->master_ledger_name;
         $object->ledger_name = $request->ledger_name;
         $object->status = $request->status;
@@ -65,6 +66,7 @@ class LedgerController extends Controller
          'status'=>'required|in:0,1',
         ]);
         $object=new Ledger();
+        $object->user_id=auth('admin')->user()->id;
         $object->master_ledger_id=$request->master_ledger_name;
         $object->ledger_name=$request->ledger_name;
         $object->status=$request->status;
@@ -78,6 +80,6 @@ class LedgerController extends Controller
         }
         /* Delete the data*/
         $object->delete();
-        return response()->json(['success' => true , 'message'=> 'Deleted successfully']); 
+        return response()->json(['success' => true , 'message'=> 'Deleted successfully']);
     }
 }
