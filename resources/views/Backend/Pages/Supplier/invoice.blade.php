@@ -195,8 +195,6 @@
                     if (row.due_amount==0) {
                     return `
                     <a href="${viewUrl}" class="btn btn-success btn-sm mr-3" ><i class="fa fa-eye"></i></a>
-
-                    <button class="btn btn-danger btn-sm mr-3 delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="${row.id}"><i class="fa fa-trash"></i></button>
                     `;
                     }else{
                     return `
