@@ -195,38 +195,38 @@
                 let barcodeInput = $(this).val().trim();
                 let product_id = $("#product_name").val();
                 let barcodes = barcodeInput.split(/\s+/);
+                $('#product_qty').val(barcodes.length);
+                // if (barcodes.length > 0) {
+                //     $('#product_qty').val(barcodes.length);
+                //     $.ajax({
+                //         url: '{{ route('admin.customer.invoice.check_barcodes') }}',
+                //         method: 'POST',
+                //         data: {
+                //             barcodes: barcodes,
+                //             product_id: product_id,
+                //             _token: '{{ csrf_token() }}'
+                //         },
+                //         success: function(response) {
+                //             if (response.success) {
+                //                 toastr.success('Barcode Found');
+                //             } else {
+                //                 toastr.error('Invalid barcode(s): ' + response.invalid_barcodes.join(', '));
+                //                 $('#product_qty').val(0);
 
-                if (barcodes.length > 0) {
-                    $('#product_qty').val(barcodes.length);
-                    $.ajax({
-                        url: '{{ route('admin.customer.invoice.check_barcodes') }}',
-                        method: 'POST',
-                        data: {
-                            barcodes: barcodes,
-                            product_id: product_id,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                toastr.success('Barcode Found');
-                            } else {
-                                toastr.error('Invalid barcode(s): ' + response.invalid_barcodes.join(', '));
-                                $('#product_qty').val(0);
-
-                                $('#product_barcode').val('');
-                                $('#product_barcode').focus();
-                            }
-                        },
-                        error: function() {
-                            toastr.error('An error occurred while checking the barcodes.');
-                            $('#product_qty').val(0);
-                            $('#product_barcode').val('');
-                            $('#product_barcode').focus();
-                        }
-                    });
-                } else {
-                    $('#product_qty').val(0);
-                }
+                //                 $('#product_barcode').val('');
+                //                 $('#product_barcode').focus();
+                //             }
+                //         },
+                //         error: function() {
+                //             toastr.error('An error occurred while checking the barcodes.');
+                //             $('#product_qty').val(0);
+                //             $('#product_barcode').val('');
+                //             $('#product_barcode').focus();
+                //         }
+                //     });
+                // } else {
+                //     $('#product_qty').val(0);
+                // }
             });
 
             /* Add button click event*/
@@ -239,7 +239,7 @@
                 var totalPrice = qty * price;
 
                 /* Validate if all fields are filled*/
-                if (productID !== '' && barcode !== '' && qty !== '' && price !== '') {
+                if (productID !== ''  && qty !== '' && price !== '') {
                     /* Create a new table row*/
                     var newRow = `
                <tr>

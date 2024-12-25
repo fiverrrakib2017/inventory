@@ -94,8 +94,8 @@ class InvoiceController extends Controller
             'customer_id' => 'required|integer',
             'product_id' => 'required|array',
             'product_id.*' => 'required|numeric',
-            'product_barcode' => 'required|array',
-            'product_barcode.*' => 'string',
+            'product_barcode' => 'nullable|array',
+            'product_barcode.*' => 'nullable|string',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric',
             'price' => 'required|array',
@@ -156,7 +156,7 @@ class InvoiceController extends Controller
                 $invoiceItem = new Customer_Invoice_Details();
                 $invoiceItem->invoice_id = $invoice->id;
                 $invoiceItem->product_id = $productId;
-                $invoiceItem->barcode = $request->product_barcode[$index];
+                $invoiceItem->barcode = $request->product_barcode[$index] ?? ' ';
                 $invoiceItem->qty = $request->qty[$index];
                 $invoiceItem->price = $request->price[$index];
                 $invoiceItem->total_price = $request->total_price[$index];
@@ -176,7 +176,7 @@ class InvoiceController extends Controller
                     foreach ($barcodes as $barcode) {
                         $barcode = trim($barcode);
                         if (!empty($barcode)) {
-                            Product_barcode::where('barcode', $barcode)->delete();
+                            Product_barcode::where('product_id',$productId,'barcode', $barcode)->delete();
                         }
                     }
                 }
