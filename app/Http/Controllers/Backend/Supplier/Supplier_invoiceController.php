@@ -143,8 +143,8 @@ class Supplier_invoiceController extends Controller
             'supplier_id' => 'required|integer',
             'product_id' => 'required|array',
             'product_id.*' => 'required|numeric',
-            'product_barcode' => 'required|array',
-            'product_barcode.*' => 'string',
+            'product_barcode' => 'nullable|array',
+            'product_barcode.*' => 'nullable|string',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric',
             'price' => 'required|array',
@@ -179,7 +179,7 @@ class Supplier_invoiceController extends Controller
             $invoiceItem = new Supplier_Invoice_Details();
             $invoiceItem->invoice_id = $invoice->id;
             $invoiceItem->product_id = $productId;
-            $invoiceItem->barcode = $request->product_barcode[$index];
+            $invoiceItem->barcode = $request->product_barcode[$index]??' ';
             $invoiceItem->qty = $request->qty[$index];
             $invoiceItem->price = $request->price[$index];
             $invoiceItem->total_price = $request->total_price[$index];

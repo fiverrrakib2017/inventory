@@ -123,7 +123,7 @@
                </form>
             </div>
          </div>
-         
+
       </div>
    </div>
 </div>
@@ -136,11 +136,11 @@
 
       $('#product_barcode').on('input', function() {
         let barcodeInput = $(this).val().trim();
-        let barcodes = barcodeInput.split(/\s+/); 
+        let barcodes = barcodeInput.split(/\s+/);
          if (barcodes.length > 0) {
             $('#product_qty').val(barcodes.length);
          } else {
-            $('#product_qty').val(0); 
+            $('#product_qty').val(0);
         }
       });
       // Add button click event
@@ -154,15 +154,18 @@
          var totalPrice = qty * price;
 
          /* Validate if all fields are filled*/
-         if(productID !== '' && barcode !== '' && qty !== '' && price !== '') {
+         if(productID !== ''  && qty !== '' && price !== '') {
+            // Format barcode to display as required
+            var formattedBarcode = barcode ? barcode.split(',').join(' ।। ') : '';
             /* Create a new table row*/
             var newRow = `
                <tr>
                   <td>
-                     <input type="hidden" name="product_id[]" value="${productID}">
-                     <input type="hidden" name="product_barcode[]" value="${barcode}">
-                     ${productName} <br> || ${barcode}
-                  </td>
+                    <input type="hidden" name="product_id[]" value="${productID}">
+                    <input type="hidden" name="product_barcode[]" value="${barcode}">
+                    ${productName}
+                    ${formattedBarcode ? ` <br> ${formattedBarcode}` : ''}
+                    </td>
                   <td>
                      <input readonly type="number" min="1" name="qty[]" value="${qty}" class="form-control qty">
                   </td>
@@ -187,7 +190,7 @@
             $('#product_qty').val('');
             $('#product_price').val('');
 
-            /*Update the total amount*/ 
+            /*Update the total amount*/
             updateTotalAmount();
          } else {
             toastr.error('Please fill all fields before adding.');
