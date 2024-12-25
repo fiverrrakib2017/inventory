@@ -150,6 +150,12 @@
                   <p>Sale's Invoice</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('admin.customer.invoice.create_invoice_report')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sale's Report</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

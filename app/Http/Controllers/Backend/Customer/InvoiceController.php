@@ -198,6 +198,34 @@ class InvoiceController extends Controller
         $invoice->delete();
         return response()->json(['success' => true, 'message' => 'Invoice deleted successfully']);
     }
+    public function create_invoice_report(){
+        $customers=Customer::latest()->get();
+        return view('Backend.Pages.Customer.Report',compact('customers'));
+    }
+    public function generate_report(Request $request){
+        $request->validate([
+            'from_date' => 'nullable|date',
+            'to_date' => 'nullable|date',
+            'customer_id' => 'nullable|exists:customers,id',
+        ]);
+        /* Query the Sales Invoice*/
+        $query = Customer_Invoice::query();
+
+        if ($request->from_date) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+
+        if ($request->to_date) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+
+        if ($request->customer_id) {
+            $query->where('customer_id', $request->customer_id);
+        }
+
+        $data = $query->with('customer','user')->get();
+        return view('Backend.Pages.Customer.Report_view', compact('data'));
+    }
     public function pay_due_amount(Request $request)
     {
         $request->validate([

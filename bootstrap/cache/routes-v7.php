@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::O1kzmRExuLM1GNEO',
+            '_route' => 'generated::6mI6pRkarrhHtgEE',
           ),
           1 => NULL,
           2 => 
@@ -474,6 +474,45 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'admin.customer.invoice.check_barcodes',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.create_invoice_report',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/customer/invoice/sales-report/generate' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.customer.invoice.generate_invoice_report',
           ),
           1 => NULL,
           2 => 
@@ -2239,7 +2278,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::Nb6OpVgJxDRTqKE2',
+            '_route' => 'generated::Ucz7AMbr8lPcQW86',
           ),
           1 => 
           array (
@@ -2330,7 +2369,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::lwnGwPxIF0cOTbXz',
+            '_route' => 'generated::JYnEcD5QjUzZxsAv',
           ),
           1 => 
           array (
@@ -2737,7 +2776,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::O1kzmRExuLM1GNEO' => 
+    'generated::6mI6pRkarrhHtgEE' => 
     array (
       'methods' => 
       array (
@@ -2760,7 +2799,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::O1kzmRExuLM1GNEO',
+        'as' => 'generated::6mI6pRkarrhHtgEE',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3660,6 +3699,81 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'admin.customer.invoice.check_barcodes',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.create_invoice_report' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/customer/invoice/report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@create_invoice_report',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@create_invoice_report',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.create_invoice_report',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.customer.invoice.generate_invoice_report' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/customer/invoice/sales-report/generate',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@generate_report',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Customer\\InvoiceController@generate_report',
+        'namespace' => NULL,
+        'prefix' => 'admin/customer/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.customer.invoice.generate_invoice_report',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5064,7 +5178,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::lwnGwPxIF0cOTbXz' => 
+    'generated::JYnEcD5QjUzZxsAv' => 
     array (
       'methods' => 
       array (
@@ -5086,7 +5200,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::lwnGwPxIF0cOTbXz',
+        'as' => 'generated::JYnEcD5QjUzZxsAv',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5289,7 +5403,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::Nb6OpVgJxDRTqKE2' => 
+    'generated::Ucz7AMbr8lPcQW86' => 
     array (
       'methods' => 
       array (
@@ -5311,7 +5425,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::Nb6OpVgJxDRTqKE2',
+        'as' => 'generated::Ucz7AMbr8lPcQW86',
       ),
       'fallback' => false,
       'defaults' => 
