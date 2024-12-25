@@ -225,6 +225,34 @@ class Supplier_invoiceController extends Controller
         $invoice->delete();
         return response()->json(['success'=>true,'message' => 'Invoice deleted successfully']);
     }
+    public function create_invoice_report(){
+        $suppliers=Supplier::latest()->get();
+        return view('Backend.Pages.Supplier.Report',compact('suppliers'));
+    }
+    public function generate_report(Request $request){
+        $request->validate([
+            'from_date' => 'nullable|date',
+            'to_date' => 'nullable|date',
+            'supplier_id' => 'nullable|exists:suppliers,id',
+        ]);
+        /* Query the purchases Invoice*/
+        $query = Supplier_Invoice::query();
+
+        if ($request->from_date) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+
+        if ($request->to_date) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+
+        if ($request->supplier_id) {
+            $query->where('supplier_id', $request->supplier_id);
+        }
+
+        $data = $query->with('supplier','user')->get();
+        return view('Backend.Pages.Supplier.Report_view', compact('data'));
+    }
     public function pay_due_amount(Request $request){
         $request->validate([
             'id' => 'required|integer',

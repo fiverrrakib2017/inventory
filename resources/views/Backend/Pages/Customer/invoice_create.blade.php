@@ -229,43 +229,8 @@
                 }
             });
 
-
-            // $('#product_barcode').on('input', function() {
-            //     let barcodeInput = $(this).val().trim();
-            //     let barcodes = barcodeInput.split(/\s+/);
-
-            //     if (barcodes.length > 0) {
-            //         $.ajax({
-            //             url: {{ route('admin.customer.invoice.check_barcodes') }},
-            //             method: 'POST',
-            //             data: {
-            //                 barcodes: barcodes,
-            //                 _token: '{{ csrf_token() }}'
-            //             },
-            //             success: function(response) {
-            //                 if (response.success) {
-            //                     $('#product_qty').val(barcodes.length);
-            //                     $('#error_message').html('');
-            //                 } else {
-            //                     $('#error_message').html('Invalid barcode(s): ' + response.invalid_barcodes.join(', '));
-            //                     $('#product_qty').val(0);
-            //                 }
-            //             },
-            //             error: function() {
-            //                 $('#error_message').html('An error occurred while checking the barcodes.');
-            //                 $('#product_qty').val(0);
-            //             }
-            //         });
-            //     } else {
-            //         $('#product_qty').val(0);
-            //         $('#error_message').html('');
-            //     }
-            // });
-
-
-            // Add button click event
+            /* Add button click event*/
             $('#submitBtn').on('click', function() {
-                // Get values from form fields
                 var productID = $('#product_name').val();
                 var productName = $('#product_name option:selected').text();
                 var barcode = $('#product_barcode').val();

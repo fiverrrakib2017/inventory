@@ -1,5 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-   
+
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -171,6 +171,12 @@
                 <a href="{{route('admin.supplier.invoice.show_invoice')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Purchase Invoice</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.supplier.invoice.create_invoice_report')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Purchase Report</p>
                 </a>
               </li>
             </ul>

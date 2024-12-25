@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::QGqILg64OaXMDvwA',
+            '_route' => 'generated::O1kzmRExuLM1GNEO',
           ),
           1 => NULL,
           2 => 
@@ -727,6 +727,45 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'admin.supplier.invoice.delete_invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/supplier/invoice/report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.supplier.invoice.create_invoice_report',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/supplier/invoice/purchase-report/generate' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.supplier.invoice.generate_invoice_report',
           ),
           1 => NULL,
           2 => 
@@ -2200,7 +2239,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::5VLjxq9WJhVnlOpx',
+            '_route' => 'generated::Nb6OpVgJxDRTqKE2',
           ),
           1 => 
           array (
@@ -2291,7 +2330,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::tH1I56hBcxBes1V0',
+            '_route' => 'generated::lwnGwPxIF0cOTbXz',
           ),
           1 => 
           array (
@@ -2698,7 +2737,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::QGqILg64OaXMDvwA' => 
+    'generated::O1kzmRExuLM1GNEO' => 
     array (
       'methods' => 
       array (
@@ -2721,7 +2760,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::QGqILg64OaXMDvwA',
+        'as' => 'generated::O1kzmRExuLM1GNEO',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4312,6 +4351,81 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'admin.supplier.invoice.create_invoice_report' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'admin/supplier/invoice/report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Supplier\\Supplier_invoiceController@create_invoice_report',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Supplier\\Supplier_invoiceController@create_invoice_report',
+        'namespace' => NULL,
+        'prefix' => 'admin/supplier/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.supplier.invoice.create_invoice_report',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.supplier.invoice.generate_invoice_report' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/supplier/invoice/purchase-report/generate',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'admin',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Backend\\Supplier\\Supplier_invoiceController@generate_report',
+        'controller' => 'App\\Http\\Controllers\\Backend\\Supplier\\Supplier_invoiceController@generate_report',
+        'namespace' => NULL,
+        'prefix' => 'admin/supplier/invoice',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.supplier.invoice.generate_invoice_report',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'admin.brand.index' => 
     array (
       'methods' => 
@@ -4950,7 +5064,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::tH1I56hBcxBes1V0' => 
+    'generated::lwnGwPxIF0cOTbXz' => 
     array (
       'methods' => 
       array (
@@ -4972,7 +5086,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::tH1I56hBcxBes1V0',
+        'as' => 'generated::lwnGwPxIF0cOTbXz',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5175,7 +5289,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::5VLjxq9WJhVnlOpx' => 
+    'generated::Nb6OpVgJxDRTqKE2' => 
     array (
       'methods' => 
       array (
@@ -5197,7 +5311,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::5VLjxq9WJhVnlOpx',
+        'as' => 'generated::Nb6OpVgJxDRTqKE2',
       ),
       'fallback' => false,
       'defaults' => 

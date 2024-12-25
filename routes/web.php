@@ -65,6 +65,8 @@ Route::group(['middleware'=>'admin'],function(){
             Route::get('/edit/{id}', 'edit_invoice')->name('admin.supplier.invoice.edit_invoice');
             Route::post('/update', 'update_invoice')->name('admin.supplier.invoice.update_invoice');
             Route::post('/delete', 'delete_invoice')->name('admin.supplier.invoice.delete_invoice');
+            Route::get('/report', 'create_invoice_report')->name('admin.supplier.invoice.create_invoice_report');
+            Route::post('/purchase-report/generate', 'generate_report')->name('admin.supplier.invoice.generate_invoice_report');
         });
     });
      /* Product Route */
